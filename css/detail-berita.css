@@ -1,0 +1,139 @@
+/* frontend/css/detail-berita.css */
+
+body {
+    padding-top: 0px;
+}
+
+/* Main element di halaman detail */
+.detail-page-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: calc(100vh - 78px - 4rem);
+    padding: 30px 0;
+    box-sizing: border-box;
+    /* Tambahkan ini untuk memastikan main mengambil sisa ruang */
+    flex: 1 0 auto;
+}
+
+.detail-container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* Tambahkan ini agar container mencoba mengisi sisa ruang di main */
+    flex-grow: 1;
+    display: flex;
+    /* Tambahkan flex display ke container */
+    flex-direction: column;
+    /* Susun konten di dalamnya secara vertikal */
+    justify-content: flex-start;
+    /* Mulai konten dari atas */
+}
+
+.news-detail-content {
+    text-align: center;
+    /* Tambahkan ini agar konten detail mengambil ruang yang tersedia */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Tengahkan item di dalamnya */
+}
+
+.detail-image {
+    max-width: 100%;
+    height: auto;
+    /* Memastikan rasio aspek tetap */
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.detail-title {
+    font-size: 2.5em;
+    color: #3D1E00;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.detail-date {
+    font-size: 1em;
+    color: #A55B15;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.detail-content {
+    text-align: justify;
+    line-height: 1.5;
+    color: #3D1E00;
+    font-size: 1.15em;
+    padding: 0 10px;
+    /* Sedikit padding horizontal untuk teks */
+}
+
+.detail-content p {
+    margin-bottom: 0.5em;
+    /* Ini akan mengatur jarak di bawah setiap paragraf */
+    margin-top: 0;
+    /* Ini akan menghilangkan margin atas default pada paragraf */
+}
+
+/* Aturan opsional: Menghilangkan margin bawah pada paragraf terakhir */
+.detail-content p:last-child {
+    margin-bottom: 0;
+}
+
+.back-to-home {
+    margin-top: auto;
+    /* Dorong ke bawah setelah konten utama */
+    text-align: justify;
+    padding-top: 20px;
+    /* Tambah sedikit jarak dari konten */
+}
+
+.btn-back {
+    display: inline-block;
+    background-color: #A55B15;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #8C4A11;
+    transform: translateY(-2px);
+}
+
+/* Responsive untuk detail page */
+@media (max-width: 768px) {
+    .detail-container {
+        padding: 0.5rem 1.5rem;
+        margin: 1.5rem auto;
+        background: none;
+        /* pastikan tidak ada latar belakang */
+        box-shadow: none;
+        /* hilangkan bayangan jika ada */
+    }
+
+    .detail-title {
+        font-size: 1em;
+    }
+
+    .detail-content {
+        font-size: 1em;
+        padding: 0;
+    }
+
+    .detail-page-main {
+        padding: 10px 0;
+        /* Kurangi padding di mobile */
+    }
+}

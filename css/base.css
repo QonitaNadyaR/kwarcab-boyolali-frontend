@@ -1,0 +1,105 @@
+/* === RESET & DASAR UMUM === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdf6ef;
+    color: #333;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.2;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+/* === UTILITAS === */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.pt-1 {
+    padding-top: 1rem;
+}
+
+.pb-1 {
+    padding-bottom: 1rem;
+}
+
+.bg-brown {
+    background-color: #5a2c00;
+    color: white;
+}
+
+/* === RESPONSIF UMUM === */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+/* === SCROLL OFFSET UNTUK ANCHOR LINK === */
+/* Mengatur jarak saat scrolling ke ID elemen, untuk menghindari tertutup header fixed/sticky */
+section[id],
+div[id] {
+    scroll-margin-top: 150px;
+}

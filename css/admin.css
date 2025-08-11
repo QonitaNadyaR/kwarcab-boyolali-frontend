@@ -1,0 +1,595 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.admin-container {
+    background-color: #fff;
+    padding: 30px;
+    margin-top: 50px;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+.section-title {
+    text-align: center;
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+h2,
+.section-title {
+    margin: 30px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    margin-bottom: 15px;
+}
+
+/* =================================
+   TABS
+================================= */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab-button {
+    background-color: #eee;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    margin: 0 5px;
+    padding: 30px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab-button:hover:not(.active) {
+    background-color: #e0e0e0;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: 2px solid #007bff;
+    position: relative;
+    bottom: -2px;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* =================================
+   FORMS
+================================= */
+.data-form {
+    background-color: #f9f9f9;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    background-color: #fcfcfc;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Buttons */
+button[type="submit"],
+.edit-btn,
+.delete-btn {
+    width: 98%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: #fff;
+    margin-left: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+}
+
+.cancel-btn:hover {
+    background-color: #5a6268;
+}
+
+/* =================================
+   STATUS MESSAGE
+================================= */
+.status-message {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    color: #333;
+    border: 1px solid transparent;
+}
+
+.status-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.status-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+/* =================================
+   TABLE
+================================= */
+.scrollable-list {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: top;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.data-table td img {
+    max-width: 80px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Action buttons in table */
+.data-table .edit-btn,
+.data-table .delete-btn {
+    width: auto;
+    margin-top: 0;
+}
+
+.data-table .edit-btn {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 5px;
+}
+
+.data-table .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.data-table .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.data-table .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* =================================
+   DOKUMENTASI (Foto & Video)
+================================= */
+/* Loading/Error/Empty states */
+#loading-foto,
+#error-foto,
+#no-foto,
+#loading-video,
+#error-video,
+#no-video {
+    display: none;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 1em;
+    border-radius: 6px;
+    color: #888;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+#error-foto,
+#error-video {
+    color: #d9534f;
+    background-color: #fcecec;
+    border: 1px solid #d9534f;
+}
+
+/* Grid container */
+.galeri-grid,
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 2rem;
+    padding: 10px;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Item styling */
+.photo-item,
+.video-item {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.photo-item:hover,
+.video-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.photo-wrapper,
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    background-color: #eee;
+    flex-shrink: 0;
+}
+
+.photo-wrapper {
+    padding-bottom: 70%;
+}
+
+.video-wrapper {
+    padding-bottom: 56.25%;
+}
+
+.photo-wrapper img,
+.video-wrapper iframe,
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-content,
+.video-content {
+    padding: 10px 15px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-content h4,
+.video-content h4 {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #333;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.photo-content .photo-date,
+.video-content .video-date {
+    font-size: 0.85em;
+    color: #777;
+}
+
+/* Delete button */
+.photo-item .delete-btn,
+.video-item .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 0 0 8px 8px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.photo-item .delete-btn:hover,
+.video-item .delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* =================================
+   LOGOUT BUTTON
+================================= */
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+@media (max-width: 768px) {
+    .logout-btn {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .admin-container {
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tab-button {
+        margin: 5px 0;
+        border-radius: 4px;
+        padding: 15px 10px;
+    }
+
+    /* Responsive tables */
+    .data-table,
+    .data-table tbody,
+    .data-table tr,
+    .data-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .data-table td::before {
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #555;
+        text-align: left;
+    }
+
+    /* Table headers (Warta) */
+    .warta-table td:nth-of-type(1)::before {
+        content: "ID:";
+    }
+
+    .warta-table td:nth-of-type(2)::before {
+        content: "Judul:";
+    }
+
+    .warta-table td:nth-of-type(3)::before {
+        content: "Gambar:";
+    }
+
+    .warta-table td:nth-of-type(4)::before {
+        content: "Konten Singkat:";
+    }
+
+    .warta-table td:nth-of-type(5)::before {
+        content: "Aksi:";
+    }
+
+    /* Pengurus */
+    .pengurus-table td:nth-of-type(1)::before {
+        content: "ID:";
+    }
+
+    .pengurus-table td:nth-of-type(2)::before {
+        content: "Nama:";
+    }
+
+    .pengurus-table td:nth-of-type(3)::before {
+        content: "Lulusan:";
+    }
+
+    .pengurus-table td:nth-of-type(4)::before {
+        content: "Kwartir Ranting:";
+    }
+
+    .pengurus-table td:nth-of-type(5)::before {
+        content: "Golongan Pelatih:";
+    }
+
+    .pengurus-table td:nth-of-type(6)::before {
+        content: "Aksi:";
+    }
+
+    /* Anggota */
+    .anggota-table td:nth-of-type(1)::before {
+        content: "ID:";
+    }
+
+    .anggota-table td:nth-of-type(2)::before {
+        content: "No. Reg:";
+    }
+
+    .anggota-table td:nth-of-type(3)::before {
+        content: "Nama:";
+    }
+
+    .anggota-table td:nth-of-type(4)::before {
+        content: "Pangkalan:";
+    }
+
+    .anggota-table td:nth-of-type(5)::before {
+        content: "TTL:";
+    }
+
+    .anggota-table td:nth-of-type(6)::before {
+        content: "Kwartir Ranting:";
+    }
+
+    .anggota-table td:nth-of-type(7)::before {
+        content: "Golongan:";
+    }
+
+    .anggota-table td:nth-of-type(8)::before {
+        content: "Tahun:";
+    }
+
+    .anggota-table td:nth-of-type(9)::before {
+        content: "Aksi:";
+    }
+
+    /* Dokumentasi Grid */
+    .galeri-grid,
+    .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .photo-item .delete-btn,
+    .video-item .delete-btn {
+        padding: 6px 10px;
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-container {
+        padding: 10px;
+    }
+
+    .tab-button {
+        font-size: 0.9rem;
+        padding: 12px 8px;
+    }
+
+    /* Dokumentasi single column */
+    .galeri-grid,
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .photo-content h4,
+    .video-content h4 {
+        font-size: 1em;
+    }
+}

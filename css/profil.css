@@ -1,0 +1,291 @@
+/* css/profil.css */
+
+/* Penyesuaian umum untuk konten profil */
+main.container {
+    padding: 2rem;
+    /* Sesuaikan padding keseluruhan */
+}
+
+/* Styling untuk setiap bagian (section) */
+.section-spacing {
+    margin-bottom: 3rem;
+    /* Jarak antar setiap bagian */
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Menggunakan ID yang lebih spesifik untuk judul h2 dan h3 */
+#sejarah-kwarcab h2,
+#visi-misi h3,
+#struktur-organisasi h3,
+#data-pengurus h3,
+#data-anggota h3,
+#fungsi-dan-tugas h3,
+#kontribusi-boyolali h3 {
+    color: #5A2C00;
+    /* Warna judul section */
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #BF9264;
+    /* Garis bawah pada judul */
+    padding-bottom: 0.5rem;
+}
+
+/* Paragraf umum dalam section */
+#sejarah-kwarcab p,
+#visi-misi p,
+#fungsi-dan-tugas p,
+#kontribusi-boyolali p {
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    color: #000000;
+    text-align: justify;
+    /* Menambahkan justify untuk paragraf agar lebih rapi */
+}
+
+/* Styling untuk Daftar (ul) */
+.visi-misi ul,
+#fungsi-dan-tugas ul,
+#kontribusi-boyolali ul {
+    list-style-type: none;
+    /* Menghilangkan bullet default */
+    margin-left: 0;
+    /* Pastikan margin kiri 0 karena kita akan menggunakan padding */
+    padding-left: 0;
+    /* Hapus padding default */
+}
+
+.visi-misi ul li,
+#fungsi-dan-tugas ul li,
+#kontribusi-boyolali ul li {
+    margin-bottom: 0.8rem;
+    /* Sedikit lebih banyak jarak antar item */
+    line-height: 1.6;
+    color: #000000;
+    display: flex;
+    /* Menggunakan flexbox untuk ikon dan teks */
+    align-items: flex-start;
+    /* Mengatur alignment vertikal */
+}
+
+.visi-misi ul li i,
+#fungsi-dan-tugas ul li i,
+#kontribusi-boyolali ul li i {
+    margin-right: 10px;
+    /* Jarak antara ikon dan teks */
+    color: #BF9264;
+    /* Warna ikon */
+    font-size: 1.1em;
+    /* Ukuran ikon sedikit lebih besar */
+    padding-top: 3px;
+    /* Menyesuaikan posisi vertikal ikon */
+}
+
+
+/* Styling untuk Struktur Organisasi */
+#struktur-organisasi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Memusatkan gambar secara horizontal */
+}
+
+#struktur-organisasi h3 {
+    align-self: flex-start;
+    /* Mengembalikan judul rata kiri */
+}
+
+#struktur-organisasi img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#struktur-organisasi p,
+#struktur-organisasi ul {
+    align-self: flex-start;
+    /* Mengembalikan paragraf dan daftar rata kiri */
+    text-align: left;
+    width: 100%;
+}
+
+#struktur-organisasi ul {
+    list-style-type: disc;
+    /* Mengembalikan bullet default untuk daftar ini */
+    margin-left: 20px;
+    /* Menjaga indentasi default untuk list ini */
+    padding-left: 0;
+    /* Pastikan padding kiri 0 */
+}
+
+
+/* Styling untuk Tabel Data Pengurus dan Anggota */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+table thead tr {
+    background-color: #BF9264;
+    color: white;
+    text-align: left;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+
+    /* === Perbaikan Tabel === */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 1000px;
+    }
+
+    table th,
+    table td {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    table th {
+        position: sticky;
+        top: 0;
+        background-color: #A55B15;
+        color: #fff;
+        z-index: 10;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    table th:first-child {
+        position: sticky;
+        left: 0;
+        top: 0;
+        z-index: 11;
+        background-color: #A55B15;
+    }
+
+    table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 9;
+        background-color: #fff;
+        border-right: 1px solid #eee;
+    }
+
+    table tbody tr:nth-child(even) td:first-child {
+        background-color: #f7f7f7;
+    }
+
+    main.container .section-spacing {
+        /* Properti ini yang mengatur lebar keseluruhan card */
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        /* Properti ini mengatur jarak di dalam card */
+        padding: 2rem;
+
+        /* Jarak antar setiap card */
+        margin-bottom: 2rem;
+
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* === Perbaikan Konten Teks === */
+    main.container .section-spacing {
+        padding: 1rem;
+    }
+
+    main.container .section-spacing h2,
+    main.container .section-spacing h3 {
+        text-align: center;
+    }
+
+    /* Ini kode yang hilang untuk mengatur ukuran h3 */
+    main.container .section-spacing h3 {
+        font-size: 1rem;
+        /* Anda bisa ubah nilai ini */
+        font-weight: bold;
+        margin-top: 0.2rem;
+        margin-bottom: 0.5rem;
+        color: #3D1E00;
+    }
+
+    main.container .section-spacing p {
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        color: #000000;
+        text-align: justify;
+    }
+
+    main.container .section-spacing ul {
+        list-style: none;
+        padding-left: 0;
+        text-align: left;
+    }
+
+    main.container .section-spacing ul li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        flex-direction: column;
+    }
+
+    main.container .section-spacing ul li>* {
+        width: 100%;
+    }
+
+    main.container .section-spacing ul li>span {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.25rem;
+    }
+
+    main.container .section-spacing ul li i {
+        margin-right: 0.5rem;
+        color: #BF9264;
+        font-size: 1.1em;
+    }
+
+    main.container .section-spacing ul li strong {
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #3D1E00;
+    }
+}

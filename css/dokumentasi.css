@@ -1,0 +1,423 @@
+/* frontend/css/dokumentasi.css */
+
+/* === UMUM SECTION === */
+body {
+    background-color: #f7f3ed;
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* === JUDUL & BAGIAN DOKUMENTASI === */
+.page-title {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    color: #3D1E00;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.6rem;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: #A55B15;
+    border-radius: 3px;
+}
+
+.dokumentasi-section {
+    padding: 3.5rem 0;
+}
+
+.dokumentasi-section .section-title {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #A55B15;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.dokumentasi-section .section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background-color: #3D1E00;
+    border-radius: 2px;
+}
+
+.dokumentasi-section p {
+    margin-bottom: 1.2rem;
+    color: #666;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+/* --- Placeholders untuk Loading, Error, No Data --- */
+.loading-message,
+.error-message,
+.no-data-message {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 1em;
+    color: #888;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.error-message {
+    color: #d9534f;
+    border: 1px solid #d9534f;
+    background-color: #fcecec;
+}
+
+
+/* === TATA LETAK DOKUMENTASI - FOTO & VIDEO (2 BARIS KE BAWAH, GESER KE SAMPING) === */
+.dokumentasi-grid {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    gap: 30px;
+    padding: 0 1rem 15px;
+    margin-top: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Kustomisasi scrollbar */
+.dokumentasi-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.dokumentasi-grid::-webkit-scrollbar-thumb {
+    background-color: #A55B15;
+    border-radius: 10px;
+}
+
+.dokumentasi-grid::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+/* Item untuk foto dan video */
+.photo-item,
+.video-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    white-space: normal;
+    height: 100%;
+    width: 350px;
+    /* Lebar tetap agar scroll horizontal berfungsi */
+    flex-shrink: 0;
+}
+
+.photo-item:hover,
+.video-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Style Khusus untuk Foto --- */
+.photo-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 70%;
+    overflow: hidden;
+    background-color: #eee;
+    flex-shrink: 0;
+}
+
+.photo-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.photo-item:hover .photo-wrapper img {
+    transform: scale(1.08);
+}
+
+.photo-content {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.photo-content h4 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #3D1E00;
+    text-shadow: none;
+    word-wrap: break-word;
+}
+
+.photo-content .photo-date {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 0;
+}
+
+/* --- Style Khusus untuk Video --- */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* Rasio 16:9 untuk video */
+    overflow: hidden;
+    background-color: #000;
+    flex-shrink: 0;
+}
+
+.video-wrapper iframe,
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+}
+
+.video-content {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.video-content h4 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #3D1E00;
+    text-shadow: none;
+    word-wrap: break-word;
+}
+
+.video-content .video-date {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 0;
+}
+
+
+/* === DOWNLOAD LIST (ARSIP DOKUMEN) === */
+.download-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.download-list li {
+    background-color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    border-left: 3px solid #A55B15;
+}
+
+.download-list li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fcfcfc;
+}
+
+.download-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #3D1E00;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.download-list li a .download-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.download-list li a i.bi,
+.download-list li a i.fas {
+    font-size: 1.3em;
+    margin-right: 15px;
+    color: #A55B15;
+    flex-shrink: 0;
+}
+
+.download-list li a span {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.download-list li a .external-link-icon,
+.download-list li a .download-icon {
+    font-size: 1em;
+    color: #888;
+    flex-shrink: 0;
+}
+
+/* === RESPONSIVE DOKUMENTASI === */
+@media (max-width: 992px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+
+    .dokumentasi-section .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title::after {
+        width: 80px;
+    }
+
+    .dokumentasi-section {
+        padding: 2.5rem 0;
+    }
+
+    .dokumentasi-section .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .dokumentasi-section .section-title::after {
+        width: 60px;
+    }
+
+    /* Aturan untuk tata letak 1 baris di mobile */
+    .dokumentasi-grid {
+        padding: 0 15px 15px;
+        grid-template-rows: repeat(1, auto);
+    }
+
+    .photo-item,
+    .video-item {
+        width: 280px;
+    }
+
+    .photo-wrapper {
+        padding-bottom: 60%;
+    }
+
+    .download-list {
+        padding: 0 15px;
+    }
+
+    .download-list li {
+        padding: 12px 15px;
+        border-radius: 6px;
+    }
+
+    .download-list li a {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .download-list li a .download-info {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .download-list li a i.bi,
+    .download-list li a i.fas {
+        font-size: 1.2em;
+        margin-right: 10px;
+    }
+
+    .download-list li a span {
+        font-size: 0.9em;
+    }
+
+    .download-list li a .external-link-icon,
+    .download-list li a .download-icon {
+        font-size: 0.9em;
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        color: #A55B15;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.8rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .dokumentasi-section .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .photo-content h4,
+    .video-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .download-list li {
+        padding: 10px 12px;
+    }
+
+    .download-list li a i.bi,
+    .download-list li a i.fas {
+        font-size: 1em;
+        margin-right: 8px;
+    }
+
+    .download-list li a span {
+        font-size: 0.85em;
+    }
+}

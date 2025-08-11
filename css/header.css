@@ -1,0 +1,219 @@
+/* ================================
+// HEADER CSS - Versi Final & Disempurnakan
+// ================================ */
+
+/* === HEADER === */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #3D1E00;
+    /* Warna coklat tua */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Padding agar konten tidak tertutup header */
+body {
+    padding-top: 78px;
+}
+
+/* Logo */
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    height: 48px;
+    margin-left: 0;
+}
+
+/* === DESKTOP NAV === */
+header nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+header nav ul li a.active,
+header nav ul li a:hover {
+    border-bottom: 2px solid #A55B15;
+    color: #f5bb86;
+}
+
+/* === HAMBURGER BUTTON === */
+.hamburger-menu {
+    display: none;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1101;
+}
+
+.hamburger-menu .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu .bar:nth-child(1) {
+    top: 0;
+}
+
+.hamburger-menu .bar:nth-child(2) {
+    top: 8px;
+}
+
+.hamburger-menu .bar:nth-child(3) {
+    top: 16px;
+}
+
+/* Saat aktif: ubah jadi X */
+.hamburger-menu.active .bar:nth-child(1) {
+    transform: rotate(45deg);
+    top: 8px;
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 8px;
+}
+
+/* Mencegah scroll saat menu terbuka */
+body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Tombol close tidak digunakan */
+.close-btn {
+    display: none !important;
+}
+
+/* ================================
+// RESPONSIVE - MOBILE
+// ================================ */
+@media (max-width: 991px) {
+    header {
+        padding: 1.5rem 2rem !important;
+    }
+
+    body {
+        padding-top: 66px;
+    }
+
+    /* Logo di tengah */
+    header .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+
+    header .logo img {
+        height: 40px;
+    }
+
+    /* Hamburger muncul */
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 24px;
+    }
+
+    /* === MOBILE NAV === */
+    header nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        max-width: 280px;
+        height: 100vh;
+        background-color: #3D1E00;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        padding-top: 80px;
+        z-index: 1050;
+        overflow-y: auto;
+    }
+
+    header nav.active {
+        transform: translateX(0);
+    }
+
+    /* Overlay belakang nav */
+    header nav.active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+    }
+
+    /* Style list */
+    header nav ul {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+    }
+
+    header nav ul li {
+        width: 100%;
+        border-bottom: 1px solid #5a3c20;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        border-bottom: none;
+        transition: background-color 0.2s ease;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+        background-color: #A55B15;
+        color: #FFF0DC;
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+        display: none;
+    }
+}

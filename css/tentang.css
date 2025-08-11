@@ -1,0 +1,152 @@
+/* === tentang.css === */
+
+/* Hanya berlaku untuk container utama di dalam <main> */
+main.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    color: #333;
+    background-color: #ffffff;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Hanya berlaku untuk section-spacing di dalam container utama */
+main .section-spacing {
+    margin-bottom: 3rem;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+/* Judul dan Sub-judul di dalam container utama */
+main.container h2,
+main.container h3 {
+    color: #A55B15;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-align: left;
+    /* Default rata kiri, untuk h2 akan kita atur khusus */
+}
+
+main.container h2 {
+    font-size: 2rem;
+    border-bottom: 3px solid #A55B15;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    /* Kembali ke tengah untuk judul utama halaman */
+    position: relative;
+}
+
+/* Pastikan tidak ada pseudo-element yang tidak diinginkan dari selektor ini */
+main.container h2::after {
+    content: none !important;
+}
+
+main.container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Paragraf di dalam container utama */
+main.container p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+/* Daftar (List) di dalam container utama */
+main.container ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    list-style-type: disc;
+    /* KEMBALI KE BULLET POINT STANDAR */
+    color: #333;
+}
+
+main.container ul li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+main.container ul li strong {
+    color: #A55B15;
+}
+
+/* Link styling di dalam container utama */
+main.container a {
+    color: #A55B15;
+    text-decoration: underline;
+    font-weight: normal;
+    transition: color 0.3s ease;
+}
+
+main.container a:hover {
+    color: #7f4110;
+    text-decoration: none;
+}
+
+/* Garis pemisah antar section di dalam container utama */
+main .section-divider {
+    border: none;
+    border-top: 2px dashed #ccc;
+    margin: 3rem 0;
+    opacity: 1;
+}
+
+/* Responsive tweaks untuk elemen di dalam container utama */
+@media screen and (max-width: 768px) {
+    main.container {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem auto;
+        background: none;
+        /* pastikan tidak ada latar belakang */
+        box-shadow: none;
+        /* hilangkan bayangan jika ada */
+    }
+
+    main.container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    main.container h3 {
+        font-size: 1.25rem;
+    }
+
+    main.container p {
+        font-size: 0.95rem;
+    }
+
+    main.container ul {
+        padding-left: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    main.container {
+        padding: 1rem 0.8rem;
+        background: none;
+        box-shadow: none;
+    }
+
+    main.container h2 {
+        font-size: 1.3rem;
+    }
+
+    main.container h3 {
+        font-size: 1.1rem;
+    }
+
+    main.container p {
+        font-size: 0.9rem;
+    }
+
+    main.container ul {
+        padding-left: 1rem;
+    }
+}
