@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_BASE_URL = 'http://localhost:4000/api';
+    const API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app/api';
     const carouselTrack = document.querySelector('.carousel-track');
     const carouselDotsContainer = document.querySelector('.carousel-dots');
     const newsGrid = document.querySelector('.news-grid');
     const expandBtn = document.querySelector('.expand-btn');
     const eventDesc = document.querySelector('.event-desc');
 
-    let latestNewsData = []; 
-    let currentCarouselSlideIndex = 0; 
-    let slideInterval; 
+    let latestNewsData = [];
+    let currentCarouselSlideIndex = 0;
+    let slideInterval;
 
     async function fetchAndInitializeWebsite() {
         try {
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
-            const allWartaData = await response.json(); 
+            const allWartaData = await response.json();
             console.log('Data Warta diterima dari API:', allWartaData);
 
-            const carouselLimit = 3; 
+            const carouselLimit = 3;
             latestNewsData = allWartaData.slice(0, carouselLimit);
             const oldNewsData = allWartaData.slice(carouselLimit);
 
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 5000); // Otomatis ganti slide setiap 5 detik
             } else {
                 if (carouselTrack) carouselTrack.innerHTML = '<p>Tidak ada warta terbaru yang tersedia saat ini.</p>';
-                if (carouselDotsContainer) carouselDotsContainer.innerHTML = ''; 
+                if (carouselDotsContainer) carouselDotsContainer.innerHTML = '';
             }
 
             if (oldNewsData.length === 0) {
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fungsi untuk mendapatkan URL gambar yang benar untuk ditampilkan
     function getImageUrlForDisplay(imageUrlFromApi) {
         if (!imageUrlFromApi || imageUrlFromApi.trim() === '') {
-            return '/images/placeholder.png'; 
+            return '/images/placeholder.png';
         }
         if (imageUrlFromApi.startsWith('http://') || imageUrlFromApi.startsWith('https://')) {
             return imageUrlFromApi;
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fungsi untuk merender berita lama ke DOM
     function renderOldNews(newsItems) {
         if (!newsGrid) return;
-        newsGrid.innerHTML = ''; 
+        newsGrid.innerHTML = '';
         if (newsItems.length === 0) {
             newsGrid.innerHTML = '<p>Tidak ada warta lainnya yang tersedia.</p>';
             return;
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === FUNGSI FUNGSIONALITAS CAROUSEL WARTA UTAMA ===
     function updateDots() {
         if (!carouselDotsContainer || !latestNewsData || latestNewsData.length === 0) return;
-        carouselDotsContainer.innerHTML = ''; 
+        carouselDotsContainer.innerHTML = '';
         latestNewsData.forEach((_, index) => {
             const dot = document.createElement('span');
             dot.classList.add('dot');
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.addEventListener('click', () => {
                 currentCarouselSlideIndex = index;
                 showCarouselSlide(currentCarouselSlideIndex);
-                clearInterval(slideInterval); 
+                clearInterval(slideInterval);
                 slideInterval = setInterval(() => {
                     nextCarouselSlide();
                 }, 5000);

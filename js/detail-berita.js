@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // Pastikan API_BASE_URL sesuai dengan port backend Anda
-    const API_BASE_URL = 'http://localhost:4000/api';
+    const API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app/api';
 
     const newsDetailSection = document.getElementById('news-detail-section');
     const pageTitle = document.getElementById('pageTitle'); // Ini biasanya untuk <title> halaman HTML
