@@ -26,7 +26,7 @@ async function loadFotoDokumentasi() {
     galeriGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch('http://localhost:4000/api/dokumentasi');
+        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -84,7 +84,7 @@ async function loadVideoDokumentasi() {
     videoGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch('http://localhost:4000/api/dokumentasi');
+        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -102,7 +102,7 @@ async function loadVideoDokumentasi() {
         videoData.forEach(video => {
             const date = video.uploaded_at ? new Date(video.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
             const videoPath = `/videos/dokumentasi/${video.filename}`;
-    
+
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
             videoItem.innerHTML = `
