@@ -1,4 +1,17 @@
-export const BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app';
+// utils.js
+
+let API_BASE_URL;
+
+// Tentukan URL backend berdasarkan environment
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    // Jika lokal, gunakan URL backend lokal
+    API_BASE_URL = 'http://localhost:4000';
+} else {
+    // Jika sudah di-deploy (misalnya di Netlify), gunakan URL backend Vercel
+    API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app';
+}
+
+export const BASE_URL = API_BASE_URL;
 
 /**
  * Menampilkan notifikasi sederhana.
@@ -35,7 +48,7 @@ async function fetchWithAuth(url, options = {}) {
 
 export async function fetchData(endpoint) {
     try {
-        const response = await fetchWithAuth(`${BASE_URL}/${endpoint}`);
+        const response = await fetchWithAuth(`${BASE_URL}/api/${endpoint}`); // Perbaikan: tambahkan /api/
         if (!response.ok) {
             const errorText = await response.text();
             try {
@@ -62,7 +75,7 @@ export async function sendData(endpoint, method, data, isFormData = false) {
     }
 
     try {
-        const response = await fetchWithAuth(`${BASE_URL}/${endpoint}`, options);
+        const response = await fetchWithAuth(`${BASE_URL}/api/${endpoint}`, options); // Perbaikan: tambahkan /api/
         if (!response.ok) {
             const errorText = await response.text();
             try {
@@ -82,8 +95,8 @@ export async function sendData(endpoint, method, data, isFormData = false) {
 export async function deleteData(endpoint, id, queryParams = '') {
     try {
         const url = queryParams
-            ? `${BASE_URL}/${endpoint}/${id}?${queryParams}`
-            : `${BASE_URL}/${endpoint}/${id}`;
+            ? `${BASE_URL}/api/${endpoint}/${id}?${queryParams}` // Perbaikan: tambahkan /api/
+            : `${BASE_URL}/api/${endpoint}/${id}`; // Perbaikan: tambahkan /api/
 
         const response = await fetchWithAuth(url, { method: 'DELETE' });
         if (!response.ok) {
