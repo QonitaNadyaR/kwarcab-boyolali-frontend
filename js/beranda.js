@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app/api';
+    const API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-fynanh1hy-qonitanadyars-projects.vercel.app';
     const carouselTrack = document.querySelector('.carousel-track');
     const carouselDotsContainer = document.querySelector('.carousel-dots');
     const newsGrid = document.querySelector('.news-grid');
