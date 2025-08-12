@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             if (confirm('Apakah Anda yakin ingin logout?')) {
-                localStorage.removeItem('token');
+                localStorage.removeItem('authToken');
                 showAlert('Anda berhasil logout!', 'success');
                 setTimeout(() => {
                     window.location.href = 'login.html';

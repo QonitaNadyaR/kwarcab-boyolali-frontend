@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app/';
+export const BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app';
 
 /**
  * Menampilkan notifikasi sederhana.
