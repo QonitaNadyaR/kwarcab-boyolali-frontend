@@ -1,4 +1,4 @@
-// frontend/dokumentasi.js
+// frontend/js/dokumentasi.js
 
 // Fungsi helper untuk menyembunyikan/menampilkan elemen
 function showElement(elementId, display = 'block') {

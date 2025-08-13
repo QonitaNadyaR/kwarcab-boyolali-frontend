@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Tentukan URL backend secara dinamis
+    const API_BASE_URL =
+        window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:4000'
+            : 'https://kwarcab-backend.vercel.app';
+
     function formatDateForTable(dateString) {
         if (!dateString) return '';
         const date = new Date(dateString);
@@ -7,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pengurusTableBody = document.getElementById('pengurus-data');
     if (pengurusTableBody) {
-        fetch('http://localhost:4000/api/pengurus')
+        // Gunakan API_BASE_URL yang dinamis
+        fetch(`${API_BASE_URL}/api/pengurus`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -15,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                pengurusTableBody.innerHTML = ''; 
+                pengurusTableBody.innerHTML = '';
                 if (data && data.length > 0) {
                     data.forEach((pengurus, index) => {
                         const row = document.createElement('tr');
@@ -29,20 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         pengurusTableBody.appendChild(row);
                     });
                 } else {
-                    // Sesuaikan colspan menjadi 5 karena ada 5 kolom (No., Nama, Lulusan, Kwartir Ranting, Golongan Pelatih)
                     pengurusTableBody.innerHTML = '<tr><td colspan="5">Tidak ada data pengurus yang tersedia.</td></tr>';
                 }
             })
             .catch(error => {
                 console.error('Error memuat data pengurus:', error);
-                // Sesuaikan colspan menjadi 5
                 pengurusTableBody.innerHTML = '<tr><td colspan="5">Gagal memuat data pengurus. Pastikan server berjalan dan API benar.</td></tr>';
             });
     }
 
     const anggotaTableBody = document.getElementById('anggota-data');
-    if (anggotaTableBody) { 
-        fetch('http://localhost:4000/api/anggota') 
+    if (anggotaTableBody) {
+        // Gunakan API_BASE_URL yang dinamis
+        fetch(`${API_BASE_URL}/api/anggota`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -52,12 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 anggotaTableBody.innerHTML = '';
                 if (data && data.length > 0) {
-                    const anggotaNonPengurus = data.filter(item => item.golongan_anggota !== 'Pengurus'); 
+                    const anggotaNonPengurus = data.filter(item => item.golongan_anggota !== 'Pengurus');
 
                     if (anggotaNonPengurus.length > 0) {
-                        anggotaNonPengurus.forEach(anggota => {
+                        anggotaNonPengurus.forEach((anggota, index) => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
+                                <td>${index + 1}</td>
                                 <td>${anggota.no_reg || ''}</td>
                                 <td>${anggota.nama || ''}</td>
                                 <td>${anggota.pangkalan || ''}</td>
@@ -69,15 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             anggotaTableBody.appendChild(row);
                         });
                     } else {
-                        anggotaTableBody.innerHTML = '<tr><td colspan="7">Tidak ada data anggota yang tersedia.</td></tr>';
+                        anggotaTableBody.innerHTML = '<tr><td colspan="8">Tidak ada data anggota yang tersedia.</td></tr>';
                     }
                 } else {
-                    anggotaTableBody.innerHTML = '<tr><td colspan="7">Tidak ada data anggota yang tersedia.</td></tr>';
+                    anggotaTableBody.innerHTML = '<tr><td colspan="8">Tidak ada data anggota yang tersedia.</td></tr>';
                 }
             })
             .catch(error => {
                 console.error('Error memuat data anggota:', error);
-                anggotaTableBody.innerHTML = '<tr><td colspan="7">Gagal memuat data anggota. Pastikan server berjalan dan API benar.</td></tr>';
+                anggotaTableBody.innerHTML = '<tr><td colspan="8">Gagal memuat data anggota. Pastikan server berjalan dan API benar.</td></tr>';
             });
     }
 });
