@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:4000/api'
-        : 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app/api';
+        : 'https://kwarcab-backend.vercel.app/api';
 
     const BACKEND_BASE_URL = API_BASE_URL.replace('/api', '');
 
