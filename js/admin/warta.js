@@ -1,4 +1,5 @@
-import { fetchData, sendData, deleteData, resetForm, showAlert } from '../utils.js';
+// frontend/js/admin/warta.js
+import { fetchData, sendData, deleteData, resetForm, showAlert, getImageUrl } from '../utils.js';
 
 export function initWarta() {
     const formWarta = document.getElementById('warta-form');
@@ -31,12 +32,12 @@ export function initWarta() {
             return;
         }
 
-        data.forEach((item, index) => {
+        data.forEach(item => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${item._id}</td>
                 <td>${item.title}</td>
-                <td><img src="${item.imageUrl}" alt="${item.title}" style="max-width:80px;"></td>
+                <td><img src="${getImageUrl(item.imageUrl)}" alt="${item.title}" style="max-width:80px;"></td>
                 <td>${item.content.substring(0, 50)}...</td>
                 <td>
                     <button class="btn-edit" data-id="${item._id}">Edit</button>
@@ -46,6 +47,7 @@ export function initWarta() {
             tableWartaBody.appendChild(tr);
         });
 
+        // Event listener tombol Edit
         document.querySelectorAll('.btn-edit').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
@@ -55,7 +57,7 @@ export function initWarta() {
                 idWartaInput.value = selected._id;
                 titleInput.value = selected.title;
                 contentInput.value = selected.content;
-                currentImagePreview.innerHTML = `<img src="${selected.imageUrl}" alt="Gambar saat ini" style="max-width: 150px; margin-bottom: 10px;">`;
+                currentImagePreview.innerHTML = `<img src="${getImageUrl(selected.imageUrl)}" alt="Gambar saat ini" style="max-width: 150px; margin-bottom: 10px;">`;
                 existingImageUrlInput.value = selected.imageUrl;
                 imageInput.value = '';
 
@@ -64,6 +66,7 @@ export function initWarta() {
             });
         });
 
+        // Event listener tombol Hapus
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (confirm('Yakin ingin menghapus warta ini?')) {
