@@ -2,10 +2,10 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard Admin Kwarcab Boyolali</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin.css" />
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     <div class="container admin-container">
         <div class="admin-header">
             <h1>Dashboard Admin</h1>
-            <button class="logout-btn" id="logout-btn">Logout</button>
+            <button class="logout-btn" id="logout-btn" onclick="logout()">Logout</button>
         </div>
 
         <div class="tabs">
@@ -33,34 +33,32 @@
             <button class="tab-button" data-tab="dokumentasi">Manajemen Dokumentasi</button>
         </div>
 
+        <!-- Tab Contents -->
         <div id="warta-tab" class="tab-content active">
             <section class="admin-section">
                 <h2>Manajemen Warta (Berita)</h2>
-
                 <form id="warta-form" class="data-form" enctype="multipart/form-data">
                     <h3>Tambah/Edit Warta</h3>
-                    <input type="hidden" id="warta-id">
-
+                    <input type="hidden" id="warta-id" />
                     <div class="form-group">
                         <label for="warta-title">Judul Warta:</label>
-                        <input type="text" id="warta-title" name="title" required>
+                        <input type="text" id="warta-title" name="title" required />
                     </div>
-
                     <div class="form-group">
                         <label for="warta-image">Upload Gambar:</label>
-                        <input type="file" id="warta-image" name="image" accept="image/*">
-                        <small>Untuk Tambah: Gambar wajib diunggah. Untuk Edit: Unggah gambar baru untuk mengganti yang
-                            lama, atau biarkan kosong dan gunakan opsi di bawah.</small>
+                        <input type="file" id="warta-image" name="image" accept="image/*" />
+                        <small>
+                            Untuk Tambah: Gambar wajib diunggah. Untuk Edit: Unggah gambar baru untuk mengganti yang
+                            lama,
+                            atau biarkan kosong dan gunakan opsi di bawah.
+                        </small>
                     </div>
-
-                    <div id="warta-current-image-preview" style="margin-top: 10px;">
-                    </div>
-                    <input type="hidden" id="warta-existing-image-url" name="imageUrl">
+                    <div id="warta-current-image-preview" style="margin-top: 10px;"></div>
+                    <input type="hidden" id="warta-existing-image-url" name="imageUrl" />
                     <div class="form-group">
                         <label for="warta-content">Konten Warta:</label>
                         <textarea id="warta-content" name="content" rows="10" required></textarea>
                     </div>
-
                     <button type="submit" id="warta-submit-btn">Tambah Warta</button>
                     <button type="button" id="warta-cancel-btn" class="cancel-btn" style="display: none;">Batal
                         Edit</button>
@@ -91,18 +89,16 @@
         <div id="pengurus-tab" class="tab-content">
             <section class="admin-section">
                 <h2>Manajemen Pengurus</h2>
-
                 <form id="pengurus-form" class="data-form">
                     <h3>Tambah/Edit Data Pengurus</h3>
-                    <input type="hidden" id="pengurus-id">
-
+                    <input type="hidden" id="pengurus-id" />
                     <div class="form-group">
                         <label for="pengurus-nama">Nama:</label>
-                        <input type="text" id="pengurus-nama" required>
+                        <input type="text" id="pengurus-nama" required />
                     </div>
                     <div class="form-group">
                         <label for="pengurus-lulusan">Lulusan:</label>
-                        <input type="text" id="pengurus-lulusan">
+                        <input type="text" id="pengurus-lulusan" />
                     </div>
                     <div class="form-group">
                         <label for="pengurus-kwartir-ranting">Kwartir Ranting:</label>
@@ -142,7 +138,6 @@
                             <option value="Penegak">Penegak</option>
                         </select>
                     </div>
-
                     <button type="submit" id="pengurus-submit-btn">Tambah Pengurus</button>
                     <button type="button" id="pengurus-cancel-btn" class="cancel-btn" style="display: none;">Batal
                         Edit</button>
@@ -174,26 +169,24 @@
         <div id="anggota-tab" class="tab-content">
             <section class="admin-section">
                 <h2>Manajemen Anggota</h2>
-
                 <form id="anggota-form" class="data-form">
                     <h3>Tambah/Edit Data Anggota</h3>
-                    <input type="hidden" id="anggota-id">
-
+                    <input type="hidden" id="anggota-id" />
                     <div class="form-group">
                         <label for="anggota-no-reg">No. Registrasi:</label>
-                        <input type="text" id="anggota-no-reg" required>
+                        <input type="text" id="anggota-no-reg" required />
                     </div>
                     <div class="form-group">
                         <label for="anggota-nama">Nama:</label>
-                        <input type="text" id="anggota-nama" required>
+                        <input type="text" id="anggota-nama" required />
                     </div>
                     <div class="form-group">
                         <label for="anggota-pangkalan">Pangkalan:</label>
-                        <input type="text" id="anggota-pangkalan">
+                        <input type="text" id="anggota-pangkalan" />
                     </div>
                     <div class="form-group">
                         <label for="anggota-ttl">Tempat, Tanggal Lahir:</label>
-                        <input type="text" id="anggota-ttl">
+                        <input type="text" id="anggota-ttl" />
                     </div>
                     <div class="form-group">
                         <label for="anggota-kwartir-ranting">Kwartir Ranting:</label>
@@ -235,9 +228,8 @@
                     </div>
                     <div class="form-group">
                         <label for="anggota-tahun">Tahun:</label>
-                        <input type="number" id="anggota-tahun" min="1900" max="2100" value="2025" required>
+                        <input type="number" id="anggota-tahun" min="1900" max="2100" value="2025" required />
                     </div>
-
                     <button type="submit" id="anggota-submit-btn">Tambah Anggota</button>
                     <button type="button" id="anggota-cancel-btn" class="cancel-btn" style="display: none;">Batal
                         Edit</button>
@@ -272,7 +264,6 @@
         <div id="dokumentasi-tab" class="tab-content">
             <section class="admin-section">
                 <h2>Manajemen Dokumentasi</h2>
-
                 <form id="dokumentasiForm" class="data-form" enctype="multipart/form-data">
                     <h3>Unggah Dokumentasi Baru</h3>
                     <div class="form-group">
@@ -285,17 +276,18 @@
                     </div>
                     <div class="form-group">
                         <label for="dokumentasiJudul">Judul:</label>
-                        <input type="text" id="dokumentasiJudul" name="judul" placeholder="Masukkan judul..." required>
+                        <input type="text" id="dokumentasiJudul" name="judul" placeholder="Masukkan judul..."
+                            required />
                     </div>
                     <div class="form-group">
                         <label for="dokumentasiFile">File (Foto/Video):</label>
-                        <input type="file" id="dokumentasiFile" name="file" accept="image/*,video/*" required>
+                        <input type="file" id="dokumentasiFile" name="file" accept="image/*,video/*" required />
                     </div>
                     <button type="submit">Unggah Dokumentasi</button>
                 </form>
                 <div id="status-dokumentasi" class="status-message"></div>
 
-                <hr>
+                <hr />
                 <h3 class="section-title">Daftar Foto Dokumentasi</h3>
                 <div id="galeri-grid" class="galeri-grid">
                     <div id="loading-foto" class="status-message loading-message" style="display: none;">Memuat foto...
@@ -304,7 +296,7 @@
                     <div id="no-foto" class="status-message" style="display: none;">Tidak ada foto yang tersedia.</div>
                 </div>
 
-                <hr>
+                <hr />
                 <h3 class="section-title">Daftar Video Dokumentasi</h3>
                 <div id="video-grid" class="video-grid">
                     <div id="loading-video" class="status-message loading-message" style="display: none;">Memuat

@@ -1,13 +1,8 @@
-// utils.js
-
 let API_BASE_URL;
 
-// Tentukan URL backend berdasarkan environment
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    // Jika lokal, gunakan URL backend lokal
     API_BASE_URL = 'http://localhost:4000';
 } else {
-    // Jika sudah di-deploy (misalnya di Netlify), gunakan URL backend Vercel
     API_BASE_URL = 'https://kwarcab-boyolali-backend-nes7-git-main-qonitanadyars-projects.vercel.app';
 }
 
@@ -15,8 +10,6 @@ export const BASE_URL = API_BASE_URL;
 
 /**
  * Menampilkan notifikasi sederhana.
- * @param {string} message Pesan yang akan ditampilkan.
- * @param {'success'|'error'|'info'|'warning'} type Tipe pesan.
  */
 export function showAlert(message, type = 'success') {
     alert(`[${type.toUpperCase()}] ${message}`);
@@ -24,11 +17,7 @@ export function showAlert(message, type = 'success') {
 }
 
 /**
- * Fetch dengan header otentikasi. 
- * Redirect ke login jika token tidak ada.
- * @param {string} url URL lengkap/relatif.
- * @param {object} options Opsi fetch.
- * @returns {Promise<Response>}
+ * Fetch dengan header otentikasi.
  */
 async function fetchWithAuth(url, options = {}) {
     const token = localStorage.getItem('authToken');
@@ -46,9 +35,12 @@ async function fetchWithAuth(url, options = {}) {
     return fetch(url, { ...options, headers });
 }
 
+/**
+ * GET data dari API.
+ */
 export async function fetchData(endpoint) {
     try {
-        const response = await fetchWithAuth(`${BASE_URL}/api/${endpoint}`); // Perbaikan: tambahkan /api/
+        const response = await fetchWithAuth(`${BASE_URL}/api/${endpoint}`);
         if (!response.ok) {
             const errorText = await response.text();
             try {
@@ -65,38 +57,44 @@ export async function fetchData(endpoint) {
     }
 }
 
+/**
+ * POST / PUT data ke API.
+ */
 export async function sendData(endpoint, method, data, isFormData = false) {
-    const options = { method };
-    if (isFormData) {
-        options.body = data;
-    } else {
-        options.headers = { 'Content-Type': 'application/json' };
-        options.body = JSON.stringify(data);
+    const authToken = localStorage.getItem('authToken');
+    const headers = {
+        'Authorization': `Bearer ${authToken}`
+    };
+
+    // Jika data bukan FormData, tambahkan Content-Type 'application/json'
+    if (!isFormData) {
+        headers['Content-Type'] = 'application/json';
     }
 
-    try {
-        const response = await fetchWithAuth(`${BASE_URL}/api/${endpoint}`, options); // Perbaikan: tambahkan /api/
-        if (!response.ok) {
-            const errorText = await response.text();
-            try {
-                const errorData = JSON.parse(errorText);
-                throw new Error(errorData.message || `Server merespons dengan status ${response.status}.`);
-            } catch {
-                throw new Error(`Server merespons dengan status ${response.status}. Respons: ${errorText}`);
-            }
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(`Error sending data to ${endpoint}:`, error);
-        throw new Error(`Gagal menyimpan data: ${error.message}`);
+    const options = {
+        method: method,
+        headers: headers,
+        body: isFormData ? data : JSON.stringify(data)
+    };
+
+    // Ganti API_URL dengan BASE_URL dan tambahkan /api/
+    const response = await fetch(`${BASE_URL}/api/${endpoint}`, options);
+    if (!response.ok) {
+        // Mengambil respons error dari server
+        const errorData = await response.json();
+        throw new Error(`Gagal menyimpan data: Server merespons dengan status ${response.status}. Respons: ${JSON.stringify(errorData)}`);
     }
+    return await response.json();
 }
 
+/**
+ * DELETE data di API.
+ */
 export async function deleteData(endpoint, id, queryParams = '') {
     try {
         const url = queryParams
-            ? `${BASE_URL}/api/${endpoint}/${id}?${queryParams}` // Perbaikan: tambahkan /api/
-            : `${BASE_URL}/api/${endpoint}/${id}`; // Perbaikan: tambahkan /api/
+            ? `${BASE_URL}/api/${endpoint}/${id}?${queryParams}`
+            : `${BASE_URL}/api/${endpoint}/${id}`;
 
         const response = await fetchWithAuth(url, { method: 'DELETE' });
         if (!response.ok) {
@@ -120,6 +118,9 @@ export async function deleteData(endpoint, id, queryParams = '') {
     }
 }
 
+/**
+ * Reset form ke kondisi default.
+ */
 export function resetForm(formElement, idInput, submitBtn, cancelBtn) {
     formElement.reset();
     idInput.value = '';

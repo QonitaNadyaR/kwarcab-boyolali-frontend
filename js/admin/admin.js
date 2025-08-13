@@ -5,6 +5,13 @@ import { initDokumentasi } from './dokumentasi.js';
 import { showAlert } from '../utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cek token auth, jika tidak ada langsung redirect login
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
@@ -21,6 +28,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
+    // Fungsi async wrapper untuk init tab agar bisa handle error
+    async function initTab(tabName) {
+        try {
+            switch (tabName) {
+                case 'warta':
+                    await initWarta();
+                    break;
+                case 'pengurus':
+                    await initPengurus();
+                    break;
+                case 'anggota':
+                    await initAnggota();
+                    break;
+                case 'dokumentasi':
+                    await initDokumentasi();
+                    break;
+                default:
+                    console.warn(`No initialization function for tab: ${tabName}`);
+            }
+        } catch (error) {
+            console.error(`Error saat inisialisasi tab ${tabName}:`, error);
+            showAlert(`Gagal memuat data ${tabName}`, 'error');
+        }
+    }
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(item => item.classList.remove('active'));
@@ -34,26 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn(`Tab content with ID '${tab.dataset.tab}-tab' not found.`);
             }
 
-            // Load data based on active tab
-            switch (tab.dataset.tab) {
-                case 'warta':
-                    initWarta();
-                    break;
-                case 'pengurus':
-                    initPengurus();
-                    break;
-                case 'anggota':
-                    initAnggota();
-                    break;
-                case 'dokumentasi':
-                    initDokumentasi();
-                    break;
-                default:
-                    console.warn(`No initialization function for tab: ${tab.dataset.tab}`);
-            }
+            initTab(tab.dataset.tab);
         });
     });
 
+    // Trigger klik tab awal untuk load data
     const initialTab = document.querySelector('.tab-button.active') || document.querySelector('.tab-button');
     if (initialTab) {
         initialTab.click();
