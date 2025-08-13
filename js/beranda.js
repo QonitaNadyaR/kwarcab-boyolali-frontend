@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.classList.add('carousel-slide');
         slide.innerHTML = `
             <img src="${getImageUrlForDisplay(article.imageUrl)}" alt="${article.title}" class="slide-image">
-            <a href="detail-berita.html?id=${article.id}" class="carousel-content">
+            <a href="detail-berita.html?id=${article._id}" class="carousel-content">
                 <h3>${article.title}</h3>
                 <p>${formatDate(article.created_at)}</p>
             </a>
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createOldWartaCard(article) {
         const cardLink = document.createElement('a');
         cardLink.classList.add('news-card');
-        cardLink.href = `detail-berita.html?id=${article.id}`;
+        cardLink.href = `detail-berita.html?id=${article._id}`;
         cardLink.innerHTML = `
             <div class="news-image">
                 <img src="${getImageUrlForDisplay(article.imageUrl)}" alt="${article.title}">
