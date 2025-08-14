@@ -720,11 +720,11 @@ img {
             Url('../images/gerbang.jpg') center/cover no-repeat;
         padding: 3rem 1rem 5rem;
         color: white;
-        min-height: 90vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
         /* Mengurangi jarak di bawah hero section */
     }
 
@@ -743,6 +743,6 @@ img {
         margin-top: 1rem;
         font-size: 1.2rem;
         line-height: 1.8;
-        max-width: 800px;
+        max-width: 500px;
     }
 }
