@@ -803,6 +803,7 @@ img {
 
     .registration-card {
         width: 150px;
+        height: 50%;
         flex-shrink: 0;
         scrollbar-width: thin;
         /* Firefox */
