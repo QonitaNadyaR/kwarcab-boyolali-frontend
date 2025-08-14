@@ -97,7 +97,7 @@ img {
 }
 
 .logo-with-bg img {
-    height: 200px;
+    height: 150px;
     object-fit: contain;
     background-color: #FFF0DC;
     border: 6px solid #FFF0DC;
