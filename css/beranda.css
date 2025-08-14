@@ -7,10 +7,12 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #FFF0DC; /* Warna dasar body */
+    background-color: #FFF0DC;
+    /* Warna dasar body */
     color: #333;
     line-height: 1.6;
-    padding-top: 78px; /* Mengimbangi header fixed di desktop */
+    padding-top: 78px;
+    /* Mengimbangi header fixed di desktop */
 }
 
 img {
@@ -30,7 +32,8 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 2rem; /* Mengurangi jarak di bawah hero section */
+    margin-bottom: 2rem;
+    /* Mengurangi jarak di bawah hero section */
 }
 
 .hero-text {
@@ -469,57 +472,246 @@ img {
     line-height: 1.3;
 }
 
-/* === MEDIA QUERIES === */
+/* === MEDIA QUERIES RESPONSIF === */
 
-/* Mobile Hero & Logo */
-@media (max-width: 768px) {
-    .hero h2 { font-size: 2rem; }
-    .hero p { font-size: 1rem; }
+/* ===== MOBILE SMALL (≤ 600px) ===== */
+@media (max-width: 600px) {
 
-    .hero-logos-wrapper { bottom: -50px; right: 40px; }
-    .logo-with-bg img { height: 115px; border-width: 6px; }
+    /* HERO SECTION */
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* HERO LOGOS */
+    .hero-logos-wrapper {
+        bottom: -50px;
+        right: 40px;
+    }
+
+    .logo-with-bg img {
+        height: 115px;
+        border-width: 6px;
+    }
+
     .logo-with-bg:nth-child(2) img,
-    .logo-with-bg:nth-child(3) img { width: 113px; }
-    .logo-with-bg:nth-child(4) img { width: 88px; }
-    .hero-logos-wrapper .background-patch { height: 38px; width: 180px; border-radius: 10px; }
+    .logo-with-bg:nth-child(3) img {
+        width: 113px;
+    }
 
-    .carousel-container { aspect-ratio: 4 / 3; max-width: unset; }
-    .carousel-content { padding: 1rem 1.5rem; }
-    .carousel-content h3 { font-size: 1.6rem; }
-    .carousel-content p { font-size: 0.9rem; }
+    .logo-with-bg:nth-child(4) img {
+        width: 88px;
+    }
 
-    .news-grid { grid-template-rows: repeat(2, auto); }
-    .news-card { width: 70vw; max-width: 400px; margin: 0 auto; }
+    .hero-logos-wrapper .background-patch {
+        height: 38px;
+        width: 180px;
+        border-radius: 10px;
+    }
 
-    .service-cards { flex-direction: column; align-items: center; }
-    .service-card { width: 80%; }
+    /* CAROUSEL */
+    .carousel-container {
+        aspect-ratio: 4 / 3;
+        max-width: unset;
+    }
 
-    .registration-cards { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; gap: 1.5rem; }
-    .registration-card { width: 200px; flex-shrink: 0; }
+    .carousel-content {
+        padding: 1rem 1.5rem;
+    }
+
+    .carousel-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .carousel-content p {
+        font-size: 0.9rem;
+    }
+
+    /* WARTA GRID */
+    .news-grid {
+        grid-template-rows: repeat(1, auto);
+    }
+
+    .news-card {
+        width: 70vw;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* REGISTRATION */
+    .registration-cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+
+    .registration-card {
+        width: 200px;
+        flex-shrink: 0;
+    }
+
+    /* SERVICE */
+    .service-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-card {
+        width: 80%;
+    }
 }
 
-/* Medium screens / tablet */
-@media (max-width: 992px) {
-    .news-grid { grid-template-rows: repeat(2, auto); }
-    .news-card { width: 350px; }
+/* ===== MOBILE MEDIUM / TABLET (≤ 768px) ===== */
+@media (max-width: 768px) {
+
+    /* HERO SECTION */
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* HERO LOGOS */
+    .hero-logos-wrapper {
+        bottom: -50px;
+        right: 40px;
+    }
+
+    .logo-with-bg img {
+        height: 115px;
+    }
+
+    .logo-with-bg:nth-child(2) img,
+    .logo-with-bg:nth-child(3) img {
+        width: 113px;
+    }
+
+    .logo-with-bg:nth-child(4) img {
+        width: 88px;
+    }
+
+    .hero-logos-wrapper .background-patch {
+        height: 38px;
+        width: 180px;
+    }
+
+    /* CAROUSEL */
+    .carousel-container {
+        aspect-ratio: 4 / 3;
+    }
+
+    .carousel-content {
+        padding: 1rem 1.5rem;
+    }
+
+    .carousel-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .carousel-content p {
+        font-size: 0.9rem;
+    }
+
+    /* WARTA GRID */
+    .news-grid {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .news-card {
+        width: 70vw;
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
-/* Small screens / mobile adjustments */
+/* ===== DESKTOP SMALL / LAPTOP (≤ 991px) ===== */
 @media (max-width: 991px) {
-    body { padding-top: 0px; }
 
-    .hero { padding: 3rem 1rem 4rem; min-height: 100vh; margin-bottom: 0.8rem; }
-    .hero-text { max-width: 400px; }
-    .hero h2 { font-size: 2rem; line-height: 1.2; }
-    .hero p { font-size: 1.2rem; max-width: 500px; }
+    /* BODY */
+    body {
+        padding-top: 0px;
+    }
 
-    .carousel-content { padding: 1rem 1rem; }
-    .carousel-content h3 { font-size: 1rem; }
-    .carousel-content p { font-size: 0.9rem; }
+    /* HERO SECTION */
+    .hero {
+        padding: 3rem 1rem 4rem;
+        min-height: 100vh;
+        margin-bottom: 0.8rem;
+    }
 
-    .news-title { font-size: 0.8rem; }
-    .news-date { font-size: 0.5rem; margin-top: 0.5; }
-    .news-text-container { padding: 0.5rem; }
+    .hero-text {
+        max-width: 400px;
+    }
 
-    .registration-card { width: 150px; height: 50%; }
+    .hero h2 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 500px;
+    }
+
+    /* CAROUSEL */
+    .carousel-container {
+        aspect-ratio: 4 / 3;
+        max-width: unset;
+    }
+
+    .carousel-content {
+        padding: 1rem 1rem;
+    }
+
+    .carousel-content h3 {
+        font-size: 1rem;
+    }
+
+    .carousel-content p {
+        font-size: 0.9rem;
+    }
+
+    /* WARTA GRID */
+    .news-title {
+        font-size: 0.8rem;
+    }
+
+    .news-date {
+        font-size: 0.5rem;
+        margin-top: 0.5;
+    }
+
+    .news-text-container {
+        padding: 0.5rem;
+    }
+
+    /* REGISTRATION */
+    .registration-cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+
+    .registration-card {
+        width: 150px;
+        height: 50%;
+    }
+}
+
+/* ===== DESKTOP MEDIUM / LAPTOP (≤ 992px) ===== */
+@media (max-width: 992px) {
+    .news-grid {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .news-card {
+        width: 350px;
+    }
 }
