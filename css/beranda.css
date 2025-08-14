@@ -97,7 +97,7 @@ img {
 }
 
 .logo-with-bg img {
-    height: 150px;
+    height: 200px;
     object-fit: contain;
     background-color: #FFF0DC;
     border: 6px solid #FFF0DC;
@@ -124,7 +124,7 @@ img {
     }
 
     .logo-with-bg img {
-        height: 200px;
+        height: 115px;
         border-width: 6px;
     }
 
