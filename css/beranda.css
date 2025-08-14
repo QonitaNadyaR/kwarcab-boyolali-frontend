@@ -718,13 +718,13 @@ img {
         position: relative;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
             Url('../images/gerbang.jpg') center/cover no-repeat;
-        padding: 3rem 1rem 4rem;
+        padding: 2rem 0.5rem 4rem;
         color: white;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.5rem;
         /* Mengurangi jarak di bawah hero section */
     }
 
