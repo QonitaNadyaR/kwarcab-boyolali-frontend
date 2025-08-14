@@ -720,7 +720,7 @@ img {
             Url('../images/gerbang.jpg') center/cover no-repeat;
         padding: 3rem 1rem 5rem;
         color: white;
-        min-height: 50vh;
+        min-height: 90vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -735,7 +735,7 @@ img {
 
     .hero h2 {
         font-size: 2rem;
-        line-height: 1;
+        line-height: 1.2;
         font-weight: bold;
     }
 
