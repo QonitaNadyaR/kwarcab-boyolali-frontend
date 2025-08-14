@@ -70,7 +70,7 @@ img {
 /* === HERO LOGO WRAPPER === */
 .hero-logos-wrapper {
     position: absolute;
-    bottom: -40px;
+    bottom: -60px;
     right: 2rem;
     display: flex;
     align-items: flex-end;
