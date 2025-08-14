@@ -23,17 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Utility Functions
     // =======================
     function getImageUrlForDisplay(imageUrlFromApi) {
-        if (!imageUrlFromApi || imageUrlFromApi.trim() === '') {
-            return '/images/placeholder.png';
-        }
-
-        // Jika sudah lengkap URL, gunakan langsung
-        if (imageUrlFromApi.startsWith('http://') || imageUrlFromApi.startsWith('https://')) {
+        // Jika imageUrlFromApi adalah URL lengkap (dari Cloudinary), gunakan langsung.
+        if (imageUrlFromApi && (imageUrlFromApi.startsWith('http://') || imageUrlFromApi.startsWith('https://'))) {
             return imageUrlFromApi;
         }
 
-        // Gabungkan backend base URL dengan path dari database
-        return `${BACKEND_BASE_URL}${imageUrlFromApi}`;
+        // Jika tidak, gunakan gambar placeholder.
+        return '/images/placeholder.png';
     }
 
     function formatDate(dateString) {
