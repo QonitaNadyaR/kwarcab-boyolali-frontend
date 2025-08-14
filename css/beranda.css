@@ -119,12 +119,13 @@ img {
     /* Aturan untuk tampilan mobile */
     .hero-logos-wrapper {
         bottom: -50px;
-        right: 50px;
+        right: 60px;
+        /* Mengubah ukuran logo agar lebih kecil */
     }
 
     .logo-with-bg img {
         height: 115px;
-        border-width: 4px;
+        border-width: 6px;
     }
 
     .logo-with-bg:nth-child(2) img,
