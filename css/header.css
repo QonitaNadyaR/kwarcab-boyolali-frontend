@@ -125,7 +125,7 @@ body.no-scroll {
 // ================================ */
 @media (max-width: 991px) {
     header {
-        padding: 1.5rem 2rem !important;
+        padding: 1rem 1rem !important;
     }
 
     body {
