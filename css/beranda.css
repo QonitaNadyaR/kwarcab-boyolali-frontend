@@ -724,7 +724,7 @@ img {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-bottom: -5rem;
+        margin-bottom: 0.8rem;
         /* Mengurangi jarak di bawah hero section */
     }
 
