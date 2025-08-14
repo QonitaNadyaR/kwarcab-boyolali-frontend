@@ -745,4 +745,21 @@ img {
         line-height: 1.8;
         max-width: 500px;
     }
+
+    .carousel-container {
+        aspect-ratio: 4 / 3;
+        max-width: unset;
+    }
+
+    .carousel-content {
+        padding: 0.5rem 1rem;
+    }
+
+    .carousel-content h3 {
+        font-size: 1rem;
+    }
+
+    .carousel-content p {
+        font-size: 0.9rem;
+    }
 }
