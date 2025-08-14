@@ -84,7 +84,7 @@ img {
     bottom: 0;
     right: 0;
     height: 55px;
-    width: 300px;
+    width: 320px;
     background-color: #FFF0DC;
     z-index: 0;
     border-radius: 20px;
@@ -251,7 +251,7 @@ img {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem 1.5rem;
     box-sizing: border-box;
 
     background: linear-gradient(to top,
