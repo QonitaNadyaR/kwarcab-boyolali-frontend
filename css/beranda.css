@@ -123,7 +123,7 @@ img {
     }
 
     .logo-with-bg img {
-        height: 115px;
+        height: 200px;
         border-width: 4px;
     }
 
@@ -133,13 +133,13 @@ img {
     }
 
     .logo-with-bg:nth-child(4) img {
-        width: 50px;
+        width: 135px;
     }
 
     .hero-logos-wrapper .background-patch {
         /* Menyesuaikan ukuran background patch agar tetap di belakang logo */
         height: 38px;
-        width: 200px;
+        width: 180px;
         border-radius: 10px;
     }
 }
