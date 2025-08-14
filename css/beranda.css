@@ -8,14 +8,10 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #FFF0DC;
-    /* Warna dasar body */
     color: #333;
     line-height: 1.6;
-}
-
-/* Padding atas untuk mengimbangi header fixed di desktop */
-body {
     padding-top: 78px;
+    /* Mengimbangi header fixed */
 }
 
 img {
@@ -28,7 +24,7 @@ img {
 .hero {
     position: relative;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-        Url('../images/gerbang.jpg') center/cover no-repeat;
+        url('../images/gerbang.jpg') center/cover no-repeat;
     padding: 4rem 2rem 6rem;
     color: white;
     min-height: 80vh;
@@ -36,7 +32,6 @@ img {
     flex-direction: column;
     justify-content: center;
     margin-bottom: 2rem;
-    /* Mengurangi jarak di bawah hero section */
 }
 
 .hero-text {
@@ -55,16 +50,6 @@ img {
     font-size: 1.2rem;
     line-height: 1.8;
     max-width: 800px;
-}
-
-@media (max-width: 768px) {
-    .hero h2 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
 }
 
 /* === HERO LOGO WRAPPER === */
@@ -114,13 +99,167 @@ img {
     border-radius: 12px;
 }
 
-@media (max-width: 768px) {
+/* === WARTA SECTION === */
+.section-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #3D1E00;
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
 
-    /* Aturan untuk tampilan mobile */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: #A55B15;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Carousel */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    aspect-ratio: 16/9;
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.carousel-slide img.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem 2.5rem;
+    background: linear-gradient(to top,
+            rgba(61, 30, 0, 0.9) 0%,
+            rgba(61, 30, 0, 0.5) 50%,
+            rgba(61, 30, 0, 0) 100%);
+    color: white;
+}
+
+.carousel-content .news-tag {
+    background-color: #A55B15;
+    color: white;
+    padding: 0.4em 1em;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.carousel-content h3 {
+    font-size: 2.8rem;
+}
+
+.carousel-content p {
+    font-size: 1.3rem;
+}
+
+/* Warta lainnya - horizontal grid */
+.news-grid {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    gap: 20px;
+    padding: 0 1rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #A55B15 transparent;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 380px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+/* Registration cards */
+.registration-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.registration-card {
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    padding: 1.5rem;
+    color: #3D1E00;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.registration-card:hover {
+    transform: translateY(-8px);
+    background-color: #A55B15;
+    color: white;
+}
+
+/* ===== MOBILE / TABLET ===== */
+@media (max-width: 992px) {
+    .news-grid {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .news-card {
+        width: 350px;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* Hero logo */
     .hero-logos-wrapper {
         bottom: -50px;
         right: 40px;
-        /* Mengubah ukuran logo agar lebih kecil */
     }
 
     .logo-with-bg img {
@@ -138,168 +277,14 @@ img {
     }
 
     .hero-logos-wrapper .background-patch {
-        /* Menyesuaikan ukuran background patch agar tetap di belakang logo */
         height: 38px;
         width: 180px;
         border-radius: 10px;
     }
-}
 
-/* --- Warta (Berita) Section --- */
-.warta-section {
-    padding: 2rem 0;
-    position: relative;
-    z-index: 0;
-    overflow: hidden;
-    background-color: transparent;
-    /* Latar belakang transparan */
-    padding-top: 2rem;
-}
-
-/* === Judul Bagian Umum (misal: "Warta Terbaru") === */
-.section-title {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: #3D1E00;
-    /* Warna teks judul */
-    text-align: center;
-    margin-top: 2rem;
-    /* Jarak standar dari elemen sebelumnya */
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 0.5rem;
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background-color: #A55B15;
-    /* Warna garis bawah judul yang lebih cerah */
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-/* Media query untuk section-title */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 1.8rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* --- Carousel Utama (Warta Terbaru) --- */
-.warta-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    aspect-ratio: 16 / 9;
-}
-
-.carousel-track {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.carousel-slide {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.carousel-slide img.slide-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
-.carousel-content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 1.5rem 2.5rem;
-    box-sizing: border-box;
-
-    background: linear-gradient(to top,
-            rgba(61, 30, 0, 0.9) 0%,
-            rgba(61, 30, 0, 0.5) 50%,
-            rgba(61, 30, 0, 0) 100%);
-    color: white;
-    text-decoration: none;
-    text-align: left;
-}
-
-.carousel-content .news-tag {
-    background-color: #A55B15;
-    color: white;
-    padding: 0.4em 1em;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    align-self: flex-start;
-    margin-bottom: 0.8rem;
-    position: relative;
-    z-index: 2;
-}
-
-.carousel-content h3 {
-    font-size: 2.8rem;
-    font-weight: bold;
-    line-height: 1.2;
-    margin-top: 0;
-    margin-bottom: 0.8rem;
-    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
-    width: 100%;
-    position: relative;
-    z-index: 2;
-}
-
-.carousel-content p {
-    font-size: 1.3rem;
-    margin-top: 0;
-    margin-bottom: 0;
-    position: relative;
-    z-index: 2;
-}
-
-/* --- Media query untuk responsivitas carousel --- */
-@media (max-width: 768px) {
+    /* Carousel */
     .carousel-container {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 4/3;
         max-width: unset;
     }
 
@@ -314,359 +299,33 @@ img {
     .carousel-content p {
         font-size: 0.9rem;
     }
+
+    /* Warta */
+    .news-grid {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .news-card {
+        width: 70vw;
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-}
-
-.dot {
-    height: 12px;
-    width: 12px;
-    border-radius: 50%;
-    background-color: #BF9264;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.dot.active {
-    background-color: #3D1E00;
-    border-color: #FFF0DC;
-}
-
-.slide-caption {
-    display: none;
-}
-
-
-/* --- Berita Lama - Layout Horizontal dengan Grid --- */
-.warta-lama-wrapper {
-    padding: 2rem 0;
-    /* overflow-x: auto; - Akan dipindahkan ke .news-grid */
-    white-space: normal;
-    padding-bottom: 20px;
-    -webkit-overflow-scrolling: touch;
-    /* scrollbar-width: thin; - Akan dipindahkan ke .news-grid */
-    /* scrollbar-color: #BF9264 transparent; - Akan dipindahkan ke .news-grid */
-    background-color: transparent;
-    /* Latar belakang transparan */
-    padding-top: 2rem;
-}
-
-.news-grid {
-    display: grid;
-    /* Perubahan Kunci: Layout 3 baris dan aliran kolom */
-    grid-template-rows: repeat(3, auto);
-    /* Membatasi 3 baris, tinggi otomatis */
-    grid-auto-flow: column;
-    /* Item akan mengisi kolom baru secara horizontal */
-    gap: 20px;
-    /* Jarak antar item warta */
-    padding: 0 1rem;
-    margin-top: 1rem;
-
-    /* Mengaktifkan scroll horizontal pada kontainer news-grid itu sendiri */
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    /* Untuk efek geser yang lebih halus */
-    -webkit-overflow-scrolling: touch;
-    /* Untuk scroll halus di iOS */
-
-    /* Kustomisasi scrollbar untuk .news-grid */
-    scrollbar-width: thin;
-    /* Firefox */
-    scrollbar-color: #A55B15 transparent;
-    /* thumb track */
-}
-
-/* Kustomisasi scrollbar untuk Webkit (Chrome, Safari) */
-.news-grid::-webkit-scrollbar {
-    height: 8px;
-    /* Tinggi scrollbar */
-}
-
-.news-grid::-webkit-scrollbar-thumb {
-    background-color: #A55B15;
-    /* Warna thumb scrollbar */
-    border-radius: 10px;
-}
-
-.news-grid::-webkit-scrollbar-track {
-    background-color: transparent;
-    /* Warna track scrollbar */
-}
-
-.news-card {
-    display: flex;
-    flex-direction: row;
-    /* Tetap horizontal */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    color: #333;
-    background-color: #fff;
-    height: 150px;
-    /* Tinggi kartu tetap */
-    white-space: normal;
-    /* Penting: berikan lebar tetap agar kartu tidak menyusut dan dapat digeser */
-    width: 380px;
-    /* Sesuaikan lebar ini sesuai kebutuhan agar 3 item bisa pas atau lebih, lalu geser */
-    flex-shrink: 0;
-    /* Pastikan kartu tidak menyusut */
-}
-
-.news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.news-image {
-    flex-shrink: 0;
-    width: 120px;
-    height: 100%;
-    object-fit: cover;
-}
-
-.news-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.news-card:hover .news-image img {
-    transform: scale(1.05);
-}
-
-.news-text-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
-    flex-grow: 1;
-    white-space: normal;
-    overflow: hidden;
-}
-
-.news-meta {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 0.5rem;
-}
-
-.news-text-container .news-tag {
-    background-color: #BF9264;
-    color: #3D1E00;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    align-self: flex-start;
-    margin-bottom: 0.5rem;
-}
-
-
-.news-title {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    color: #3D1E00;
-}
-
-.news-date {
-    font-size: 0.9rem;
-    color: #A55B15;
-    margin: 0;
-    margin-top: auto;
-}
-
-/* === BAGIAN PENDAFTARAN EVENT === */
-.registration-section {
-    padding: 1rem;
-    background-color: transparent;
-    /* Latar belakang transparan */
-    margin-top: 2rem;
-}
-
-.registration-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.registration-card {
-    background-color: #ffffff;
-    /* Latar belakang card lebih terang dari body */
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    padding: 1.5rem;
-    width: 250px;
-    text-decoration: none;
-    color: #3D1E00;
-    /* Warna teks default di card (dark brown) */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border: none;
-}
-
-.registration-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    background-color: #A55B15;
-    /* Warna background saat hover (Orange-Brown) */
-    color: white;
-    /* Teks putih saat hover */
-}
-
-.registration-card:hover .registration-icon {
-    color: white;
-    /* Warna ikon putih saat hover */
-}
-
-.registration-card:hover h3 {
-    color: white;
-    /* Warna judul putih saat hover */
-}
-
-.registration-card:hover p {
-    color: #f7f7f7;
-    /* Warna paragraf agak putih saat hover */
-}
-
-
-.registration-icon {
-    font-size: 2.5rem;
-    color: #3D1E00;
-    /* Warna ikon (Orange-Brown) */
-    margin-bottom: 1rem;
-}
-
-.registration-card h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-    color: #3D1E00;
-    /* Warna judul card */
-}
-
-.registration-card p {
-    font-size: 0.9rem;
-    color: #666;
-    /* Warna teks info */
-    margin-top: auto;
-}
-
-/* Media Queries untuk responsivitas */
 @media (max-width: 600px) {
+
+    /* Registrasi & Service cards */
     .registration-cards {
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
-        gap: 1.5rem;
     }
 
     .registration-card {
         width: 200px;
         flex-shrink: 0;
-        scrollbar-width: thin;
-        /* Firefox */
-        scrollbar-color: #A55B15 transparent;
-        /* Firefox */
     }
-}
 
-.registration-cards::-webkit-scrollbar {
-    height: 5px;
-}
-
-.registration-cards::-webkit-scrollbar-thumb {
-    background-color: #A55B15;
-    border-radius: 1px;
-}
-
-.registration-cards::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-/* === PELAYANAN UMUM === */
-.service-section {
-    padding: 1rem;
-    background-color: transparent;
-    /* Latar belakang transparan */
-    margin-top: 2rem;
-}
-
-.service-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-}
-
-.service-card {
-    background-color: #ffffff;
-    /* Latar belakang card service (Medium Brown/Tan) */
-    padding: 1.5rem;
-    border-radius: 10px;
-    text-align: center;
-    width: 200px;
-    color: #3D1E00;
-    /* Teks dark brown untuk kontras dengan latar card */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    font-weight: bold;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    background-color: #A55B15;
-    /* Warna Orange-Brown saat hover */
-    color: white;
-    /* Teks putih saat hover */
-}
-
-.service-card:hover .service-icon {
-    color: white;
-    /* Ikon putih saat hover */
-}
-
-
-.service-card a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.service-card h3 {
-    margin-top: 10px;
-    font-size: 1.3rem;
-    line-height: 1.3;
-}
-
-.service-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #3D1E00;
-    /* Warna ikon dark brown */
-}
-
-@media (max-width: 600px) {
     .service-cards {
         flex-direction: column;
         align-items: center;
@@ -674,140 +333,5 @@ img {
 
     .service-card {
         width: 80%;
-    }
-}
-
-/* Media Queries Responsif untuk Warta Lainnya */
-@media (max-width: 992px) {
-    .news-grid {
-        grid-template-rows: repeat(2, auto);
-        /* 2 baris untuk layar menengah */
-    }
-
-    .news-card {
-        width: 350px;
-        /* Sesuaikan lebar kartu untuk 2 baris agar tetap proporsional */
-    }
-}
-
-@media (max-width: 768px) {
-    .news-grid {
-        grid-template-rows: repeat(2, auto);
-        /* 1 baris untuk layar kecil */
-        /* Pastikan grid hanya memiliki 1 baris di mobile agar item bisa diskroll secara individual */
-    }
-
-    .news-card {
-        width: 70vw;
-        /* Lebar relatif untuk perangkat sangat kecil */
-        max-width: 400px;
-        /* Batas lebar agar tidak terlalu besar di mobile */
-        margin: 0 auto;
-        /* Tengah item jika hanya 1 per baris */
-    }
-}
-
-@media (max-width: 991px) {
-
-    /* Mengatur ulang padding-top untuk body di perangkat mobile */
-    body {
-        padding-top: 0px;
-    }
-
-    .hero {
-        position: relative;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-            Url('../images/gerbang.jpg') center/cover no-repeat;
-        padding: 3rem 1rem 4rem;
-        color: white;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-bottom: 0.8rem;
-        /* Mengurangi jarak di bawah hero section */
-    }
-
-    .hero-text {
-        max-width: 400px;
-        margin-bottom: 2rem;
-    }
-
-    .hero h2 {
-        font-size: 2rem;
-        line-height: 1.2;
-        font-weight: bold;
-    }
-
-    .hero p {
-        margin-top: 1rem;
-        font-size: 1.2rem;
-        line-height: 1.8;
-        max-width: 500px;
-    }
-
-    .carousel-container {
-        aspect-ratio: 4 / 3;
-        max-width: unset;
-    }
-
-    .carousel-content {
-        padding: 1rem 1rem;
-    }
-
-    .carousel-content h3 {
-        font-size: 1rem;
-    }
-
-    .carousel-content p {
-        font-size: 0.9rem;
-    }
-
-
-    .news-title {
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin: 0.5rem 0;
-        line-height: 1.4;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        color: #3D1E00;
-    }
-
-    .news-date {
-        font-size: 0.5rem;
-        color: #A55B15;
-        margin: 0;
-        margin-top: 0.5;
-    }
-
-    .news-text-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0.5rem;
-        flex-grow: 1;
-        white-space: normal;
-        overflow: hidden;
-    }
-
-    .registration-cards {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
-        gap: 1.5rem;
-    }
-
-    .registration-card {
-        width: 150px;
-        height: 50%;
-        flex-shrink: 0;
-        scrollbar-width: thin;
-        /* Firefox */
-        scrollbar-color: #A55B15 transparent;
-        /* Firefox */
     }
 }
