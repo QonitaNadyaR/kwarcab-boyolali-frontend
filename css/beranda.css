@@ -8,11 +8,9 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #FFF0DC;
-    /* Warna dasar body */
     color: #333;
     line-height: 1.6;
     padding-top: 78px;
-    /* Mengimbangi header fixed di desktop */
 }
 
 img {
@@ -25,7 +23,7 @@ img {
 .hero {
     position: relative;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-        url('../images/gerbang.jpg') center/cover no-repeat;
+        Url('../images/gerbang.jpg') center/cover no-repeat;
     padding: 4rem 2rem 6rem;
     color: white;
     min-height: 80vh;
@@ -33,7 +31,6 @@ img {
     flex-direction: column;
     justify-content: center;
     margin-bottom: 2rem;
-    /* Mengurangi jarak di bawah hero section */
 }
 
 .hero-text {
@@ -52,6 +49,16 @@ img {
     font-size: 1.2rem;
     line-height: 1.8;
     max-width: 800px;
+}
+
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
 }
 
 /* === HERO LOGO WRAPPER === */
@@ -101,16 +108,43 @@ img {
     border-radius: 12px;
 }
 
-/* === WARTA (BERITA) SECTION === */
+@media (max-width: 768px) {
+    .hero-logos-wrapper {
+        bottom: -50px;
+        right: 40px;
+    }
+
+    .logo-with-bg img {
+        height: 115px;
+        border-width: 6px;
+    }
+
+    .logo-with-bg:nth-child(2) img,
+    .logo-with-bg:nth-child(3) img {
+        width: 113px;
+    }
+
+    .logo-with-bg:nth-child(4) img {
+        width: 88px;
+    }
+
+    .hero-logos-wrapper .background-patch {
+        height: 38px;
+        width: 180px;
+        border-radius: 10px;
+    }
+}
+
+/* === WARTA SECTION === */
 .warta-section {
     padding: 2rem 0;
     position: relative;
     z-index: 0;
     overflow: hidden;
     background-color: transparent;
+    padding-top: 2rem;
 }
 
-/* Judul Section */
 .section-title {
     font-size: 2.2rem;
     font-weight: bold;
@@ -131,12 +165,21 @@ img {
     border-radius: 2px;
 }
 
-/* Carousel Warta */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+        margin: 1.5rem 0;
+    }
+}
+
+/* --- Carousel --- */
 .warta-container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
     padding: 0;
 }
 
@@ -148,7 +191,7 @@ img {
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16/9;
 }
 
 .carousel-track {
@@ -206,6 +249,7 @@ img {
     font-weight: bold;
     align-self: flex-start;
     margin-bottom: 0.8rem;
+    position: relative;
     z-index: 2;
 }
 
@@ -213,18 +257,40 @@ img {
     font-size: 2.8rem;
     font-weight: bold;
     line-height: 1.2;
-    margin: 0 0 0.8rem 0;
+    margin: 0 0 0.8rem;
     text-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
     width: 100%;
+    position: relative;
     z-index: 2;
 }
 
 .carousel-content p {
     font-size: 1.3rem;
     margin: 0;
+    position: relative;
     z-index: 2;
 }
 
+@media (max-width: 768px) {
+    .carousel-container {
+        aspect-ratio: 4/3;
+        max-width: unset;
+    }
+
+    .carousel-content {
+        padding: 1rem 1.5rem;
+    }
+
+    .carousel-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .carousel-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Carousel Dots */
 .carousel-dots {
     display: flex;
     justify-content: center;
@@ -247,12 +313,18 @@ img {
     border-color: #FFF0DC;
 }
 
-/* --- Warta Lama - Layout Horizontal --- */
+.slide-caption {
+    display: none;
+}
+
+/* --- Berita Lama --- */
 .warta-lama-wrapper {
-    padding: 2rem 0 20px 0;
+    padding: 2rem 0;
     white-space: normal;
+    padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
     background-color: transparent;
+    padding-top: 2rem;
 }
 
 .news-grid {
@@ -293,9 +365,9 @@ img {
     color: #333;
     background-color: #fff;
     height: 150px;
+    white-space: normal;
     width: 380px;
     flex-shrink: 0;
-    white-space: normal;
 }
 
 .news-card:hover {
@@ -347,8 +419,9 @@ img {
     margin-bottom: 0.5rem;
 }
 
+/* Hanya satu set untuk .news-title & .news-date */
 .news-title {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     margin: 0.5rem 0;
     line-height: 1.4;
@@ -361,12 +434,13 @@ img {
 }
 
 .news-date {
-    font-size: 0.9rem;
+    font-size: 0.5rem;
     color: #A55B15;
-    margin-top: auto;
+    margin: 0;
+    margin-top: 0.5rem;
 }
 
-/* === PENDAFTARAN EVENT === */
+/* === BAGIAN PENDAFTARAN EVENT === */
 .registration-section {
     padding: 1rem;
     background-color: transparent;
@@ -381,7 +455,7 @@ img {
 }
 
 .registration-card {
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -404,6 +478,18 @@ img {
     color: white;
 }
 
+.registration-card:hover .registration-icon {
+    color: white;
+}
+
+.registration-card:hover h3 {
+    color: white;
+}
+
+.registration-card:hover p {
+    color: #f7f7f7;
+}
+
 .registration-icon {
     font-size: 2.5rem;
     color: #3D1E00;
@@ -415,12 +501,42 @@ img {
     font-weight: bold;
     margin-bottom: 0.5rem;
     line-height: 1.3;
+    color: #3D1E00;
 }
 
 .registration-card p {
     font-size: 0.9rem;
     color: #666;
     margin-top: auto;
+}
+
+@media (max-width: 600px) {
+    .registration-cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+
+    .registration-card {
+        width: 200px;
+        flex-shrink: 0;
+        scrollbar-width: thin;
+        scrollbar-color: #A55B15 transparent;
+    }
+}
+
+.registration-cards::-webkit-scrollbar {
+    height: 5px;
+}
+
+.registration-cards::-webkit-scrollbar-thumb {
+    background-color: #A55B15;
+    border-radius: 1px;
+}
+
+.registration-cards::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
 /* === PELAYANAN UMUM === */
@@ -438,7 +554,7 @@ img {
 }
 
 .service-card {
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 1.5rem;
     border-radius: 10px;
     text-align: center;
@@ -455,10 +571,8 @@ img {
     color: white;
 }
 
-.service-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #3D1E00;
+.service-card:hover .service-icon {
+    color: white;
 }
 
 .service-card a {
@@ -472,89 +586,13 @@ img {
     line-height: 1.3;
 }
 
-/* === MEDIA QUERIES RESPONSIF === */
+.service-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #3D1E00;
+}
 
-/* ===== MOBILE SMALL (≤ 600px) ===== */
 @media (max-width: 600px) {
-
-    /* HERO SECTION */
-    .hero h2 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    /* HERO LOGOS */
-    .hero-logos-wrapper {
-        bottom: -50px;
-        right: 40px;
-    }
-
-    .logo-with-bg img {
-        height: 115px;
-        border-width: 6px;
-    }
-
-    .logo-with-bg:nth-child(2) img,
-    .logo-with-bg:nth-child(3) img {
-        width: 113px;
-    }
-
-    .logo-with-bg:nth-child(4) img {
-        width: 88px;
-    }
-
-    .hero-logos-wrapper .background-patch {
-        height: 38px;
-        width: 180px;
-        border-radius: 10px;
-    }
-
-    /* CAROUSEL */
-    .carousel-container {
-        aspect-ratio: 4 / 3;
-        max-width: unset;
-    }
-
-    .carousel-content {
-        padding: 1rem 1.5rem;
-    }
-
-    .carousel-content h3 {
-        font-size: 1.6rem;
-    }
-
-    .carousel-content p {
-        font-size: 0.9rem;
-    }
-
-    /* WARTA GRID */
-    .news-grid {
-        grid-template-rows: repeat(1, auto);
-    }
-
-    .news-card {
-        width: 70vw;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    /* REGISTRATION */
-    .registration-cards {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
-        gap: 1.5rem;
-    }
-
-    .registration-card {
-        width: 200px;
-        flex-shrink: 0;
-    }
-
-    /* SERVICE */
     .service-cards {
         flex-direction: column;
         align-items: center;
@@ -565,73 +603,18 @@ img {
     }
 }
 
-/* ===== MOBILE MEDIUM / TABLET (≤ 768px) ===== */
+/* Responsif Warta Lainnya */
+@media (max-width: 992px) {
+    .news-grid {
+        grid-template-rows: repeat(2, auto);
+    }
+
+    .news-card {
+        width: 350px;
+    }
+}
+
 @media (max-width: 768px) {
-
-    /* HERO SECTION */
-    .hero {
-        padding: 3rem 1.5rem 5rem;
-        min-height: 50vh;
-        margin-bottom: 1rem;
-    }
-
-    .hero-text {
-        max-width: 3500px;
-    }
-
-    .hero h2 {
-        font-size: 2.2rem;
-        line-height: 1.3;
-    }
-
-    .hero p {
-        font-size: 1.1rem;
-        max-width: 500px;
-    }
-
-    /* HERO LOGOS */
-    .hero-logos-wrapper {
-        bottom: -30px;
-        right: 30px;
-    }
-
-    .logo-with-bg img {
-        height: 125px;
-    }
-
-    .logo-with-bg:nth-child(2) img,
-    .logo-with-bg:nth-child(3) img {
-        width: 125px;
-    }
-
-    .logo-with-bg:nth-child(4) img {
-        width: 95px;
-    }
-
-    .hero-logos-wrapper .background-patch {
-        height: 40px;
-        width: 200px;
-        border-radius: 15px;
-    }
-
-    /* CAROUSEL */
-    .carousel-container {
-        aspect-ratio: 4 / 3;
-    }
-
-    .carousel-content {
-        padding: 1rem 1.5rem;
-    }
-
-    .carousel-content h3 {
-        font-size: 1.6rem;
-    }
-
-    .carousel-content p {
-        font-size: 0.9rem;
-    }
-
-    /* WARTA GRID */
     .news-grid {
         grid-template-rows: repeat(2, auto);
     }
@@ -643,15 +626,11 @@ img {
     }
 }
 
-/* ===== DESKTOP SMALL / LAPTOP (≤ 991px) ===== */
 @media (max-width: 991px) {
-
-    /* BODY */
     body {
-        padding-top: 0px;
+        padding-top: 0;
     }
 
-    /* HERO SECTION */
     .hero {
         padding: 3rem 1rem 4rem;
         min-height: 100vh;
@@ -660,6 +639,7 @@ img {
 
     .hero-text {
         max-width: 400px;
+        margin-bottom: 2rem;
     }
 
     .hero h2 {
@@ -672,14 +652,13 @@ img {
         max-width: 500px;
     }
 
-    /* CAROUSEL */
     .carousel-container {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 4/3;
         max-width: unset;
     }
 
     .carousel-content {
-        padding: 1rem 1rem;
+        padding: 1rem;
     }
 
     .carousel-content h3 {
@@ -688,43 +667,5 @@ img {
 
     .carousel-content p {
         font-size: 0.9rem;
-    }
-
-    /* WARTA GRID */
-    .news-title {
-        font-size: 0.8rem;
-    }
-
-    .news-date {
-        font-size: 0.5rem;
-        margin-top: 0.5;
-    }
-
-    .news-text-container {
-        padding: 0.5rem;
-    }
-
-    /* REGISTRATION */
-    .registration-cards {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
-        gap: 1.5rem;
-    }
-
-    .registration-card {
-        width: 150px;
-        height: 50%;
-    }
-}
-
-/* ===== DESKTOP MEDIUM / LAPTOP (≤ 992px) ===== */
-@media (max-width: 992px) {
-    .news-grid {
-        grid-template-rows: repeat(2, auto);
-    }
-
-    .news-card {
-        width: 350px;
     }
 }
