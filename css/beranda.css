@@ -70,7 +70,7 @@ img {
 /* === HERO LOGO WRAPPER === */
 .hero-logos-wrapper {
     position: absolute;
-    bottom: -60px;
+    bottom: -40px;
     right: 2rem;
     display: flex;
     align-items: flex-end;
@@ -712,5 +712,37 @@ img {
     /* Mengatur ulang padding-top untuk body di perangkat mobile */
     body {
         padding-top: 0px;
+    }
+
+    .hero {
+        position: relative;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+            Url('../images/gerbang.jpg') center/cover no-repeat;
+        padding: 4rem 2rem 6rem;
+        color: white;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 2rem;
+        /* Mengurangi jarak di bawah hero section */
+    }
+
+    .hero-text {
+        max-width: 800px;
+        margin-bottom: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 2.8rem;
+        line-height: 1.4;
+        font-weight: bold;
+    }
+
+    .hero p {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        max-width: 800px;
     }
 }
