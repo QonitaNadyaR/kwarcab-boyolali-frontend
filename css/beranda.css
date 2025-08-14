@@ -7,11 +7,10 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #FFF0DC;
+    background-color: #FFF0DC; /* Warna dasar body */
     color: #333;
     line-height: 1.6;
-    padding-top: 78px;
-    /* Mengimbangi header fixed */
+    padding-top: 78px; /* Mengimbangi header fixed di desktop */
 }
 
 img {
@@ -31,7 +30,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem; /* Mengurangi jarak di bawah hero section */
 }
 
 .hero-text {
@@ -99,7 +98,16 @@ img {
     border-radius: 12px;
 }
 
-/* === WARTA SECTION === */
+/* === WARTA (BERITA) SECTION === */
+.warta-section {
+    padding: 2rem 0;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+/* Judul Section */
 .section-title {
     font-size: 2.2rem;
     font-weight: bold;
@@ -120,7 +128,15 @@ img {
     border-radius: 2px;
 }
 
-/* Carousel */
+/* Carousel Warta */
+.warta-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+    padding: 0;
+}
+
 .carousel-container {
     position: relative;
     overflow: hidden;
@@ -129,7 +145,7 @@ img {
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    aspect-ratio: 16/9;
+    aspect-ratio: 16 / 9;
 }
 
 .carousel-track {
@@ -142,10 +158,23 @@ img {
     left: 0;
 }
 
+.carousel-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
 .carousel-slide img.slide-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }
 
 .carousel-content {
@@ -156,12 +185,13 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: flex-start;
     padding: 1.5rem 2.5rem;
-    background: linear-gradient(to top,
-            rgba(61, 30, 0, 0.9) 0%,
-            rgba(61, 30, 0, 0.5) 50%,
-            rgba(61, 30, 0, 0) 100%);
+    box-sizing: border-box;
+    background: linear-gradient(to top, rgba(61, 30, 0, 0.9) 0%, rgba(61, 30, 0, 0.5) 50%, rgba(61, 30, 0, 0) 100%);
     color: white;
+    text-decoration: none;
+    text-align: left;
 }
 
 .carousel-content .news-tag {
@@ -171,18 +201,57 @@ img {
     border-radius: 5px;
     font-size: 1rem;
     font-weight: bold;
+    align-self: flex-start;
     margin-bottom: 0.8rem;
+    z-index: 2;
 }
 
 .carousel-content h3 {
     font-size: 2.8rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0 0 0.8rem 0;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
+    width: 100%;
+    z-index: 2;
 }
 
 .carousel-content p {
     font-size: 1.3rem;
+    margin: 0;
+    z-index: 2;
 }
 
-/* Warta lainnya - horizontal grid */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: #BF9264;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #3D1E00;
+    border-color: #FFF0DC;
+}
+
+/* --- Warta Lama - Layout Horizontal --- */
+.warta-lama-wrapper {
+    padding: 2rem 0 20px 0;
+    white-space: normal;
+    -webkit-overflow-scrolling: touch;
+    background-color: transparent;
+}
+
 .news-grid {
     display: grid;
     grid-template-rows: repeat(3, auto);
@@ -191,9 +260,23 @@ img {
     padding: 0 1rem;
     margin-top: 1rem;
     overflow-x: auto;
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: #A55B15 transparent;
+}
+
+.news-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.news-grid::-webkit-scrollbar-thumb {
+    background-color: #A55B15;
+    border-radius: 10px;
+}
+
+.news-grid::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
 .news-card {
@@ -202,13 +285,91 @@ img {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: #333;
     background-color: #fff;
-    width: 380px;
     height: 150px;
+    width: 380px;
     flex-shrink: 0;
+    white-space: normal;
 }
 
-/* Registration cards */
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.news-image {
+    flex-shrink: 0;
+    width: 120px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image img {
+    transform: scale(1.05);
+}
+
+.news-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    flex-grow: 1;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.news-meta {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.news-text-container .news-tag {
+    background-color: #BF9264;
+    color: #3D1E00;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.news-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    color: #3D1E00;
+}
+
+.news-date {
+    font-size: 0.9rem;
+    color: #A55B15;
+    margin-top: auto;
+}
+
+/* === PENDAFTARAN EVENT === */
+.registration-section {
+    padding: 1rem;
+    background-color: transparent;
+    margin-top: 2rem;
+}
+
 .registration-cards {
     display: flex;
     flex-wrap: wrap;
@@ -217,121 +378,148 @@ img {
 }
 
 .registration-card {
-    width: 250px;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     padding: 1.5rem;
+    width: 250px;
+    text-decoration: none;
     color: #3D1E00;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
 }
 
 .registration-card:hover {
     transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background-color: #A55B15;
     color: white;
 }
 
-/* ===== MOBILE / TABLET ===== */
-@media (max-width: 992px) {
-    .news-grid {
-        grid-template-rows: repeat(2, auto);
-    }
-
-    .news-card {
-        width: 350px;
-    }
-
-    body {
-        padding-top: 0;
-    }
+.registration-icon {
+    font-size: 2.5rem;
+    color: #3D1E00;
+    margin-bottom: 1rem;
 }
 
+.registration-card h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.registration-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: auto;
+}
+
+/* === PELAYANAN UMUM === */
+.service-section {
+    padding: 1rem;
+    background-color: transparent;
+    margin-top: 2rem;
+}
+
+.service-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.service-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    color: #3D1E00;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    background-color: #A55B15;
+    color: white;
+}
+
+.service-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #3D1E00;
+}
+
+.service-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-card h3 {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
+/* === MEDIA QUERIES === */
+
+/* Mobile Hero & Logo */
 @media (max-width: 768px) {
-    .hero h2 {
-        font-size: 2rem;
-    }
+    .hero h2 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
 
-    .hero p {
-        font-size: 1rem;
-    }
-
-    /* Hero logo */
-    .hero-logos-wrapper {
-        bottom: -50px;
-        right: 40px;
-    }
-
-    .logo-with-bg img {
-        height: 115px;
-        border-width: 6px;
-    }
-
+    .hero-logos-wrapper { bottom: -50px; right: 40px; }
+    .logo-with-bg img { height: 115px; border-width: 6px; }
     .logo-with-bg:nth-child(2) img,
-    .logo-with-bg:nth-child(3) img {
-        width: 113px;
-    }
+    .logo-with-bg:nth-child(3) img { width: 113px; }
+    .logo-with-bg:nth-child(4) img { width: 88px; }
+    .hero-logos-wrapper .background-patch { height: 38px; width: 180px; border-radius: 10px; }
 
-    .logo-with-bg:nth-child(4) img {
-        width: 88px;
-    }
+    .carousel-container { aspect-ratio: 4 / 3; max-width: unset; }
+    .carousel-content { padding: 1rem 1.5rem; }
+    .carousel-content h3 { font-size: 1.6rem; }
+    .carousel-content p { font-size: 0.9rem; }
 
-    .hero-logos-wrapper .background-patch {
-        height: 38px;
-        width: 180px;
-        border-radius: 10px;
-    }
+    .news-grid { grid-template-rows: repeat(2, auto); }
+    .news-card { width: 70vw; max-width: 400px; margin: 0 auto; }
 
-    /* Carousel */
-    .carousel-container {
-        aspect-ratio: 4/3;
-        max-width: unset;
-    }
+    .service-cards { flex-direction: column; align-items: center; }
+    .service-card { width: 80%; }
 
-    .carousel-content {
-        padding: 1rem 1.5rem;
-    }
-
-    .carousel-content h3 {
-        font-size: 1.6rem;
-    }
-
-    .carousel-content p {
-        font-size: 0.9rem;
-    }
-
-    /* Warta */
-    .news-grid {
-        grid-template-rows: repeat(2, auto);
-    }
-
-    .news-card {
-        width: 70vw;
-        max-width: 400px;
-        margin: 0 auto;
-    }
+    .registration-cards { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; gap: 1.5rem; }
+    .registration-card { width: 200px; flex-shrink: 0; }
 }
 
-@media (max-width: 600px) {
+/* Medium screens / tablet */
+@media (max-width: 992px) {
+    .news-grid { grid-template-rows: repeat(2, auto); }
+    .news-card { width: 350px; }
+}
 
-    /* Registrasi & Service cards */
-    .registration-cards {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start;
-    }
+/* Small screens / mobile adjustments */
+@media (max-width: 991px) {
+    body { padding-top: 0px; }
 
-    .registration-card {
-        width: 200px;
-        flex-shrink: 0;
-    }
+    .hero { padding: 3rem 1rem 4rem; min-height: 100vh; margin-bottom: 0.8rem; }
+    .hero-text { max-width: 400px; }
+    .hero h2 { font-size: 2rem; line-height: 1.2; }
+    .hero p { font-size: 1.2rem; max-width: 500px; }
 
-    .service-cards {
-        flex-direction: column;
-        align-items: center;
-    }
+    .carousel-content { padding: 1rem 1rem; }
+    .carousel-content h3 { font-size: 1rem; }
+    .carousel-content p { font-size: 0.9rem; }
 
-    .service-card {
-        width: 80%;
-    }
+    .news-title { font-size: 0.8rem; }
+    .news-date { font-size: 0.5rem; margin-top: 0.5; }
+    .news-text-container { padding: 0.5rem; }
+
+    .registration-card { width: 150px; height: 50%; }
 }
