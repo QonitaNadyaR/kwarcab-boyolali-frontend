@@ -793,4 +793,20 @@ img {
         white-space: normal;
         overflow: hidden;
     }
+
+    .registration-cards {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+
+    .registration-card {
+        width: 150px;
+        flex-shrink: 0;
+        scrollbar-width: thin;
+        /* Firefox */
+        scrollbar-color: #A55B15 transparent;
+        /* Firefox */
+    }
 }
