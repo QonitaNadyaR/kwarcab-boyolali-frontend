@@ -162,8 +162,7 @@ table tbody tr:hover {
 @media (max-width: 768px) {
     body {
         padding-top: 60px;
-        display: flex;
-        justify-content: center;
+        /* Hapus properti flexbox di sini agar tidak mengganggu tata letak utama */
     }
 
     /* === Perbaikan Tabel === */
@@ -212,16 +211,18 @@ table tbody tr:hover {
         background-color: #f7f7f7;
     }
 
+    /* Properti ini yang mengatur tata letak card di dalam main.container */
+    main.container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     main.container .section-spacing {
         /* Properti ini yang mengatur lebar keseluruhan card */
         width: 115%;
-
-        /* Properti ini mengatur jarak di dalam card */
         padding: 2rem;
-
-        /* Jarak antar setiap card */
         margin-bottom: 2rem;
-
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
