@@ -1,5 +1,8 @@
 // frontend/js/dokumentasi.js
 
+// Impor variabel dari utils.js
+import { API_BASE_URL, BASE_URL } from './utils.js';
+
 // Fungsi helper untuk menyembunyikan/menampilkan elemen
 function showElement(elementId, display = 'block') {
     const element = document.getElementById(elementId);
@@ -10,11 +13,6 @@ function hideElement(elementId) {
     const element = document.getElementById(elementId);
     if (element) element.style.display = 'none';
 }
-
-// Definisikan API_BASE_URL
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:4000/api'
-    : 'https://kwarcab-backend.vercel.app/api';
 
 // Fungsi untuk memuat dan menampilkan daftar foto dokumentasi
 async function loadFotoDokumentasi() {
@@ -31,7 +29,7 @@ async function loadFotoDokumentasi() {
     galeriGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        // PERBAIKAN: Menggunakan rute API yang benar untuk foto
+        // Menggunakan rute API yang benar untuk foto
         const response = await fetch(`${API_BASE_URL}/dokumentasi/foto`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,8 +46,7 @@ async function loadFotoDokumentasi() {
 
         fotoData.forEach(foto => {
             const date = foto.uploaded_at ? new Date(foto.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            // PERBAIKAN: Menggunakan properti yang benar
-            const filePath = foto.url;
+            const filePath = foto.url; // Asumsikan URL lengkap dari backend
 
             const photoItem = document.createElement('div');
             photoItem.classList.add('photo-item');
@@ -90,7 +87,7 @@ async function loadVideoDokumentasi() {
     videoGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        // PERBAIKAN: Menggunakan rute API yang benar untuk video
+        // Menggunakan rute API yang benar untuk video
         const response = await fetch(`${API_BASE_URL}/dokumentasi/video`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -107,8 +104,7 @@ async function loadVideoDokumentasi() {
 
         videoData.forEach(video => {
             const date = video.uploaded_at ? new Date(video.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            // PERBAIKAN: Menggunakan properti yang benar
-            const videoPath = video.url;
+            const videoPath = video.url; // Asumsikan URL lengkap dari backend
 
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
