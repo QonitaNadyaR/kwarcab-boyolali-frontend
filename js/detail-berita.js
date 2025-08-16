@@ -47,12 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return;
     }
-
-    // Tampilkan pesan loading
-    if (newsDetailSection) {
-        newsDetailSection.innerHTML = '<p class="loading-message">Memuat detail berita...</p>';
-    }
-
+    
     try {
         const response = await fetch(`${API_BASE_URL}/warta/${newsId}`);
 
