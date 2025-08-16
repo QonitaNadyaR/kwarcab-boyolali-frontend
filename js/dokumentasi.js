@@ -11,6 +11,11 @@ function hideElement(elementId) {
     if (element) element.style.display = 'none';
 }
 
+// Definisikan API_BASE_URL
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:4000/api'
+    : 'https://kwarcab-backend.vercel.app/api';
+
 // Fungsi untuk memuat dan menampilkan daftar foto dokumentasi
 async function loadFotoDokumentasi() {
     const galeriGridDiv = document.getElementById('galeri-grid');
@@ -26,12 +31,12 @@ async function loadFotoDokumentasi() {
     galeriGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
+        // PERBAIKAN: Menggunakan rute API yang benar untuk foto
+        const response = await fetch(`${API_BASE_URL}/dokumentasi/foto`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const allDokumentasi = await response.json();
-        const fotoData = allDokumentasi.filter(item => item.jenis === 'foto');
+        const fotoData = await response.json();
 
         hideElement('loading-foto');
 
@@ -43,7 +48,8 @@ async function loadFotoDokumentasi() {
 
         fotoData.forEach(foto => {
             const date = foto.uploaded_at ? new Date(foto.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            const filePath = `/images/dokumentasi/${foto.filename}`;
+            // PERBAIKAN: Menggunakan properti yang benar
+            const filePath = foto.url;
 
             const photoItem = document.createElement('div');
             photoItem.classList.add('photo-item');
@@ -84,12 +90,12 @@ async function loadVideoDokumentasi() {
     videoGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
+        // PERBAIKAN: Menggunakan rute API yang benar untuk video
+        const response = await fetch(`${API_BASE_URL}/dokumentasi/video`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const allDokumentasi = await response.json();
-        const videoData = allDokumentasi.filter(item => item.jenis === 'video');
+        const videoData = await response.json();
 
         hideElement('loading-video');
 
@@ -101,7 +107,8 @@ async function loadVideoDokumentasi() {
 
         videoData.forEach(video => {
             const date = video.uploaded_at ? new Date(video.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            const videoPath = `/videos/dokumentasi/${video.filename}`;
+            // PERBAIKAN: Menggunakan properti yang benar
+            const videoPath = video.url;
 
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
@@ -133,4 +140,3 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFotoDokumentasi();
     loadVideoDokumentasi();
 });
-
