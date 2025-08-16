@@ -65,15 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         anggotaNonPengurus.forEach((anggota, index) => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
-                                <td>${index + 1}</td>
                                 <td>${anggota.no_reg || ''}</td>
                                 <td>${anggota.nama || ''}</td>
                                 <td>${anggota.pangkalan || ''}</td>
                                 <td>${anggota.ttl || ''}</td>
                                 <td>${anggota.kwartir_ranting || ''}</td>
                                 <td>${anggota.golongan_anggota || ''}</td>
-                                <td>${anggota.tahun || ''}</td>
-                            `;
+                                <td>${anggota.tahun || ''}</td> `;
                             anggotaTableBody.appendChild(row);
                         });
                     } else {
