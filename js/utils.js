@@ -1,11 +1,13 @@
 // frontend/js/utils.js
 
 // Tentukan BASE_URL sesuai environment (localhost / production)
-export const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:4000/api'
     : 'https://kwarcab-backend.vercel.app/api';
 
 // Versi tanpa /api untuk URL gambar dan frontend
+const BASE_URL_NO_API = API_BASE_URL.replace('/api', '');
+
 export const BASE_URL = API_BASE_URL.replace('/api', '');
 
 /**
@@ -158,5 +160,5 @@ export function getImageUrl(imagePath) {
     if (imagePath.startsWith('http')) {
         return imagePath;
     }
-    return `${BASE_URL}${imagePath}`;
+    return `${BASE_URL_NO_API}${imagePath}`;
 }
