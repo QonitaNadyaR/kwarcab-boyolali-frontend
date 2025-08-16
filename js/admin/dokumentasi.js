@@ -1,3 +1,5 @@
+// frontend/js/admin/dokumentasi.js
+
 import { fetchData, sendData, deleteData, showAlert, resetForm, BASE_URL } from '../utils.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
@@ -32,7 +34,15 @@ const handleDokumentasiSubmit = async (e) => {
 
     const formData = new FormData(dokumentasiForm);
     try {
-        const result = await sendData('dokumentasi', 'POST', formData, true);
+        // Ambil jenis dari form untuk menentukan endpoint
+        const jenis = formData.get('jenis');
+        if (!jenis) {
+            showAlert('Jenis dokumentasi (foto/video) harus dipilih.', 'error');
+            return;
+        }
+
+        const endpoint = `dokumentasi/${jenis}`;
+        const result = await sendData(endpoint, 'POST', formData, true);
         showAlert(result.message || 'Berhasil upload dokumentasi');
         dokumentasiForm.reset();
         loadDokumentasi();
@@ -54,11 +64,9 @@ export const loadDokumentasi = async () => {
     if (videoKegiatanGrid) videoKegiatanGrid.innerHTML = '';
 
     try {
-        // Sekarang backend hanya akan mengembalikan filename untuk video (tidak ada 'link')
-        const data = await fetchData('dokumentasi');
-
-        const fotoData = data.filter(item => item.jenis === 'foto');
-        const videoData = data.filter(item => item.jenis === 'video');
+        // PERBAIKAN UTAMA: Memisahkan panggilan API untuk foto dan video
+        const fotoData = await fetchData('dokumentasi/foto');
+        const videoData = await fetchData('dokumentasi/video');
 
         // Render Foto
         hideElement(loadingFoto);
@@ -70,7 +78,7 @@ export const loadDokumentasi = async () => {
             fotoData.forEach(item => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
-                photoItem.setAttribute('data-id', item.id);
+                photoItem.setAttribute('data-id', item._id); // Menggunakan _id dari MongoDB
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -78,17 +86,19 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
+                const imageUrl = `${BASE_URL}/images/dokumentasi/${item.filename}`;
+
                 photoItem.innerHTML = `
-                    <a href="/images/dokumentasi/${item.filename}" data-lightbox="galeri" data-title="${item.judul}">
+                    <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
                         <div class="photo-wrapper">
-                            <img src="/images/dokumentasi/${item.filename}" alt="${item.judul}" loading="lazy">
+                            <img src="${imageUrl}" alt="${item.judul}" loading="lazy">
                             <div class="photo-overlay">
                                 <h4>${item.judul}</h4>
                                 <p class="photo-date">${date}</p>
                             </div>
                         </div>
                     </a>
-                    <button class="delete-btn" data-id="${item.id}" data-jenis="foto">Hapus</button>
+                    <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
                 `;
                 if (galeriFotoGrid) galeriFotoGrid.appendChild(photoItem);
             });
@@ -104,7 +114,7 @@ export const loadDokumentasi = async () => {
             videoData.forEach(item => {
                 const videoItem = document.createElement('div');
                 videoItem.className = 'video-item';
-                videoItem.setAttribute('data-id', item.id);
+                videoItem.setAttribute('data-id', item._id); // Menggunakan _id dari MongoDB
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -113,11 +123,10 @@ export const loadDokumentasi = async () => {
                 }) : 'Tanggal tidak tersedia';
 
                 let videoEmbedHtml = '';
-
                 if (item.filename) {
-                    const videoPathMP4 = `/videos/dokumentasi/${item.filename}`;
+                    const videoPathMP4 = `${BASE_URL}/videos/dokumentasi/${item.filename}`;
                     // Jika ada thumbnail terpisah untuk video lokal
-                    const posterPath = item.thumbnail_filename ? `/videos/dokumentasi/thumbnails/${item.thumbnail_filename}` : '';
+                    const posterPath = item.thumbnail_filename ? `${BASE_URL}/videos/dokumentasi/thumbnails/${item.thumbnail_filename}` : '';
 
                     videoEmbedHtml = `
                         <video controls ${posterPath ? `poster="${posterPath}"` : ''} aria-label="${item.judul}">
@@ -137,7 +146,7 @@ export const loadDokumentasi = async () => {
                             <p class="video-date">${date}</p>
                         </div>
                     </div>
-                    <button class="delete-btn" data-id="${item.id}" data-jenis="video">Hapus</button>
+                    <button class="delete-btn" data-id="${item._id}" data-jenis="video">Hapus</button>
                 `;
                 if (videoKegiatanGrid) videoKegiatanGrid.appendChild(videoItem);
             });
@@ -157,8 +166,8 @@ export const loadDokumentasi = async () => {
         showElement(errorFoto);
         errorFoto.textContent = `Gagal memuat dokumentasi: ${err.message}`;
         hideElement(loadingVideo);
-        hideElement(errorVideo);
-        hideElement(noVideo);
+        showElement(errorVideo); // Tampilkan juga error untuk video
+        errorVideo.textContent = `Gagal memuat video: ${err.message}`;
         showAlert(`Gagal memuat dokumentasi: ${err.message}`, 'error');
     }
 };
@@ -168,10 +177,9 @@ const deleteDokumentasi = async (id, jenis) => {
         return;
     }
 
-    const queryParams = `jenis=${jenis}`;
-
     try {
-        const result = await deleteData('dokumentasi', id, queryParams);
+        const endpoint = `dokumentasi/${jenis}/${id}`;
+        const result = await deleteData(endpoint);
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
     } catch (err) {
