@@ -148,6 +148,7 @@ table td {
     padding: 12px 15px;
     border: 1px solid #ddd;
     vertical-align: top;
+    white-space: nowrap;
 }
 
 table tbody tr:nth-child(even) {
