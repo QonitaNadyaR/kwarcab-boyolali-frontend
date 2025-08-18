@@ -51,7 +51,9 @@ const handleDokumentasiSubmit = async (e) => {
 
     const jenis = jenisInput.value;
     const formData = new FormData();
-    formData.append('judul', judulInput.value);
+    formData.append("file", fileInput.files[0]);
+    formData.append("judul", judul);
+
 
     // Perbaikan: Sesuaikan nama field dengan yang diharapkan backend
     if (jenis === 'foto') {
