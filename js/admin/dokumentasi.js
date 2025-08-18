@@ -120,8 +120,8 @@ export const loadDokumentasi = async () => {
                             </div>
                         </div>
                     </a>
-                    <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
-                `;
+                   <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
+    `;
                 if (galeriFotoGrid) galeriFotoGrid.appendChild(photoItem);
             });
         }
@@ -168,7 +168,7 @@ export const loadDokumentasi = async () => {
                         </div>
                     </div>
                     <button class="delete-btn" data-id="${item._id}" data-jenis="video">Hapus</button>
-                `;
+    `;
                 if (videoKegiatanGrid) videoKegiatanGrid.appendChild(videoItem);
             });
         }
