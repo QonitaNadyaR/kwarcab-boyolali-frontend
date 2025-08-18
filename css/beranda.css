@@ -115,12 +115,18 @@ img {
 }
 
 @media (max-width: 768px) {
-
-    /* Aturan untuk tampilan mobile */
     .hero-logos-wrapper {
         bottom: -50px;
-        right: 60px;
-        /* Mengubah ukuran logo agar lebih kecil */
+        /* geser ke bawah */
+        right: 30px;
+        /* geser ke kiri */
+        justify-content: center;
+        /* biar rapi di tengah */
+        left: 0;
+        /* aktifkan kiri supaya bisa center */
+        right: 0;
+        /* reset kanan */
+        margin: 0 auto;
     }
 
     .logo-with-bg img {
