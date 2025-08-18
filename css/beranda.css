@@ -114,29 +114,36 @@ img {
 @media (max-width: 768px) {
     .hero-logos-wrapper {
         bottom: -50px;
-        right: 30px;
-        /* Mengubah ukuran logo agar lebih kecil */
+        /* geser ke bawah */
+        justify-content: center;
+        /* biar rapi di tengah */
+        left: 0;
+        /* aktifkan kiri supaya bisa center */
+        right: 0;
+        /* reset kanan */
+        margin: 0 auto;
     }
+}
 
-    .logo-with-bg img {
-        height: 115px;
-        border-width: 6px;
-    }
+.logo-with-bg img {
+    height: 115px;
+    border-width: 6px;
+}
 
-    .logo-with-bg:nth-child(2) img,
-    .logo-with-bg:nth-child(3) img {
-        width: 113px;
-    }
+.logo-with-bg:nth-child(2) img,
+.logo-with-bg:nth-child(3) img {
+    width: 113px;
+}
 
-    .logo-with-bg:nth-child(4) img {
-        width: 88px;
-    }
+.logo-with-bg:nth-child(4) img {
+    width: 88px;
+}
 
-    .hero-logos-wrapper .background-patch {
-        height: 38px;
-        width: 180px;
-        border-radius: 10px;
-    }
+.hero-logos-wrapper .background-patch {
+    height: 38px;
+    width: 180px;
+    border-radius: 10px;
+}
 }
 
 /* --- Warta (Berita) Section --- */
