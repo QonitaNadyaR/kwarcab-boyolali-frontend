@@ -199,7 +199,9 @@ const deleteDokumentasi = async (id, jenis) => {
     }
 
     try {
+        // Perbaiki endpoint agar hanya menggunakan satu parameter ID
         const endpoint = `dokumentasi/${jenis}/${id}`;
+
         const result = await deleteData(endpoint);
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
