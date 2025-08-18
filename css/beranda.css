@@ -147,7 +147,7 @@ img {
 
 /* --- Warta (Berita) Section --- */
 .warta-section {
-    padding: 2rem 0;
+    padding: 2rem;
     position: relative;
     z-index: 0;
     overflow: hidden;
