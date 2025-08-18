@@ -180,7 +180,7 @@ img {
 @media (max-width: 768px) {
     .section-title {
         font-size: 1.8rem;
-        margin-top: 6rem;
+        margin-top: 3rem;
         margin-bottom: 1.5rem;
     }
 }
@@ -335,7 +335,7 @@ img {
 
 /* --- Berita Lama - Layout Horizontal dengan Grid --- */
 .warta-lama-wrapper {
-    padding: 1rem 0;
+    padding: 0rem 0;
     white-space: normal;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
