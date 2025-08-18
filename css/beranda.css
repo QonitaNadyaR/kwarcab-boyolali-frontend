@@ -144,7 +144,6 @@ img {
     width: 180px;
     border-radius: 10px;
 }
-}
 
 /* --- Warta (Berita) Section --- */
 .warta-section {
@@ -532,13 +531,15 @@ img {
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
-        gap: 1.5rem;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+        /* kasih ruang buat scroll bar */
     }
 
     .registration-card {
-        width: clamp(90px, 30vw, 140px); 
-        scrollbar-width: thin;
-        scrollbar-color: #A55B15 transparent;
+        width: clamp(160px, 70vw, 220px);
+        /* min 160px biar teks muat, ideal 70% layar, max 220px */
+        flex-shrink: 0;
     }
 }
 
