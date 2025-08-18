@@ -181,7 +181,7 @@ img {
 @media (max-width: 768px) {
     .section-title {
         font-size: 1.8rem;
-        margin-top: 5rem;
+        margin-top: 6rem;
         margin-bottom: 1.5rem;
     }
 }
@@ -461,7 +461,7 @@ img {
 .registration-section {
     padding: 1rem;
     background-color: transparent;
-    margin-top: 2rem;
+    margin-top: 0.5rem;
 }
 
 .registration-cards {
@@ -560,7 +560,7 @@ img {
 .service-section {
     padding: 1rem;
     background-color: transparent;
-    margin-top: 2rem;
+    margin-top: 0.5rem;
 }
 
 .service-cards {
