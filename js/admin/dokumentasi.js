@@ -1,6 +1,6 @@
 // frontend/js/admin/dokumentasi.js
 
-import { fetchData, sendData, deleteData, showAlert, resetForm, BASE_URL } from '../utils.js';
+import { fetchData, sendData, deleteData, showAlert, resetForm, API_BASE_URL } from '../utils.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
 const galeriFotoGrid = document.getElementById('galeri-grid');
@@ -26,6 +26,16 @@ export const initDokumentasi = () => {
     } else {
         console.warn("Dokumentasi form not found, skipping Dokumentasi form initialization.");
     }
+
+    // Pasang event listener untuk tombol delete hanya sekali di level dokumen
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-btn')) {
+            const id = e.target.dataset.id;
+            const jenis = e.target.dataset.jenis;
+            deleteDokumentasi(id, jenis);
+        }
+    });
+
     loadDokumentasi();
 };
 
@@ -53,7 +63,7 @@ const handleDokumentasiSubmit = async (e) => {
     const formData = new FormData();
     formData.append('judul', judulInput.value);
 
-    // Perbaikan KRUSIAL: Sesuaikan nama field dengan yang diharapkan backend
+    // Pastikan nama field di frontend ('image' atau 'video') cocok dengan backend
     if (jenis === 'foto') {
         formData.append('image', fileInput.files[0]);
     } else if (jenis === 'video') {
@@ -100,7 +110,6 @@ export const loadDokumentasi = async () => {
             fotoData.forEach(item => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
-                photoItem.setAttribute('data-id', item._id);
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -108,7 +117,7 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
-                const imageUrl = `${BASE_URL}/images/dokumentasi/${item.filename}`;
+                const imageUrl = item.url; // Gunakan URL dari Cloudinary yang sudah disimpan di database
 
                 photoItem.innerHTML = `
                     <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
@@ -120,8 +129,8 @@ export const loadDokumentasi = async () => {
                             </div>
                         </div>
                     </a>
-                   <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
-    `;
+                    <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
+                `;
                 if (galeriFotoGrid) galeriFotoGrid.appendChild(photoItem);
             });
         }
@@ -136,7 +145,6 @@ export const loadDokumentasi = async () => {
             videoData.forEach(item => {
                 const videoItem = document.createElement('div');
                 videoItem.className = 'video-item';
-                videoItem.setAttribute('data-id', item._id);
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -145,12 +153,11 @@ export const loadDokumentasi = async () => {
                 }) : 'Tanggal tidak tersedia';
 
                 let videoEmbedHtml = '';
-                if (item.filename) {
-                    const videoPathMP4 = `${BASE_URL}/videos/dokumentasi/${item.filename}`;
-                    const posterPath = item.thumbnail_filename ? `${BASE_URL}/videos/dokumentasi/thumbnails/${item.thumbnail_filename}` : '';
+                if (item.url) { // Gunakan URL dari Cloudinary yang sudah disimpan di database
+                    const videoPathMP4 = item.url;
 
                     videoEmbedHtml = `
-                        <video controls ${posterPath ? `poster="${posterPath}"` : ''} aria-label="${item.judul}">
+                        <video controls aria-label="${item.judul}">
                             <source src="${videoPathMP4}" type="video/mp4">
                             Maaf, browser Anda tidak mendukung pemutaran video ini.
                         </video>
@@ -168,18 +175,10 @@ export const loadDokumentasi = async () => {
                         </div>
                     </div>
                     <button class="delete-btn" data-id="${item._id}" data-jenis="video">Hapus</button>
-    `;
+                `;
                 if (videoKegiatanGrid) videoKegiatanGrid.appendChild(videoItem);
             });
         }
-
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.dataset.id;
-                const jenis = e.target.dataset.jenis;
-                deleteDokumentasi(id, jenis);
-            });
-        });
 
     } catch (err) {
         console.error('Gagal load dokumentasi:', err);
@@ -199,9 +198,7 @@ const deleteDokumentasi = async (id, jenis) => {
     }
 
     try {
-        // Perbaiki endpoint agar hanya menggunakan satu parameter ID
         const endpoint = `dokumentasi/${jenis}/${id}`;
-
         const result = await deleteData(endpoint);
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
