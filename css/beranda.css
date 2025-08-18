@@ -11,8 +11,11 @@ body {
     /* Warna dasar body */
     color: #333;
     line-height: 1.6;
+}
+
+/* Padding atas untuk mengimbangi header fixed di desktop */
+body {
     padding-top: 78px;
-    /* Padding atas untuk mengimbangi header fixed di desktop */
 }
 
 img {
@@ -112,59 +115,34 @@ img {
 }
 
 @media (max-width: 768px) {
+
+    /* Aturan untuk tampilan mobile */
     .hero-logos-wrapper {
         bottom: -50px;
-        right: 30px;
+        right: 60px;
         /* Mengubah ukuran logo agar lebih kecil */
-        /* geser ke bawah */
-        justify-content: center;
-        /* biar rapi di tengah */
-        left: 0;
-        /* aktifkan kiri supaya bisa center */
-        right: 0;
-        /* reset kanan */
-        margin: 0 auto;
     }
-}
 
-.logo-with-bg img {
-    height: 115px;
-    border-width: 6px;
-}
+    .logo-with-bg img {
+        height: 115px;
+        border-width: 6px;
+    }
 
-.logo-with-bg img {
-    height: 115px;
-    border-width: 6px;
-}
+    .logo-with-bg:nth-child(2) img,
+    .logo-with-bg:nth-child(3) img {
+        width: 113px;
+    }
 
-.logo-with-bg:nth-child(2) img,
-.logo-with-bg:nth-child(3) img {
-    width: 113px;
-}
+    .logo-with-bg:nth-child(4) img {
+        width: 88px;
+    }
 
-.logo-with-bg:nth-child(2) img,
-.logo-with-bg:nth-child(3) img {
-    width: 113px;
-}
-
-.logo-with-bg:nth-child(4) img {
-    width: 88px;
-}
-
-.logo-with-bg:nth-child(4) img {
-    width: 88px;
-}
-
-.hero-logos-wrapper .background-patch {
-    height: 38px;
-    width: 180px;
-    border-radius: 10px;
-}
-
-.hero-logos-wrapper .background-patch {
-    height: 38px;
-    width: 180px;
-    border-radius: 10px;
+    .hero-logos-wrapper .background-patch {
+        /* Menyesuaikan ukuran background patch agar tetap di belakang logo */
+        height: 38px;
+        width: 180px;
+        border-radius: 10px;
+    }
 }
 
 /* --- Warta (Berita) Section --- */
@@ -175,6 +153,7 @@ img {
     overflow: hidden;
     background-color: transparent;
     /* Latar belakang transparan */
+    padding-top: 2rem;
 }
 
 /* === Judul Bagian Umum (misal: "Warta Terbaru") === */
@@ -182,8 +161,10 @@ img {
     font-size: 2.2rem;
     font-weight: bold;
     color: #3D1E00;
+    /* Warna teks judul */
     text-align: center;
     margin-top: 2rem;
+    /* Jarak standar dari elemen sebelumnya */
     margin-bottom: 2rem;
     position: relative;
     padding-bottom: 0.5rem;
@@ -195,10 +176,12 @@ img {
     width: 80px;
     height: 4px;
     background-color: #A55B15;
+    /* Warna garis bawah judul yang lebih cerah */
     margin: 10px auto 0;
     border-radius: 2px;
 }
 
+/* Media query untuk section-title */
 @media (max-width: 768px) {
     .section-title {
         font-size: 1.8rem;
@@ -270,7 +253,11 @@ img {
     align-items: flex-start;
     padding: 1.5rem 2.5rem;
     box-sizing: border-box;
-    background: linear-gradient(to top, rgba(61, 30, 0, 0.9) 0%, rgba(61, 30, 0, 0.5) 50%, rgba(61, 30, 0, 0) 100%);
+
+    background: linear-gradient(to top,
+            rgba(61, 30, 0, 0.9) 0%,
+            rgba(61, 30, 0, 0.5) 50%,
+            rgba(61, 30, 0, 0) 100%);
     color: white;
     text-decoration: none;
     text-align: left;
@@ -309,6 +296,7 @@ img {
     z-index: 2;
 }
 
+/* --- Media query untuk responsivitas carousel --- */
 @media (max-width: 768px) {
     .carousel-container {
         aspect-ratio: 4 / 3;
@@ -328,7 +316,6 @@ img {
     }
 }
 
-/* --- Carousel Dots --- */
 .carousel-dots {
     display: flex;
     justify-content: center;
@@ -355,46 +342,68 @@ img {
     display: none;
 }
 
+
 /* --- Berita Lama - Layout Horizontal dengan Grid --- */
 .warta-lama-wrapper {
     padding: 2rem 0;
+    /* overflow-x: auto; - Akan dipindahkan ke .news-grid */
     white-space: normal;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
+    /* scrollbar-width: thin; - Akan dipindahkan ke .news-grid */
+    /* scrollbar-color: #BF9264 transparent; - Akan dipindahkan ke .news-grid */
     background-color: transparent;
+    /* Latar belakang transparan */
     padding-top: 2rem;
 }
 
 .news-grid {
     display: grid;
+    /* Perubahan Kunci: Layout 3 baris dan aliran kolom */
     grid-template-rows: repeat(3, auto);
+    /* Membatasi 3 baris, tinggi otomatis */
     grid-auto-flow: column;
+    /* Item akan mengisi kolom baru secara horizontal */
     gap: 20px;
+    /* Jarak antar item warta */
     padding: 0 1rem;
     margin-top: 1rem;
+
+    /* Mengaktifkan scroll horizontal pada kontainer news-grid itu sendiri */
     overflow-x: auto;
     scroll-behavior: smooth;
+    /* Untuk efek geser yang lebih halus */
     -webkit-overflow-scrolling: touch;
+    /* Untuk scroll halus di iOS */
+
+    /* Kustomisasi scrollbar untuk .news-grid */
     scrollbar-width: thin;
+    /* Firefox */
     scrollbar-color: #A55B15 transparent;
+    /* thumb track */
 }
 
+/* Kustomisasi scrollbar untuk Webkit (Chrome, Safari) */
 .news-grid::-webkit-scrollbar {
     height: 8px;
+    /* Tinggi scrollbar */
 }
 
 .news-grid::-webkit-scrollbar-thumb {
     background-color: #A55B15;
+    /* Warna thumb scrollbar */
     border-radius: 10px;
 }
 
 .news-grid::-webkit-scrollbar-track {
     background-color: transparent;
+    /* Warna track scrollbar */
 }
 
 .news-card {
     display: flex;
     flex-direction: row;
+    /* Tetap horizontal */
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -403,9 +412,13 @@ img {
     color: #333;
     background-color: #fff;
     height: 150px;
+    /* Tinggi kartu tetap */
     white-space: normal;
+    /* Penting: berikan lebar tetap agar kartu tidak menyusut dan dapat digeser */
     width: 380px;
+    /* Sesuaikan lebar ini sesuai kebutuhan agar 3 item bisa pas atau lebih, lalu geser */
     flex-shrink: 0;
+    /* Pastikan kartu tidak menyusut */
 }
 
 .news-card:hover {
@@ -457,7 +470,7 @@ img {
     margin-bottom: 0.5rem;
 }
 
-/* === NEWS TITLE & DATE (Desktop) === */
+
 .news-title {
     font-size: 1rem;
     font-weight: bold;
@@ -482,6 +495,7 @@ img {
 .registration-section {
     padding: 1rem;
     background-color: transparent;
+    /* Latar belakang transparan */
     margin-top: 2rem;
 }
 
@@ -494,6 +508,7 @@ img {
 
 .registration-card {
     background-color: #ffffff;
+    /* Latar belakang card lebih terang dari body */
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -501,6 +516,7 @@ img {
     width: 250px;
     text-decoration: none;
     color: #3D1E00;
+    /* Warna teks default di card (dark brown) */
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -513,24 +529,31 @@ img {
     transform: translateY(-8px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     background-color: #A55B15;
+    /* Warna background saat hover (Orange-Brown) */
     color: white;
+    /* Teks putih saat hover */
 }
 
 .registration-card:hover .registration-icon {
     color: white;
+    /* Warna ikon putih saat hover */
 }
 
 .registration-card:hover h3 {
     color: white;
+    /* Warna judul putih saat hover */
 }
 
 .registration-card:hover p {
     color: #f7f7f7;
+    /* Warna paragraf agak putih saat hover */
 }
+
 
 .registration-icon {
     font-size: 2.5rem;
     color: #3D1E00;
+    /* Warna ikon (Orange-Brown) */
     margin-bottom: 1rem;
 }
 
@@ -540,14 +563,17 @@ img {
     margin-bottom: 0.5rem;
     line-height: 1.3;
     color: #3D1E00;
+    /* Warna judul card */
 }
 
 .registration-card p {
     font-size: 0.9rem;
     color: #666;
+    /* Warna teks info */
     margin-top: auto;
 }
 
+/* Media Queries untuk responsivitas */
 @media (max-width: 600px) {
     .registration-cards {
         flex-wrap: nowrap;
@@ -560,7 +586,9 @@ img {
         width: 200px;
         flex-shrink: 0;
         scrollbar-width: thin;
+        /* Firefox */
         scrollbar-color: #A55B15 transparent;
+        /* Firefox */
     }
 }
 
@@ -581,6 +609,7 @@ img {
 .service-section {
     padding: 1rem;
     background-color: transparent;
+    /* Latar belakang transparan */
     margin-top: 2rem;
 }
 
@@ -593,11 +622,13 @@ img {
 
 .service-card {
     background-color: #ffffff;
+    /* Latar belakang card service (Medium Brown/Tan) */
     padding: 1.5rem;
     border-radius: 10px;
     text-align: center;
     width: 200px;
     color: #3D1E00;
+    /* Teks dark brown untuk kontras dengan latar card */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, background-color 0.3s ease;
     font-weight: bold;
@@ -606,12 +637,16 @@ img {
 .service-card:hover {
     transform: translateY(-5px);
     background-color: #A55B15;
+    /* Warna Orange-Brown saat hover */
     color: white;
+    /* Teks putih saat hover */
 }
 
 .service-card:hover .service-icon {
     color: white;
+    /* Ikon putih saat hover */
 }
+
 
 .service-card a {
     text-decoration: none;
@@ -628,6 +663,7 @@ img {
     font-size: 2rem;
     margin-bottom: 0.5rem;
     color: #3D1E00;
+    /* Warna ikon dark brown */
 }
 
 @media (max-width: 600px) {
@@ -645,86 +681,36 @@ img {
 @media (max-width: 992px) {
     .news-grid {
         grid-template-rows: repeat(2, auto);
+        /* 2 baris untuk layar menengah */
     }
 
     .news-card {
         width: 350px;
+        /* Sesuaikan lebar kartu untuk 2 baris agar tetap proporsional */
     }
 }
 
 @media (max-width: 768px) {
     .news-grid {
         grid-template-rows: repeat(2, auto);
+        /* 1 baris untuk layar kecil */
+        /* Pastikan grid hanya memiliki 1 baris di mobile agar item bisa diskroll secara individual */
     }
 
     .news-card {
         width: 70vw;
+        /* Lebar relatif untuk perangkat sangat kecil */
         max-width: 400px;
+        /* Batas lebar agar tidak terlalu besar di mobile */
         margin: 0 auto;
-    }
-
-    /* === NEWS TITLE & DATE MOBILE === */
-    .news-title {
-        font-size: 0.8rem;
-        line-height: 1.2;
-    }
-
-    .news-date {
-        font-size: 0.5rem;
-        margin-top: 0.5rem;
+        /* Tengah item jika hanya 1 per baris */
     }
 }
 
 @media (max-width: 991px) {
+
+    /* Mengatur ulang padding-top untuk body di perangkat mobile */
     body {
         padding-top: 0px;
-    }
-
-    .hero {
-        position: relative;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
-            Url('../images/gerbang.jpg') center/cover no-repeat;
-        padding: 3rem 1rem 4rem;
-        color: white;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-bottom: 0.8rem;
-    }
-
-    .hero-text {
-        max-width: 400px;
-        margin-bottom: 2rem;
-    }
-
-    .hero h2 {
-        font-size: 2rem;
-        line-height: 1.2;
-        font-weight: bold;
-    }
-
-    .hero p {
-        margin-top: 1rem;
-        font-size: 1.2rem;
-        line-height: 1.8;
-        max-width: 500px;
-    }
-
-    .carousel-container {
-        aspect-ratio: 4 / 3;
-        max-width: unset;
-    }
-
-    .carousel-content {
-        padding: 1rem 1rem;
-    }
-
-    .carousel-content h3 {
-        font-size: 1rem;
-    }
-
-    .carousel-content p {
-        font-size: 0.9rem;
     }
 }
