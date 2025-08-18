@@ -114,6 +114,8 @@ img {
 @media (max-width: 768px) {
     .hero-logos-wrapper {
         bottom: -50px;
+        right: 30px;
+        /* Mengubah ukuran logo agar lebih kecil */
         /* geser ke bawah */
         justify-content: center;
         /* biar rapi di tengah */
@@ -130,6 +132,16 @@ img {
     border-width: 6px;
 }
 
+.logo-with-bg img {
+    height: 115px;
+    border-width: 6px;
+}
+
+.logo-with-bg:nth-child(2) img,
+.logo-with-bg:nth-child(3) img {
+    width: 113px;
+}
+
 .logo-with-bg:nth-child(2) img,
 .logo-with-bg:nth-child(3) img {
     width: 113px;
@@ -137,6 +149,16 @@ img {
 
 .logo-with-bg:nth-child(4) img {
     width: 88px;
+}
+
+.logo-with-bg:nth-child(4) img {
+    width: 88px;
+}
+
+.hero-logos-wrapper .background-patch {
+    height: 38px;
+    width: 180px;
+    border-radius: 10px;
 }
 
 .hero-logos-wrapper .background-patch {
@@ -180,7 +202,7 @@ img {
 @media (max-width: 768px) {
     .section-title {
         font-size: 1.8rem;
-        margin-top: 6rem;
+        margin-top: 1.5rem;
         margin-bottom: 1.5rem;
     }
 }
@@ -460,7 +482,7 @@ img {
 .registration-section {
     padding: 1rem;
     background-color: transparent;
-    margin-top: 0.5rem;
+    margin-top: 2rem;
 }
 
 .registration-cards {
@@ -532,18 +554,13 @@ img {
         overflow-x: auto;
         justify-content: flex-start;
         gap: 1.5rem;
-        gap: 1rem;
-        padding-bottom: 0.5rem;
-        /* kasih ruang buat scroll bar */
     }
 
     .registration-card {
-        width: clamp(90px, 30vw, 140px);
+        width: 200px;
+        flex-shrink: 0;
         scrollbar-width: thin;
         scrollbar-color: #A55B15 transparent;
-        width: clamp(160px, 70vw, 220px);
-        /* min 160px biar teks muat, ideal 70% layar, max 220px */
-        flex-shrink: 0;
     }
 }
 
@@ -564,7 +581,7 @@ img {
 .service-section {
     padding: 1rem;
     background-color: transparent;
-    margin-top: 0.5rem;
+    margin-top: 2rem;
 }
 
 .service-cards {
