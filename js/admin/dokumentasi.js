@@ -32,15 +32,21 @@ export const initDokumentasi = () => {
 const handleDokumentasiSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(dokumentasiForm);
-    try {
-        // Ambil jenis dari form untuk menentukan endpoint
-        const jenis = formData.get('jenis');
-        if (!jenis) {
-            showAlert('Jenis dokumentasi (foto/video) harus dipilih.', 'error');
-            return;
-        }
+    const jenisInput = dokumentasiForm.querySelector('input[name="jenis"]:checked');
+    const fileInput = dokumentasiForm.querySelector('input[name="file"]');
+    const judulInput = dokumentasiForm.querySelector('input[name="judul"]');
 
+    if (!jenisInput || !fileInput.files.length || !judulInput.value) {
+        showAlert('Harap lengkapi semua field.', 'error');
+        return;
+    }
+
+    const jenis = jenisInput.value;
+    const formData = new FormData();
+    formData.append('judul', judulInput.value);
+    formData.append('file', fileInput.files[0]); // Hanya ambil satu file
+
+    try {
         const endpoint = `dokumentasi/${jenis}`;
         const result = await sendData(endpoint, 'POST', formData, true);
         showAlert(result.message || 'Berhasil upload dokumentasi');
@@ -64,7 +70,6 @@ export const loadDokumentasi = async () => {
     if (videoKegiatanGrid) videoKegiatanGrid.innerHTML = '';
 
     try {
-        // PERBAIKAN UTAMA: Memisahkan panggilan API untuk foto dan video
         const fotoData = await fetchData('dokumentasi/foto');
         const videoData = await fetchData('dokumentasi/video');
 
@@ -78,7 +83,7 @@ export const loadDokumentasi = async () => {
             fotoData.forEach(item => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
-                photoItem.setAttribute('data-id', item._id); // Menggunakan _id dari MongoDB
+                photoItem.setAttribute('data-id', item._id);
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -114,7 +119,7 @@ export const loadDokumentasi = async () => {
             videoData.forEach(item => {
                 const videoItem = document.createElement('div');
                 videoItem.className = 'video-item';
-                videoItem.setAttribute('data-id', item._id); // Menggunakan _id dari MongoDB
+                videoItem.setAttribute('data-id', item._id);
 
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
                     year: 'numeric',
@@ -125,7 +130,6 @@ export const loadDokumentasi = async () => {
                 let videoEmbedHtml = '';
                 if (item.filename) {
                     const videoPathMP4 = `${BASE_URL}/videos/dokumentasi/${item.filename}`;
-                    // Jika ada thumbnail terpisah untuk video lokal
                     const posterPath = item.thumbnail_filename ? `${BASE_URL}/videos/dokumentasi/thumbnails/${item.thumbnail_filename}` : '';
 
                     videoEmbedHtml = `
@@ -166,7 +170,7 @@ export const loadDokumentasi = async () => {
         showElement(errorFoto);
         errorFoto.textContent = `Gagal memuat dokumentasi: ${err.message}`;
         hideElement(loadingVideo);
-        showElement(errorVideo); // Tampilkan juga error untuk video
+        showElement(errorVideo);
         errorVideo.textContent = `Gagal memuat video: ${err.message}`;
         showAlert(`Gagal memuat dokumentasi: ${err.message}`, 'error');
     }
