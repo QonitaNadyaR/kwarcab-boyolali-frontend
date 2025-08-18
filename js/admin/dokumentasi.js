@@ -201,8 +201,10 @@ const deleteDokumentasi = async (id, jenis) => {
     }
 
     try {
-        const endpoint = `dokumentasi/${jenis}/${id}`;
-        const result = await deleteData(endpoint, id); // deleteData needs two arguments
+        // PERBAIKAN: Kirimkan hanya endpoint dan id. Biarkan deleteData yang membuat URL lengkap.
+        const endpoint = `dokumentasi/${jenis}`;
+        const result = await deleteData(endpoint, id);
+
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
     } catch (err) {
