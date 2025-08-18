@@ -536,7 +536,7 @@ img {
     }
 
     .registration-card {
-        width: 200px;
+        width: 90px;
         flex-shrink: 0;
         scrollbar-width: thin;
         scrollbar-color: #A55B15 transparent;
