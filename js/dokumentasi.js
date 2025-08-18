@@ -1,5 +1,10 @@
 // frontend/js/dokumentasi.js
 
+// Tentukan API_BASE_URL sesuai environment
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:4000/api'
+    : 'https://kwarcab-backend.vercel.app/api';
+
 // Fungsi helper untuk menyembunyikan/menampilkan elemen
 function showElement(elementId, display = 'block') {
     const element = document.getElementById(elementId);
@@ -26,12 +31,11 @@ async function loadFotoDokumentasi() {
     galeriGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
+        const response = await fetch(`${API_BASE_URL}/dokumentasi/foto`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const allDokumentasi = await response.json();
-        const fotoData = allDokumentasi.filter(item => item.jenis === 'foto');
+        const fotoData = await response.json();
 
         hideElement('loading-foto');
 
@@ -43,14 +47,16 @@ async function loadFotoDokumentasi() {
 
         fotoData.forEach(foto => {
             const date = foto.uploaded_at ? new Date(foto.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            const filePath = `/images/dokumentasi/${foto.filename}`;
+
+            // Gunakan URL lengkap dari Cloudinary yang sudah disimpan di database
+            const imageUrl = foto.url;
 
             const photoItem = document.createElement('div');
             photoItem.classList.add('photo-item');
             photoItem.innerHTML = `
-                <a href="${filePath}" data-lightbox="galeri-dokumentasi" data-title="${foto.judul}">
+                <a href="${imageUrl}" data-lightbox="galeri-dokumentasi" data-title="${foto.judul}">
                     <div class="photo-wrapper">
-                        <img src="${filePath}" alt="${foto.judul}" loading="lazy">
+                        <img src="${imageUrl}" alt="${foto.judul}" loading="lazy">
                     </div>
                     <div class="photo-content">
                         <h4>${foto.judul}</h4>
@@ -84,12 +90,11 @@ async function loadVideoDokumentasi() {
     videoGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
+        const response = await fetch(`${API_BASE_URL}/dokumentasi/video`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const allDokumentasi = await response.json();
-        const videoData = allDokumentasi.filter(item => item.jenis === 'video');
+        const videoData = await response.json();
 
         hideElement('loading-video');
 
@@ -101,16 +106,24 @@ async function loadVideoDokumentasi() {
 
         videoData.forEach(video => {
             const date = video.uploaded_at ? new Date(video.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            const videoPath = `/videos/dokumentasi/${video.filename}`;
+
+            // Gunakan URL lengkap dari Cloudinary
+            const videoUrl = video.url;
+            let videoHtml = '';
+            if (videoUrl) {
+                videoHtml = `<video controls aria-label="${video.judul}" preload="metadata">
+                                <source src="${videoUrl}" type="video/mp4">
+                                Maaf, browser Anda tidak mendukung pemutaran video ini.
+                            </video>`;
+            } else {
+                videoHtml = `<p>Video tidak tersedia.</p>`;
+            }
 
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
             videoItem.innerHTML = `
                 <div class="video-wrapper">
-                    <video controls aria-label="${video.judul}" preload="metadata">
-                        <source src="${videoPath}" type="video/mp4">
-                        Maaf, browser Anda tidak mendukung pemutaran video ini.
-                    </video>
+                    ${videoHtml}
                 </div>
                 <div class="video-content">
                     <h4>${video.judul}</h4>
@@ -133,4 +146,3 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFotoDokumentasi();
     loadVideoDokumentasi();
 });
-
