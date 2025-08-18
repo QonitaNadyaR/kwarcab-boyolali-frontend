@@ -51,8 +51,17 @@ const handleDokumentasiSubmit = async (e) => {
 
     const jenis = jenisInput.value;
     const formData = new FormData();
-    formData.append("file", fileInput.files[0]);
-    formData.append("judul", judulInput.value);
+    formData.append('judul', judulInput.value);
+
+    // Perbaikan KRUSIAL: Sesuaikan nama field dengan yang diharapkan backend
+    if (jenis === 'foto') {
+        formData.append('image', fileInput.files[0]);
+    } else if (jenis === 'video') {
+        formData.append('video', fileInput.files[0]);
+    } else {
+        showAlert('Jenis dokumentasi tidak valid.', 'error');
+        return;
+    }
 
     try {
         const endpoint = `dokumentasi/${jenis}`;
@@ -99,7 +108,7 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
-                const imageUrl = item.url || `${BASE_URL}/images/dokumentasi/${item.filename}`;
+                const imageUrl = `${BASE_URL}/images/dokumentasi/${item.filename}`;
 
                 photoItem.innerHTML = `
                     <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
