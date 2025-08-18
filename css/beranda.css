@@ -180,7 +180,7 @@ img {
 @media (max-width: 768px) {
     .section-title {
         font-size: 1.8rem;
-        margin-top: 3rem;
+        margin-top: 6rem;
         margin-bottom: 1.5rem;
     }
 }
@@ -335,7 +335,7 @@ img {
 
 /* --- Berita Lama - Layout Horizontal dengan Grid --- */
 .warta-lama-wrapper {
-    padding: 0rem 0;
+    padding: 2rem 0;
     white-space: normal;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
@@ -531,12 +531,16 @@ img {
         flex-wrap: nowrap;
         overflow-x: auto;
         justify-content: flex-start;
+        gap: 1.5rem;
         gap: 1rem;
         padding-bottom: 0.5rem;
         /* kasih ruang buat scroll bar */
     }
 
     .registration-card {
+        width: clamp(90px, 30vw, 140px);
+        scrollbar-width: thin;
+        scrollbar-color: #A55B15 transparent;
         width: clamp(160px, 70vw, 220px);
         /* min 160px biar teks muat, ideal 70% layar, max 220px */
         flex-shrink: 0;
