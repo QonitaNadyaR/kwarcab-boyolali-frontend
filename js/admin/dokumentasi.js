@@ -1,6 +1,6 @@
 // frontend/js/admin/dokumentasi.js
 
-import { fetchData, sendData, deleteData, showAlert, resetForm, API_BASE_URL } from '../utils.js';
+import { fetchData, sendData, deleteData, showAlert, API_BASE_URL, BASE_URL_MEDIA } from '../utils.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
 const galeriFotoGrid = document.getElementById('galeri-grid');
@@ -27,7 +27,6 @@ export const initDokumentasi = () => {
         console.warn("Dokumentasi form not found, skipping Dokumentasi form initialization.");
     }
 
-    // Pasang event listener untuk tombol delete hanya sekali di level dokumen
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('delete-btn')) {
             const id = e.target.dataset.id;
@@ -63,7 +62,6 @@ const handleDokumentasiSubmit = async (e) => {
     const formData = new FormData();
     formData.append('judul', judulInput.value);
 
-    // Pastikan nama field di frontend ('image' atau 'video') cocok dengan backend
     if (jenis === 'foto') {
         formData.append('image', fileInput.files[0]);
     } else if (jenis === 'video') {
@@ -100,7 +98,6 @@ export const loadDokumentasi = async () => {
         const fotoData = await fetchData('dokumentasi/foto');
         const videoData = await fetchData('dokumentasi/video');
 
-        // Render Foto
         hideElement(loadingFoto);
         if (fotoData.length === 0) {
             showElement(noFoto);
@@ -117,7 +114,8 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
-                const imageUrl = item.url; // Gunakan URL dari Cloudinary yang sudah disimpan di database
+                const imageUrl = item.url; // Gunakan URL dari Cloudinary
+                if (!imageUrl) return; // Lewati jika URL tidak ada
 
                 photoItem.innerHTML = `
                     <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
@@ -135,7 +133,6 @@ export const loadDokumentasi = async () => {
             });
         }
 
-        // Render Video 
         hideElement(loadingVideo);
         if (videoData.length === 0) {
             showElement(noVideo);
@@ -153,7 +150,7 @@ export const loadDokumentasi = async () => {
                 }) : 'Tanggal tidak tersedia';
 
                 let videoEmbedHtml = '';
-                if (item.url) { // Gunakan URL dari Cloudinary yang sudah disimpan di database
+                if (item.url) { // Gunakan URL dari Cloudinary
                     const videoPathMP4 = item.url;
 
                     videoEmbedHtml = `
@@ -193,13 +190,19 @@ export const loadDokumentasi = async () => {
 };
 
 const deleteDokumentasi = async (id, jenis) => {
+    if (!id || !jenis) {
+        console.error('ID or jenis is undefined:', { id, jenis });
+        showAlert('Gagal menghapus: ID atau jenis tidak valid.', 'error');
+        return;
+    }
+
     if (!confirm('Apakah Anda yakin ingin menghapus dokumentasi ini?')) {
         return;
     }
 
     try {
         const endpoint = `dokumentasi/${jenis}/${id}`;
-        const result = await deleteData(endpoint);
+        const result = await deleteData(endpoint, id); // deleteData needs two arguments
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
     } catch (err) {

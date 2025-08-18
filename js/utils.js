@@ -1,14 +1,12 @@
 // frontend/js/utils.js
 
-// Tentukan BASE_URL sesuai environment (localhost / production)
-const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+// Tentukan API_BASE_URL sesuai environment
+export const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:4000/api'
     : 'https://kwarcab-backend.vercel.app/api';
 
-// Versi tanpa /api untuk URL gambar dan frontend
-const BASE_URL_NO_API = API_BASE_URL.replace('/api', '');
-
-export const BASE_URL = API_BASE_URL.replace('/api', '');
+// Tentukan BASE_URL untuk media tanpa '/api'
+export const BASE_URL_MEDIA = API_BASE_URL.replace('/api', '');
 
 /**
  * Menampilkan notifikasi sederhana.
@@ -16,6 +14,7 @@ export const BASE_URL = API_BASE_URL.replace('/api', '');
  * @param {string} [type='success'] Tipe notifikasi: success, error, info, dll.
  */
 export function showAlert(message, type = 'success') {
+    // Anda bisa mengganti ini dengan modal atau UI lain yang lebih baik daripada alert()
     alert(`[${type.toUpperCase()}] ${message}`);
     console.log(`Alert (${type}): ${message}`);
 }
@@ -160,5 +159,6 @@ export function getImageUrl(imagePath) {
     if (imagePath.startsWith('http')) {
         return imagePath;
     }
-    return `${BASE_URL_NO_API}${imagePath}`;
+    // Logika ini tidak akan pernah terpanggil karena Cloudinary mengembalikan URL lengkap
+    return `${BASE_URL_MEDIA}${imagePath}`;
 }
