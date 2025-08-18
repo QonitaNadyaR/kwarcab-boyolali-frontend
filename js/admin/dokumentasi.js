@@ -29,8 +29,6 @@ export const initDokumentasi = () => {
     loadDokumentasi();
 };
 
-// Perbaikan pada frontend/js/admin/dokumentasi.js
-
 const handleDokumentasiSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,7 +36,6 @@ const handleDokumentasiSubmit = async (e) => {
     const fileInput = dokumentasiForm.querySelector('input[name="file"]');
     const judulInput = dokumentasiForm.querySelector('input[name="judul"]');
 
-    // Perbaiki validasi di sini
     if (!jenisInput || !jenisInput.value) {
         showAlert('Jenis dokumentasi (foto/video) harus dipilih.', 'error');
         return;
@@ -56,7 +53,7 @@ const handleDokumentasiSubmit = async (e) => {
     const formData = new FormData();
     formData.append('judul', judulInput.value);
 
-    // Pastikan nama field di frontend ('image' atau 'video') cocok dengan backend
+    // Perbaikan: Sesuaikan nama field dengan yang diharapkan backend
     if (jenis === 'foto') {
         formData.append('image', fileInput.files[0]);
     } else if (jenis === 'video') {
