@@ -52,15 +52,7 @@ const handleDokumentasiSubmit = async (e) => {
     const jenis = jenisInput.value;
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
-    formData.append("judul", judul);
-
-
-    // Perbaikan: Sesuaikan nama field dengan yang diharapkan backend
-    if (jenis === 'foto') {
-        formData.append('image', fileInput.files[0]);
-    } else if (jenis === 'video') {
-        formData.append('video', fileInput.files[0]);
-    }
+    formData.append("judul", judulInput.value);
 
     try {
         const endpoint = `dokumentasi/${jenis}`;
