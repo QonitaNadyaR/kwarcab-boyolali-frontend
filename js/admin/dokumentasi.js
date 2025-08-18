@@ -29,6 +29,8 @@ export const initDokumentasi = () => {
     loadDokumentasi();
 };
 
+// Perbaikan pada frontend/js/admin/dokumentasi.js
+
 const handleDokumentasiSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,15 +38,30 @@ const handleDokumentasiSubmit = async (e) => {
     const fileInput = dokumentasiForm.querySelector('input[name="file"]');
     const judulInput = dokumentasiForm.querySelector('input[name="judul"]');
 
-    if (!jenisInput || !fileInput.files.length || !judulInput.value) {
-        showAlert('Harap lengkapi semua field.', 'error');
+    // Perbaiki validasi di sini
+    if (!jenisInput) {
+        showAlert('Jenis dokumentasi (foto/video) harus dipilih.', 'error');
+        return;
+    }
+    if (!fileInput.files.length) {
+        showAlert('File (foto/video) harus diunggah.', 'error');
+        return;
+    }
+    if (!judulInput.value) {
+        showAlert('Judul harus diisi.', 'error');
         return;
     }
 
     const jenis = jenisInput.value;
     const formData = new FormData();
     formData.append('judul', judulInput.value);
-    formData.append('file', fileInput.files[0]); // Hanya ambil satu file
+
+    // Pastikan nama field di frontend ('image' atau 'video') cocok dengan backend
+    if (jenis === 'foto') {
+        formData.append('image', fileInput.files[0]);
+    } else if (jenis === 'video') {
+        formData.append('video', fileInput.files[0]);
+    }
 
     try {
         const endpoint = `dokumentasi/${jenis}`;
