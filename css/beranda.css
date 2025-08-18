@@ -60,7 +60,7 @@ img {
 @media (max-width: 768px) {
     .hero h2 {
         font-size: 2rem;
-        margin-top: 10rem;
+        margin-top: 5rem;
     }
 
     .hero p {
