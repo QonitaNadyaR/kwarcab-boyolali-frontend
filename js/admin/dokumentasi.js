@@ -34,12 +34,12 @@ export const initDokumentasi = () => {
 const handleDokumentasiSubmit = async (e) => {
     e.preventDefault();
 
-    const jenisInput = dokumentasiForm.querySelector('input[name="jenis"]:checked');
+    const jenisInput = dokumentasiForm.querySelector('select[name="jenis"]');
     const fileInput = dokumentasiForm.querySelector('input[name="file"]');
     const judulInput = dokumentasiForm.querySelector('input[name="judul"]');
 
     // Perbaiki validasi di sini
-    if (!jenisInput) {
+    if (!jenisInput || !jenisInput.value) {
         showAlert('Jenis dokumentasi (foto/video) harus dipilih.', 'error');
         return;
     }
