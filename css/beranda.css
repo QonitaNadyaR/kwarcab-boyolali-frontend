@@ -147,7 +147,7 @@ img {
 
 /* --- Warta (Berita) Section --- */
 .warta-section {
-    padding: 2rem;
+    padding: 2rem 0;
     position: relative;
     z-index: 0;
     overflow: hidden;
@@ -335,7 +335,7 @@ img {
 
 /* --- Berita Lama - Layout Horizontal dengan Grid --- */
 .warta-lama-wrapper {
-    padding: 0.75rem 0;
+    padding: 1rem 0;
     white-space: normal;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
@@ -458,7 +458,7 @@ img {
 
 /* === BAGIAN PENDAFTARAN EVENT === */
 .registration-section {
-    padding: 0.8rem;
+    padding: 1rem;
     background-color: transparent;
     margin-top: 0.5rem;
 }
@@ -558,7 +558,7 @@ img {
 
 /* === PELAYANAN UMUM === */
 .service-section {
-    padding: 0.8rem;
+    padding: 1rem;
     background-color: transparent;
     margin-top: 0.5rem;
 }
