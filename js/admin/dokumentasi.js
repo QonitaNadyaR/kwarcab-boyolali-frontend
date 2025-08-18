@@ -99,7 +99,7 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
-                const imageUrl = `${BASE_URL}/images/dokumentasi/${item.filename}`;
+                const imageUrl = item.url || `${BASE_URL}/images/dokumentasi/${item.filename}`;
 
                 photoItem.innerHTML = `
                     <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
