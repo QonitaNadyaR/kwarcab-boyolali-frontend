@@ -1,68 +1,49 @@
 // frontend/js/dokumentasi.js
 
-// Impor variabel dari utils.js
-import { API_BASE_URL, BASE_URL } from './utils.js';
-
-/**
- * Fungsi helper untuk menyembunyikan/menampilkan elemen.
- * @param {string} elementId ID elemen HTML.
- * @param {string} [display='block'] Tipe display CSS.
- */
+// Fungsi helper untuk menyembunyikan/menampilkan elemen
 function showElement(elementId, display = 'block') {
     const element = document.getElementById(elementId);
-    if (element) {
-        element.style.display = display;
-    }
+    if (element) element.style.display = display;
 }
 
-/**
- * Fungsi helper untuk menyembunyikan elemen.
- * @param {string} elementId ID elemen HTML.
- */
 function hideElement(elementId) {
     const element = document.getElementById(elementId);
-    if (element) {
-        element.style.display = 'none';
-    }
+    if (element) element.style.display = 'none';
 }
 
 // Fungsi untuk memuat dan menampilkan daftar foto dokumentasi
 async function loadFotoDokumentasi() {
     const galeriGridDiv = document.getElementById('galeri-grid');
+    if (!galeriGridDiv) return;
+
     const loadingFoto = document.getElementById('loading-foto');
     const errorFoto = document.getElementById('error-foto');
     const noFoto = document.getElementById('no-foto');
 
-    if (!galeriGridDiv || !loadingFoto || !errorFoto || !noFoto) {
-        console.error('Missing required photo elements.');
-        return;
-    }
-
     showElement('loading-foto');
     hideElement('error-foto');
     hideElement('no-foto');
-    galeriGridDiv.innerHTML = '';
+    galeriGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi/foto`);
+        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const fotoData = await response.json();
+        const allDokumentasi = await response.json();
+        const fotoData = allDokumentasi.filter(item => item.jenis === 'foto');
 
         hideElement('loading-foto');
 
         if (fotoData.length === 0) {
             showElement('no-foto');
-            noFoto.textContent = 'Belum ada foto kegiatan yang tersedia.';
+            if (noFoto) noFoto.textContent = 'Belum ada foto kegiatan yang tersedia.';
             return;
         }
 
         fotoData.forEach(foto => {
             const date = foto.uploaded_at ? new Date(foto.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            // Gunakan BASE_URL untuk membangun path gambar
-            const filePath = `${BASE_URL}/images/dokumentasi/${foto.filename}`;
+            const filePath = `/images/dokumentasi/${foto.filename}`;
 
             const photoItem = document.createElement('div');
             photoItem.classList.add('photo-item');
@@ -84,54 +65,49 @@ async function loadFotoDokumentasi() {
         console.error('Error loading foto dokumentasi:', error);
         hideElement('loading-foto');
         showElement('error-foto');
-        errorFoto.textContent = `Gagal memuat foto: ${error.message}. Silakan coba lagi nanti.`;
+        if (errorFoto) errorFoto.textContent = 'Gagal memuat foto. Silakan coba lagi nanti.';
     }
 }
 
 // Fungsi untuk memuat dan menampilkan daftar video dokumentasi
 async function loadVideoDokumentasi() {
     const videoGridDiv = document.getElementById('video-grid');
+    if (!videoGridDiv) return;
+
     const loadingVideo = document.getElementById('loading-video');
     const errorVideo = document.getElementById('error-video');
     const noVideo = document.getElementById('no-video');
 
-    if (!videoGridDiv || !loadingVideo || !errorVideo || !noVideo) {
-        console.error('Missing required video elements.');
-        return;
-    }
-
     showElement('loading-video');
     hideElement('error-video');
     hideElement('no-video');
-    videoGridDiv.innerHTML = '';
+    videoGridDiv.innerHTML = ''; // Bersihkan konten sebelumnya
 
     try {
-        const response = await fetch(`${API_BASE_URL}/dokumentasi/video`);
+        const response = await fetch(`${API_BASE_URL}/dokumentasi`);
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const videoData = await response.json();
+        const allDokumentasi = await response.json();
+        const videoData = allDokumentasi.filter(item => item.jenis === 'video');
 
         hideElement('loading-video');
 
         if (videoData.length === 0) {
             showElement('no-video');
-            noVideo.textContent = 'Belum ada video kegiatan yang tersedia.';
+            if (noVideo) noVideo.textContent = 'Belum ada video kegiatan yang tersedia.';
             return;
         }
 
         videoData.forEach(video => {
             const date = video.uploaded_at ? new Date(video.uploaded_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Tidak Diketahui';
-            // Gunakan BASE_URL untuk membangun path video
-            const videoPath = `${BASE_URL}/videos/dokumentasi/${video.filename}`;
-            const posterPath = video.thumbnail_filename ? `${BASE_URL}/videos/dokumentasi/thumbnails/${video.thumbnail_filename}` : '';
+            const videoPath = `/videos/dokumentasi/${video.filename}`;
 
             const videoItem = document.createElement('div');
             videoItem.classList.add('video-item');
             videoItem.innerHTML = `
                 <div class="video-wrapper">
-                    <video controls aria-label="${video.judul}" preload="metadata" ${posterPath ? `poster="${posterPath}"` : ''}>
+                    <video controls aria-label="${video.judul}" preload="metadata">
                         <source src="${videoPath}" type="video/mp4">
                         Maaf, browser Anda tidak mendukung pemutaran video ini.
                     </video>
@@ -148,7 +124,7 @@ async function loadVideoDokumentasi() {
         console.error('Error loading video dokumentasi:', error);
         hideElement('loading-video');
         showElement('error-video');
-        errorVideo.textContent = `Gagal memuat video: ${error.message}. Silakan coba lagi nanti.`;
+        if (errorVideo) errorVideo.textContent = 'Gagal memuat video. Silakan coba lagi nanti.';
     }
 }
 
@@ -157,3 +133,4 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFotoDokumentasi();
     loadVideoDokumentasi();
 });
+
