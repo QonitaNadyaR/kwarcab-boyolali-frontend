@@ -190,7 +190,7 @@ img {
 /* Media query untuk section-title */
 @media (max-width: 768px) {
     .section-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
@@ -480,7 +480,7 @@ img {
 .news-title {
     font-size: 1rem;
     font-weight: bold;
-    margin: 1rem 0;
+    margin: 0rem 0;
     line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
