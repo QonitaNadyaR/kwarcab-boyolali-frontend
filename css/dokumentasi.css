@@ -431,7 +431,7 @@ body {
 
     /* Mengubah tata letak menjadi 1 baris ke bawah */
     .dokumentasi-grid {
-        grid-template-rows: repeat(1, auto);
+        grid-template-rows: repeat(2, auto);
         grid-auto-flow: column;
         gap: 8px;
         padding: 0 5px 15px;
