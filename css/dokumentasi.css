@@ -382,31 +382,38 @@ body {
     }
 
     .download-list li a {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        /* Hapus flex-wrap agar tidak turun baris */
+        flex-wrap: nowrap;
+        justify-content: space-between;
     }
 
     .download-list li a .download-info {
-        width: 100%;
-        margin-bottom: 10px;
+        /* Atur ulang agar info tidak memenuhi 100% */
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    .download-list li a span {
+        font-size: 0.9em;
+        /* Tambahkan overflow handling untuk teks yang panjang */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .download-list li a i.bi,
     .download-list li a i.fas {
         font-size: 1.2em;
         margin-right: 10px;
-    }
-
-    .download-list li a span {
-        font-size: 0.9em;
+        flex-shrink: 0;
     }
 
     .download-list li a .external-link-icon,
     .download-list li a .download-icon {
         font-size: 0.9em;
-        position: absolute;
-        right: 15px;
-        top: 12px;
+        /* Hapus absolute positioning */
+        position: static;
+        margin-left: 10px;
         color: #A55B15;
     }
 }
