@@ -82,24 +82,24 @@ body {
     background-color: #fcecec;
 }
 
-
-/* === TATA LETAK DOKUMENTASI - FOTO & VIDEO (2 BARIS KE BAWAH, GESER KE SAMPING) === */
+/* === TATA LETAK DOKUMENTASI - FOTO & VIDEO === */
+/* Mengubah layout agar lebih fleksibel dan mengatur jarak antar card */
 .dokumentasi-grid {
     display: grid;
-    grid-template-rows: repeat(2, auto);
-    grid-auto-flow: column;
-    gap: 30px;
-    padding: 0 1rem 15px;
+    /* Ubah dari grid-auto-flow: column menjadi grid-template-columns untuk kontrol lebih baik */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Mengurangi gap dari 30px menjadi 20px agar jarak antar card lebih rapat */
+    gap: 20px;
+    padding: 0 1rem;
     margin-top: 2rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+    /* Hapus overflow-x: auto dan properti scroll */
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    justify-content: center;
 }
 
-/* Kustomisasi scrollbar */
+/* Kustomisasi scrollbar (tidak lagi diperlukan, tapi bisa dipertahankan jika ingin) */
 .dokumentasi-grid::-webkit-scrollbar {
     height: 8px;
 }
@@ -127,9 +127,7 @@ body {
     cursor: pointer;
     white-space: normal;
     height: 100%;
-    width: 350px;
-    /* Lebar tetap agar scroll horizontal berfungsi */
-    flex-shrink: 0;
+    /* Hapus width: 350px dan flex-shrink: 0; karena digantikan oleh grid */
 }
 
 .photo-item:hover,
@@ -331,21 +329,33 @@ body {
         width: 60px;
     }
 
-    /* Aturan untuk tata letak 1 baris di mobile */
+    /* Mengubah grid agar menyesuaikan lebar layar */
     .dokumentasi-grid {
-        padding: 0 15px 15px;
-        grid-template-rows: repeat(1, auto);
+        /* Sekarang grid-template-columns otomatis mengatur jumlah kolom */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* Mengatur ukuran card yang lebih kecil untuk mobile */
+        gap: 10px;
+        padding: 0 10px;
     }
 
     .photo-item,
     .video-item {
-        width: 280px;
+        /* Hapus width tetap dan biarkan grid yang mengaturnya */
+        width: 100%;
     }
 
-    .photo-wrapper {
-        padding-bottom: 60%;
+    .photo-content h4,
+    .video-content h4 {
+        font-size: 0.95rem; /* Mengurangi ukuran font agar muat */
+        margin-bottom: 5px;
     }
 
+    .photo-content .photo-date,
+    .video-content .video-date {
+        font-size: 0.8em;
+    }
+
+    /* Aturan untuk download list di mobile */
     .download-list {
         padding: 0 15px;
     }
@@ -402,9 +412,22 @@ body {
         font-size: 0.9em;
     }
 
+    /* Aturan untuk grid di layar sangat kecil */
+    .dokumentasi-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        /* Menyesuaikan ukuran card agar muat 3 kolom di layar kecil */
+        gap: 8px;
+        padding: 0 5px;
+    }
+
     .photo-content h4,
     .video-content h4 {
-        font-size: 1.1rem;
+        font-size: 0.85rem;
+    }
+
+    .photo-content .photo-date,
+    .video-content .video-date {
+        font-size: 0.7em;
     }
 
     .download-list li {
