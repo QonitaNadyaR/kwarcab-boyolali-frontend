@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const newsGrid = document.querySelector('.news-grid');
     const expandBtn = document.querySelector('.expand-btn');
     const eventDesc = document.querySelector('.event-desc');
+    const wartaCarouselSection = document.getElementById('warta-section');
 
     let latestNewsData = [];
     let currentCarouselSlideIndex = 0;
     let slideInterval;
+    let allWartaDataGlobal = [];
 
     // =======================
     // Utility Functions
@@ -149,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (searchTerm === '') {
                     // Jika input kosong, tampilkan seperti semula
                     wartaCarouselSection.style.display = 'block';
-                    renderLatestNews(allWartaDataGlobal.slice(0, 3));
                     renderOldNews(allWartaDataGlobal.slice(3));
                     if (allWartaDataGlobal.length > 0) {
                         updateDots();
@@ -177,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}/warta`);
             if (!response.ok) throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             const allWartaData = await response.json();
+            allWartaDataGlobal = allWartaData;
             console.log('Data Warta diterima dari API:', allWartaData);
 
             const carouselLimit = 3;
