@@ -19,6 +19,7 @@ export const initAnggota = () => {
         console.warn("Anggota form not found, skipping Anggota initialization.");
         return;
     }
+
     anggotaForm.dataset.entity = 'Anggota';
 
     anggotaForm.addEventListener('submit', handleAnggotaSubmit);
@@ -27,17 +28,19 @@ export const initAnggota = () => {
         showAlert('Form Anggota dibatalkan.', 'info');
     });
 
-    loadAnggota();
-
-    document.addEventListener('click', (e) => {
+    // Event delegation
+    anggotaListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) editAnggota(editBtn.dataset.id);
 
         const deleteBtn = e.target.closest('.delete-btn');
         if (deleteBtn) deleteAnggota(deleteBtn.dataset.id);
     });
+
+    loadAnggota();
 };
 
+// === Load Data ===
 const loadAnggota = async () => {
     anggotaListBody.innerHTML = '<tr><td colspan="9">Memuat data anggota...</td></tr>';
     try {
@@ -45,62 +48,70 @@ const loadAnggota = async () => {
         renderAnggotaList(anggota);
     } catch (error) {
         console.error('Error loading anggota:', error);
-        anggotaListBody.innerHTML = `<tr><td colspan="9">Gagal memuat data anggota. ${error.message}</td></tr>`;
+        anggotaListBody.innerHTML = `<tr><td colspan="9">Gagal memuat data anggota: ${error.message}</td></tr>`;
         showAlert(`Gagal memuat anggota: ${error.message}`, 'error');
     }
 };
 
+// === Render ===
 const renderAnggotaList = (anggotaArray) => {
-    anggotaListBody.innerHTML = '';
-    if (!anggotaArray.length) {
+    if (!anggotaArray || anggotaArray.length === 0) {
         anggotaListBody.innerHTML = '<tr><td colspan="9">Tidak ada data anggota.</td></tr>';
         return;
     }
-    anggotaArray.forEach((anggota, index) => {
-        const row = anggotaListBody.insertRow();
-        row.dataset.id = anggota._id;
 
-        row.insertCell(0).textContent = index + 1;
-        row.insertCell(1).textContent = anggota.no_reg || '';
-        row.insertCell(2).textContent = anggota.nama || '';
-        row.insertCell(3).textContent = anggota.pangkalan || '';
-        row.insertCell(4).textContent = anggota.ttl || '';
-        row.insertCell(5).textContent = anggota.kwartir_ranting || '';
-        row.insertCell(6).textContent = anggota.golongan_anggota || '';
-        row.insertCell(7).textContent = anggota.tahun || '';
-
-        const actionsCell = row.insertCell(8);
-        actionsCell.classList.add('action-buttons');
-        actionsCell.innerHTML = `
-            <button class="edit-btn" data-id="${anggota._id}"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" data-id="${anggota._id}"><i class="fas fa-trash-alt"></i></button>
-        `;
-    });
+    anggotaListBody.innerHTML = anggotaArray.map((anggota, index) => `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${anggota.no_reg || ''}</td>
+            <td>${anggota.nama || ''}</td>
+            <td>${anggota.pangkalan || ''}</td>
+            <td>${anggota.ttl || ''}</td>
+            <td>${anggota.kwartir_ranting || ''}</td>
+            <td>${anggota.golongan_anggota || ''}</td>
+            <td>${anggota.tahun || ''}</td>
+            <td class="action-buttons">
+                <button class="edit-btn" data-id="${anggota._id}"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn" data-id="${anggota._id}"><i class="fas fa-trash-alt"></i></button>
+            </td>
+        </tr>
+    `).join('');
 };
 
+// === Submit ===
 const handleAnggotaSubmit = async (e) => {
     e.preventDefault();
+
+    // Validasi
+    if (!anggotaNoRegInput.value.trim()) {
+        showAlert('Nomor registrasi wajib diisi!', 'error');
+        return;
+    }
+    if (!anggotaNamaInput.value.trim()) {
+        showAlert('Nama anggota wajib diisi!', 'error');
+        return;
+    }
+
     const data = {
-        no_reg: anggotaNoRegInput.value,
-        nama: anggotaNamaInput.value,
-        pangkalan: anggotaPangkalanInput.value,
-        ttl: anggotaTtlInput.value,
-        kwartir_ranting: anggotaKwartirRantingInput.value,
-        golongan_anggota: anggotaGolonganAnggotaInput.value,
-        tahun: parseInt(anggotaTahunInput.value),
+        no_reg: anggotaNoRegInput.value.trim(),
+        nama: anggotaNamaInput.value.trim(),
+        pangkalan: anggotaPangkalanInput.value.trim(),
+        ttl: anggotaTtlInput.value.trim(),
+        kwartir_ranting: anggotaKwartirRantingInput.value.trim(),
+        golongan_anggota: anggotaGolonganAnggotaInput.value.trim(),
+        tahun: parseInt(anggotaTahunInput.value) || null,
     };
 
     let url = 'anggota';
     let method = 'POST';
-
     if (anggotaIdInput.value) {
         url = `anggota/${anggotaIdInput.value}`;
         method = 'PUT';
     }
 
     try {
-        const result = await sendData(url, method, data, false);
-        showAlert(result.message || 'Data anggota berhasil disimpan!');
+        await sendData(url, method, data);
+        showAlert(`Data anggota berhasil ${anggotaIdInput.value ? 'diperbarui' : 'disimpan'}!`, 'success');
         resetAnggotaForm();
         loadAnggota();
     } catch (error) {
@@ -109,11 +120,10 @@ const handleAnggotaSubmit = async (e) => {
     }
 };
 
+// === Edit ===
 const editAnggota = async (id) => {
-    if (!id) return;
     try {
         const anggota = await fetchData(`anggota/${id}`);
-
         anggotaIdInput.value = anggota._id;
         anggotaNoRegInput.value = anggota.no_reg || '';
         anggotaNamaInput.value = anggota.nama || '';
@@ -132,11 +142,12 @@ const editAnggota = async (id) => {
     }
 };
 
+// === Delete ===
 const deleteAnggota = async (id) => {
-    if (!id || !confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) return;
+    if (!confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) return;
     try {
-        const result = await deleteData('anggota', id);
-        showAlert(result.message || 'Data anggota berhasil dihapus!');
+        await deleteData(`anggota/${id}`);
+        showAlert('Data anggota berhasil dihapus!', 'success');
         loadAnggota();
     } catch (error) {
         console.error('Error deleting anggota:', error);
@@ -144,6 +155,7 @@ const deleteAnggota = async (id) => {
     }
 };
 
+// === Reset Form ===
 const resetAnggotaForm = () => {
-    resetForm(anggotaForm, anggotaIdInput, anggotaSubmitBtn, anggotaCancelBtn);
+    resetForm(anggotaForm, anggotaIdInput, anggotaSubmitBtn, anggotaCancelBtn, "Tambah Anggota");
 };
