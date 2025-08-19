@@ -1,12 +1,13 @@
 // frontend/js/admin/pengurus.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
 
-const pengurusForm = document.getElementById('pengurus-Form');
+const pengurusForm = document.getElementById('pengurus-form');
 const pengurusListBody = document.getElementById('pengurus-list');
 const pengurusIdInput = document.getElementById('pengurus-id');
 const pengurusNamaInput = document.getElementById('pengurus-nama');
-const pengurusJabatanInput = document.getElementById('pengurus-jabatan');
-const pengurusKontakInput = document.getElementById('pengurus-kontak');
+const pengurusLulusanInput = document.getElementById('pengurus-lulusan');
+const pengurusKwarranInput = document.getElementById('pengurus-kwartir-ranting');
+const pengurusGolonganInput = document.getElementById('pengurus-golongan-pelatih');
 const pengurusSubmitBtn = document.getElementById('pengurus-submit-btn');
 const pengurusCancelBtn = document.getElementById('pengurus-cancel-btn');
 
@@ -18,16 +19,13 @@ export const initPengurus = () => {
 
     pengurusForm.dataset.entity = 'Pengurus';
 
-    // Submit form (tambah / update pengurus)
     pengurusForm.addEventListener('submit', handlePengurusSubmit);
 
-    // Reset form saat klik batal
     pengurusCancelBtn.addEventListener('click', () => {
         resetPengurusForm();
         showAlert('Form Pengurus dibatalkan.', 'info');
     });
 
-    // Event delegation untuk tombol Edit & Hapus
     pengurusListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) editPengurus(editBtn.dataset.id);
@@ -36,19 +34,18 @@ export const initPengurus = () => {
         if (deleteBtn) deletePengurus(deleteBtn.dataset.id);
     });
 
-    // Load data awal
     loadPengurus();
 };
 
 // === Load Data Pengurus ===
 const loadPengurus = async () => {
-    pengurusListBody.innerHTML = '<tr><td colspan="4">Memuat data...</td></tr>';
+    pengurusListBody.innerHTML = '<tr><td colspan="6">Memuat data...</td></tr>';
     try {
         const pengurus = await fetchData('pengurus');
         renderPengurusList(pengurus);
     } catch (error) {
         console.error("Error memuat data pengurus:", error);
-        pengurusListBody.innerHTML = `<tr><td colspan="4">Gagal memuat data pengurus: ${error.message}</td></tr>`;
+        pengurusListBody.innerHTML = `<tr><td colspan="6">Gagal memuat data pengurus: ${error.message}</td></tr>`;
         showAlert(`Gagal memuat pengurus: ${error.message}`, 'error');
     }
 };
@@ -56,15 +53,17 @@ const loadPengurus = async () => {
 // === Render daftar ke tabel ===
 const renderPengurusList = (pengurus) => {
     if (!pengurus || pengurus.length === 0) {
-        pengurusListBody.innerHTML = '<tr><td colspan="4">Tidak ada data pengurus.</td></tr>';
+        pengurusListBody.innerHTML = '<tr><td colspan="6">Tidak ada data pengurus.</td></tr>';
         return;
     }
 
-    pengurusListBody.innerHTML = pengurus.map((p) => `
+    pengurusListBody.innerHTML = pengurus.map((p, i) => `
         <tr>
+            <td>${i + 1}</td>
             <td>${p.nama}</td>
-            <td>${p.jabatan}</td>
-            <td>${p.kontak || '-'}</td>
+            <td>${p.lulusan || '-'}</td>
+            <td>${p.kwartirRanting || '-'}</td>
+            <td>${p.golonganPelatih || '-'}</td>
             <td>
                 <button class="edit-btn" data-id="${p._id}">Edit</button>
                 <button class="delete-btn" data-id="${p._id}">Hapus</button>
@@ -77,13 +76,16 @@ const renderPengurusList = (pengurus) => {
 const handlePengurusSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi input
     if (!pengurusNamaInput.value.trim()) {
         showAlert('Nama pengurus wajib diisi!', 'error');
         return;
     }
-    if (!pengurusJabatanInput.value.trim()) {
-        showAlert('Jabatan pengurus wajib diisi!', 'error');
+    if (!pengurusKwarranInput.value.trim()) {
+        showAlert('Kwartir Ranting wajib dipilih!', 'error');
+        return;
+    }
+    if (!pengurusGolonganInput.value.trim()) {
+        showAlert('Golongan Pelatih wajib dipilih!', 'error');
         return;
     }
 
@@ -93,8 +95,9 @@ const handlePengurusSubmit = async (e) => {
 
     const pengurusData = {
         nama: pengurusNamaInput.value.trim(),
-        jabatan: pengurusJabatanInput.value.trim(),
-        kontak: pengurusKontakInput.value.trim()
+        lulusan: pengurusLulusanInput.value.trim(),
+        kwartirRanting: pengurusKwarranInput.value,
+        golonganPelatih: pengurusGolonganInput.value
     };
 
     try {
@@ -114,8 +117,9 @@ const editPengurus = async (id) => {
         const pengurus = await fetchData(`pengurus/${id}`);
         pengurusIdInput.value = pengurus._id;
         pengurusNamaInput.value = pengurus.nama;
-        pengurusJabatanInput.value = pengurus.jabatan;
-        pengurusKontakInput.value = pengurus.kontak || '';
+        pengurusLulusanInput.value = pengurus.lulusan || '';
+        pengurusKwarranInput.value = pengurus.kwartirRanting || '';
+        pengurusGolonganInput.value = pengurus.golonganPelatih || '';
         pengurusSubmitBtn.textContent = "Update Pengurus";
         pengurusCancelBtn.style.display = "inline-block";
         pengurusForm.scrollIntoView({ behavior: 'smooth' });
