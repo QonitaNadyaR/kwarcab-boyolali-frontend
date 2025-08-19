@@ -83,23 +83,20 @@ body {
 }
 
 /* === TATA LETAK DOKUMENTASI - FOTO & VIDEO === */
-/* Mengubah layout agar lebih fleksibel dan mengatur jarak antar card */
 .dokumentasi-grid {
     display: grid;
-    /* Ubah dari grid-auto-flow: column menjadi grid-template-columns untuk kontrol lebih baik */
+    /* Desktop default: 3 kolom. minmax(300px, 1fr) memastikan setiap kolom minimal 300px */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Mengurangi gap dari 30px menjadi 20px agar jarak antar card lebih rapat */
-    gap: 20px;
+    gap: 20px; /* Jarak antar card */
     padding: 0 1rem;
     margin-top: 2rem;
-    /* Hapus overflow-x: auto dan properti scroll */
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
 }
 
-/* Kustomisasi scrollbar (tidak lagi diperlukan, tapi bisa dipertahankan jika ingin) */
+/* Kustomisasi scrollbar */
 .dokumentasi-grid::-webkit-scrollbar {
     height: 8px;
 }
@@ -127,7 +124,6 @@ body {
     cursor: pointer;
     white-space: normal;
     height: 100%;
-    /* Hapus width: 350px dan flex-shrink: 0; karena digantikan oleh grid */
 }
 
 .photo-item:hover,
@@ -189,8 +185,7 @@ body {
 .video-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%;
-    /* Rasio 16:9 untuk video */
+    padding-bottom: 56.25%; /* Rasio 16:9 untuk video */
     overflow: hidden;
     background-color: #000;
     flex-shrink: 0;
@@ -230,7 +225,6 @@ body {
     color: #777;
     margin-bottom: 0;
 }
-
 
 /* === DOWNLOAD LIST (ARSIP DOKUMEN) === */
 .download-list {
@@ -295,6 +289,7 @@ body {
 }
 
 /* === RESPONSIVE DOKUMENTASI === */
+/* Menggunakan media query untuk mengatur 2 kolom di tablet (lebar 992px ke bawah) */
 @media (max-width: 992px) {
     .page-title {
         font-size: 2.5rem;
@@ -303,8 +298,15 @@ body {
     .dokumentasi-section .section-title {
         font-size: 2rem;
     }
+
+    .dokumentasi-grid {
+        /* Mengubah ke 2 kolom di layar tablet */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px; /* Sedikit mengurangi jarak */
+    }
 }
 
+/* Mengatur 2 kolom di mobile (lebar 768px ke bawah) */
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
@@ -329,27 +331,22 @@ body {
         width: 60px;
     }
 
-    /* Mengubah grid agar menyesuaikan lebar layar */
+    /* Tetap 2 kolom, tapi dengan jarak yang lebih rapat */
     .dokumentasi-grid {
-        /* Sekarang grid-template-columns otomatis mengatur jumlah kolom */
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        /* Mengatur ukuran card yang lebih kecil untuk mobile */
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Mengubah ukuran card agar muat 2-3 baris */
         gap: 10px;
         padding: 0 10px;
     }
-
-    .photo-item,
-    .video-item {
-        /* Hapus width tetap dan biarkan grid yang mengaturnya */
+    .photo-item, .video-item {
         width: 100%;
     }
 
     .photo-content h4,
     .video-content h4 {
-        font-size: 0.95rem; /* Mengurangi ukuran font agar muat */
+        font-size: 1rem;
         margin-bottom: 5px;
     }
-
+    
     .photo-content .photo-date,
     .video-content .video-date {
         font-size: 0.8em;
@@ -412,10 +409,9 @@ body {
         font-size: 0.9em;
     }
 
-    /* Aturan untuk grid di layar sangat kecil */
+    /* Mengubah ke 2 kolom di layar sangat kecil */
     .dokumentasi-grid {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        /* Menyesuaikan ukuran card agar muat 3 kolom di layar kecil */
+        grid-template-columns: repeat(2, 1fr);
         gap: 8px;
         padding: 0 5px;
     }
