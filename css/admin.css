@@ -482,18 +482,42 @@ button[type="submit"]:hover {
 
     /* Tab buttons Stack */
     .tabs {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        /* Mengubah arah flex menjadi horizontal */
+        justify-content: space-around;
+        /* Membuat ruang yang sama di antara tombol */
+        align-items: center;
+        /* Membuat tombol sejajar vertikal di tengah */
+        overflow-x: auto;
+        /* Memungkinkan scrolling jika tombol terlalu banyak */
+        -webkit-overflow-scrolling: touch;
+        /* Untuk scroll yang lebih mulus di iOS */
+        border-bottom: 2px solid #ddd;
+        /* Pertahankan garis bawah */
+        padding: 0 0.5rem;
+        /* Tambahkan sedikit padding di sisi */
     }
 
     .tab-button {
-        margin: 0.25rem 0;
+        flex-grow: 1;
+        /* Membuat tombol mengisi ruang yang tersedia secara merata */
+        margin: 0 0.25rem;
+        /* Berikan sedikit ruang di antara tombol */
         border-radius: 8px;
-        padding: 0.85rem;
+        /* Pertahankan border radius */
+        padding: 0.7rem 0.5rem;
+        /* Sesuaikan padding agar tidak terlalu tinggi */
+        font-size: 0.9rem;
+        /* Ukuran font yang lebih kecil untuk mobile */
+        text-align: center;
+        /* Pusatkan teks di dalam tombol */
     }
 
     .tab-button.active {
-        transform: none;
+        border-bottom: 2px solid #3498db;
+        /* Tambahkan indikator aktif di bawah tombol */
+        transform: translateY(0);
+        /* Hilangkan efek terangkat saat aktif */
     }
 
     /* Formulir */
