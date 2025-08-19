@@ -1,7 +1,7 @@
 // frontend/js/admin/pengurus.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
 
-const pengurusForm = document.getElementById('pengurusForm');
+const pengurusForm = document.getElementById('pengurus-Form');
 const pengurusListBody = document.getElementById('pengurus-list');
 const pengurusIdInput = document.getElementById('pengurus-id');
 const pengurusNamaInput = document.getElementById('pengurus-nama');
