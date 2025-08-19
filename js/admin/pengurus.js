@@ -27,13 +27,26 @@ export const initPengurus = () => {
 
     // Event listener baru untuk tombol edit & hapus dinamis
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.edit-btn')) {
-            const id = e.target.closest('.edit-btn').dataset.id;
-            editPengurus(id);
+        const editBtn = e.target.closest('.edit-btn');
+        if (editBtn) {
+            const id = editBtn.dataset.id;
+            if (id) {
+                editPengurus(id);
+            } else {
+                console.error("ID pengurus tidak ditemukan pada tombol edit.");
+                showAlert("ID pengurus tidak valid.", 'error');
+            }
         }
-        if (e.target.closest('.delete-btn')) {
-            const id = e.target.closest('.delete-btn').dataset.id;
-            deletePengurus(id);
+
+        const deleteBtn = e.target.closest('.delete-btn');
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            if (id) {
+                deletePengurus(id);
+            } else {
+                console.error("ID pengurus tidak ditemukan pada tombol hapus.");
+                showAlert("ID pengurus tidak valid.", 'error');
+            }
         }
     });
 };
@@ -65,7 +78,7 @@ const renderPengurusList = (pengurusArray) => {
         row.insertCell(3).textContent = pengurus.kwartir_ranting;
         row.insertCell(4).textContent = pengurus.golongan_pelatih;
         const actionsCell = row.insertCell(5);
-        actionsCell.classList.add('action-buttons'); // Tambahkan kelas untuk CSS
+        actionsCell.classList.add('action-buttons');
         actionsCell.innerHTML = `
             <button class="edit-btn" data-id="${pengurus.id}"><i class="fas fa-edit"></i></button>
             <button class="delete-btn" data-id="${pengurus.id}"><i class="fas fa-trash-alt"></i></button>

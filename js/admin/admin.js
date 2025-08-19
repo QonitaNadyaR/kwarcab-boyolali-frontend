@@ -27,9 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tabs = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
+    const initializedTabs = new Set(); // Set untuk melacak tab yang sudah diinisialisasi
 
     // Fungsi async wrapper untuk init tab agar bisa handle error
     async function initTab(tabName) {
+        // Cek apakah tab sudah diinisialisasi sebelumnya
+        if (initializedTabs.has(tabName)) {
+            console.log(`Tab ${tabName} sudah diinisialisasi. Melewati...`);
+            return;
+        }
+
         try {
             switch (tabName) {
                 case 'warta':
@@ -47,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 default:
                     console.warn(`No initialization function for tab: ${tabName}`);
             }
+            initializedTabs.add(tabName); // Tambahkan ke set setelah inisialisasi berhasil
         } catch (error) {
             console.error(`Error saat inisialisasi tab ${tabName}:`, error);
             showAlert(`Gagal memuat data ${tabName}`, 'error');
@@ -54,19 +62,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', (event) => {
+            // Hindari aksi default jika ada
+            event.preventDefault();
+
             tabs.forEach(item => item.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
             tab.classList.add('active');
-            const targetTabContent = document.getElementById(`${tab.dataset.tab}-tab`);
+            const targetTabName = tab.dataset.tab;
+            const targetTabContent = document.getElementById(`${targetTabName}-tab`);
             if (targetTabContent) {
                 targetTabContent.classList.add('active');
             } else {
-                console.warn(`Tab content with ID '${tab.dataset.tab}-tab' not found.`);
+                console.warn(`Tab content with ID '${targetTabName}-tab' not found.`);
             }
 
-            initTab(tab.dataset.tab);
+            // Panggil fungsi inisialisasi tab
+            initTab(targetTabName);
         });
     });
 
