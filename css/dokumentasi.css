@@ -309,6 +309,15 @@ body {
     .dokumentasi-section .section-title {
         font-size: 2rem;
     }
+
+    .dokumentasi-grid {
+        /* Sekarang tata letak menjadi 2 baris kebawah, dan konten mengisi ke samping */
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
+        gap: 10px;
+        padding: 0 10px 15px;
+        overflow-x: auto;
+    }
 }
 
 /* Tata letak untuk mobile (lebar <= 768px) */
