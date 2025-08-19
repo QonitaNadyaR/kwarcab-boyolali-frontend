@@ -135,6 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function setupWartaSearch() {
+        const searchInput = document.getElementById('wartaSearchInput');
+        if (!searchInput) return;
+
+        // Gunakan debounce untuk mencegah terlalu banyak pemfilteran
+        let debounceTimeout;
+        searchInput.addEventListener('keyup', (event) => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                const searchTerm = event.target.value.toLowerCase().trim();
+
+                if (searchTerm === '') {
+                    // Jika input kosong, tampilkan seperti semula
+                    wartaCarouselSection.style.display = 'block';
+                    renderLatestNews(allWartaDataGlobal.slice(0, 3));
+                    renderOldNews(allWartaDataGlobal.slice(3));
+                    if (allWartaDataGlobal.length > 0) {
+                        updateDots();
+                        showCarouselSlide(currentCarouselSlideIndex);
+                        if (slideInterval) clearInterval(slideInterval);
+                        slideInterval = setInterval(nextCarouselSlide, 5000);
+                    }
+                } else {
+                    // Jika ada pencarian, sembunyikan carousel dan tampilkan semua hasil di grid
+                    wartaCarouselSection.style.display = 'none';
+                    const filteredWarta = allWartaDataGlobal.filter(warta =>
+                        warta.title.toLowerCase().includes(searchTerm)
+                    );
+                    renderOldNews(filteredWarta);
+                }
+            }, 300); // Tunda 300ms
+        });
+    }
+
     // =======================
     // Fetch Data & Initialize
     // =======================

@@ -735,3 +735,46 @@ img {
         padding-top: 0px;
     }
 }
+
+/* Styling untuk Search Input */
+.search-container {
+    text-align: center;
+    margin: 1rem 0 2rem 0;
+}
+
+#wartaSearchInput {
+    width: 90%;
+    max-width: 600px;
+    padding: 12px 20px;
+    /* Tambahan padding vertikal */
+    border: 2px solid #A55B15;
+    border-radius: 25px;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fcf1e7;
+}
+
+#wartaSearchInput:focus {
+    border-color: #3D1E00;
+    box-shadow: 0 0 8px rgba(165, 91, 21, 0.4);
+}
+
+/* ---------------------------------------------------- */
+/* Media Query untuk Tampilan Mobile (Max-width 768px)  */
+/* ---------------------------------------------------- */
+@media (max-width: 768px) {
+    #wartaSearchInput {
+        width: 95%;
+        /* Lebar sedikit lebih besar untuk layar kecil */
+        padding: 10px 15px;
+        /* Kurangi padding untuk efisiensi ruang */
+        font-size: 0.9em;
+        /* Sesuaikan ukuran font */
+    }
+
+    /* Menyesuaikan jarak agar tidak terlalu sempit */
+    .search-container {
+        margin: 1rem 0;
+    }
+}
