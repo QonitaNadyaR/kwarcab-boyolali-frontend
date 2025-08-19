@@ -25,7 +25,7 @@ export const initPengurus = () => {
         showAlert('Form Pengurus dibatalkan.', 'info');
     });
 
-    // Event delegation
+    // Event delegation untuk edit & delete
     pengurusListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) editPengurus(editBtn.dataset.id);
@@ -50,7 +50,7 @@ const loadPengurus = async () => {
     }
 };
 
-// === Render ===
+// === Render List ===
 const renderPengurusList = (pengurusArray) => {
     if (!pengurusArray || pengurusArray.length === 0) {
         pengurusListBody.innerHTML = '<tr><td colspan="6">Tidak ada data pengurus.</td></tr>';
@@ -72,29 +72,29 @@ const renderPengurusList = (pengurusArray) => {
     `).join('');
 };
 
-// === Submit ===
+// === Submit Form ===
 const handlePengurusSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi
+    // Validasi input
     if (!pengurusNamaInput.value.trim()) {
         showAlert('Nama pengurus wajib diisi!', 'error');
         return;
     }
     if (!pengurusKwarranInput.value.trim()) {
-        showAlert('Kwartir Ranting wajib dipilih!', 'error');
+        showAlert('Kwartir Ranting wajib diisi!', 'error');
         return;
     }
     if (!pengurusGolonganInput.value.trim()) {
-        showAlert('Golongan Pelatih wajib dipilih!', 'error');
+        showAlert('Golongan Pelatih wajib diisi!', 'error');
         return;
     }
 
     const data = {
         nama: pengurusNamaInput.value.trim(),
         lulusan: pengurusLulusanInput.value.trim(),
-        kwartirRanting: pengurusKwarranInput.value.trim(),
-        golonganPelatih: pengurusGolonganInput.value.trim(),
+        kwartir_ranting: pengurusKwarranInput.value.trim(),
+        golongan_pelatih: pengurusGolonganInput.value.trim(),
     };
 
     let url = 'pengurus';
@@ -122,8 +122,8 @@ const editPengurus = async (id) => {
         pengurusIdInput.value = pengurus._id;
         pengurusNamaInput.value = pengurus.nama || '';
         pengurusLulusanInput.value = pengurus.lulusan || '';
-        pengurusKwarranInput.value = pengurus.kwartirRanting || '';
-        pengurusGolonganInput.value = pengurus.golonganPelatih || '';
+        pengurusKwarranInput.value = pengurus.kwartir_ranting || '';
+        pengurusGolonganInput.value = pengurus.golongan_pelatih || '';
 
         pengurusSubmitBtn.textContent = 'Update Pengurus';
         pengurusCancelBtn.style.display = 'inline-block';
