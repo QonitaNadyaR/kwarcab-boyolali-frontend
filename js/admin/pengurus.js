@@ -65,8 +65,8 @@ const renderPengurusList = (pengurus) => {
             <td>${p.kwartirRanting || '-'}</td>
             <td>${p.golonganPelatih || '-'}</td>
             <td>
-                <button class="edit-btn" data-id="${p._id}">Edit</button>
-                <button class="delete-btn" data-id="${p._id}">Hapus</button>
+                 <button class="edit-btn" data-id="${pengurus._id}"><i class="fas fa-edit"></i></button>
+                <button class="delete-btn" data-id="${pengurus._id}"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
     `).join('');
