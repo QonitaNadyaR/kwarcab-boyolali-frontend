@@ -25,7 +25,7 @@ export const initPengurus = () => {
 
     loadPengurus();
 
-    // Event listener baru untuk tombol edit & hapus dinamis
+    // Event listener baru yang memeriksa ID sebelum memanggil fungsi
     document.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) {
