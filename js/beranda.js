@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const newsGrid = document.querySelector('.news-grid');
     const expandBtn = document.querySelector('.expand-btn');
     const eventDesc = document.querySelector('.event-desc');
-    const wartaCarouselSection = document.getElementById('warta-section');
+    const wartaCarouselSection = document.getElementById('warta-section'); // Tambahkan ini
 
     let latestNewsData = [];
     let currentCarouselSlideIndex = 0;
     let slideInterval;
-    let allWartaDataGlobal = [];
+    let allWartaDataGlobal = []; // Tambahkan ini
 
     // =======================
     // Utility Functions
@@ -152,12 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Jika input kosong, tampilkan seperti semula
                     wartaCarouselSection.style.display = 'block';
                     renderOldNews(allWartaDataGlobal.slice(3));
-                    if (allWartaDataGlobal.length > 0) {
-                        updateDots();
-                        showCarouselSlide(currentCarouselSlideIndex);
-                        if (slideInterval) clearInterval(slideInterval);
-                        slideInterval = setInterval(nextCarouselSlide, 5000);
-                    }
+                    // Tidak perlu merender ulang carousel karena datanya sudah ada
                 } else {
                     // Jika ada pencarian, sembunyikan carousel dan tampilkan semua hasil di grid
                     wartaCarouselSection.style.display = 'none';
@@ -178,12 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}/warta`);
             if (!response.ok) throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             const allWartaData = await response.json();
-            allWartaDataGlobal = allWartaData;
-            console.log('Data Warta diterima dari API:', allWartaData);
+            allWartaDataGlobal = allWartaData; // Simpan data ke variabel global
+
+            console.log('Data Warta diterima dari API:', allWartaDataGlobal);
 
             const carouselLimit = 3;
-            latestNewsData = allWartaData.slice(0, carouselLimit);
-            const oldNewsData = allWartaData.slice(carouselLimit);
+            latestNewsData = allWartaDataGlobal.slice(0, carouselLimit);
+            const oldNewsData = allWartaDataGlobal.slice(carouselLimit);
 
             renderLatestNews(latestNewsData);
             renderOldNews(oldNewsData);
@@ -203,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setupExpandCollapse();
+            setupWartaSearch(); // Panggil fungsi setup pencarian di sini
         } catch (error) {
             console.error('Error fetching data:', error);
             if (carouselTrack) carouselTrack.innerHTML = '<p>Gagal memuat warta terbaru. Mohon coba lagi nanti.</p>';
