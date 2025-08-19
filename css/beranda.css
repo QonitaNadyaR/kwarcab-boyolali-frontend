@@ -743,7 +743,7 @@ img {
 }
 
 #wartaSearchInput {
-    width: 90%;
+    width: 95%;
     max-width: 600px;
     padding: 12px 20px;
     /* Tambahan padding vertikal */
@@ -765,7 +765,7 @@ img {
 /* ---------------------------------------------------- */
 @media (max-width: 768px) {
     #wartaSearchInput {
-        width: 95%;
+        width: 85%;
         /* Lebar sedikit lebih besar untuk layar kecil */
         padding: 10px 15px;
         /* Kurangi padding untuk efisiensi ruang */

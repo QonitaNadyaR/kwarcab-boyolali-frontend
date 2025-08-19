@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Gunakan debounce untuk mencegah terlalu banyak pemfilteran
         let debounceTimeout;
-        searchInput.addEventListener('keyup', (event) => {
+        searchInput.addEventListener('input', (event) => {
             clearTimeout(debounceTimeout);
             debounceTimeout = setTimeout(() => {
                 const searchTerm = event.target.value.toLowerCase().trim();
