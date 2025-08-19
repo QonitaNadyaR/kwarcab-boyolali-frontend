@@ -83,17 +83,24 @@ body {
 }
 
 /* === TATA LETAK DOKUMENTASI - FOTO & VIDEO === */
+/* Menggunakan layout scroll horizontal dengan 3 baris di desktop */
 .dokumentasi-grid {
     display: grid;
-    /* Desktop default: 3 kolom. minmax(300px, 1fr) memastikan setiap kolom minimal 300px */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; /* Jarak antar card */
-    padding: 0 1rem;
+    /* Membuat 3 baris yang tingginya otomatis menyesuaikan */
+    grid-template-rows: repeat(3, auto);
+    /* Mengisi item secara horizontal, 3 item per kolom */
+    grid-auto-flow: column;
+    gap: 15px;
+    /* Mengatur jarak antar card agar lebih rapat */
+    padding: 0 1rem 15px;
     margin-top: 2rem;
+    overflow-x: auto;
+    /* Mengaktifkan scroll horizontal */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-    justify-content: center;
 }
 
 /* Kustomisasi scrollbar */
@@ -124,6 +131,9 @@ body {
     cursor: pointer;
     white-space: normal;
     height: 100%;
+    width: 300px;
+    /* Ukuran card dipertahankan */
+    flex-shrink: 0;
 }
 
 .photo-item:hover,
@@ -185,7 +195,8 @@ body {
 .video-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Rasio 16:9 untuk video */
+    padding-bottom: 56.25%;
+    /* Rasio 16:9 untuk video */
     overflow: hidden;
     background-color: #000;
     flex-shrink: 0;
@@ -225,6 +236,7 @@ body {
     color: #777;
     margin-bottom: 0;
 }
+
 
 /* === DOWNLOAD LIST (ARSIP DOKUMEN) === */
 .download-list {
@@ -289,7 +301,6 @@ body {
 }
 
 /* === RESPONSIVE DOKUMENTASI === */
-/* Menggunakan media query untuk mengatur 2 kolom di tablet (lebar 992px ke bawah) */
 @media (max-width: 992px) {
     .page-title {
         font-size: 2.5rem;
@@ -298,15 +309,9 @@ body {
     .dokumentasi-section .section-title {
         font-size: 2rem;
     }
-
-    .dokumentasi-grid {
-        /* Mengubah ke 2 kolom di layar tablet */
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px; /* Sedikit mengurangi jarak */
-    }
 }
 
-/* Mengatur 2 kolom di mobile (lebar 768px ke bawah) */
+/* Tata letak untuk mobile (lebar <= 768px) */
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
@@ -331,28 +336,33 @@ body {
         width: 60px;
     }
 
-    /* Tetap 2 kolom, tapi dengan jarak yang lebih rapat */
+    /* Mengubah tata letak menjadi 2 baris ke bawah */
     .dokumentasi-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Mengubah ukuran card agar muat 2-3 baris */
+        /* Sekarang tata letak menjadi 2 baris kebawah, dan konten mengisi ke samping */
+        grid-template-rows: repeat(2, auto);
+        grid-auto-flow: column;
         gap: 10px;
-        padding: 0 10px;
+        padding: 0 10px 15px;
+        overflow-x: auto;
     }
-    .photo-item, .video-item {
-        width: 100%;
+
+    .photo-item,
+    .video-item {
+        /* Mempertahankan lebar agar scroll horizontal berfungsi */
+        width: 250px;
     }
 
     .photo-content h4,
     .video-content h4 {
-        font-size: 1rem;
+        font-size: 1.1rem;
         margin-bottom: 5px;
     }
-    
+
     .photo-content .photo-date,
     .video-content .video-date {
-        font-size: 0.8em;
+        font-size: 0.85em;
     }
 
-    /* Aturan untuk download list di mobile */
     .download-list {
         padding: 0 15px;
     }
@@ -392,6 +402,7 @@ body {
     }
 }
 
+/* Tata letak untuk layar sangat kecil (lebar <= 480px) */
 @media (max-width: 480px) {
     .page-title {
         font-size: 1.8rem;
@@ -409,11 +420,19 @@ body {
         font-size: 0.9em;
     }
 
-    /* Mengubah ke 2 kolom di layar sangat kecil */
+    /* Mengubah tata letak menjadi 1 baris ke bawah */
     .dokumentasi-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, auto);
+        grid-auto-flow: column;
         gap: 8px;
-        padding: 0 5px;
+        padding: 0 5px 15px;
+        overflow-x: auto;
+    }
+
+    .photo-item,
+    .video-item {
+        width: 200px;
+        /* Ukuran card lebih kecil untuk layar sangat kecil */
     }
 
     .photo-content h4,
