@@ -62,8 +62,8 @@ const renderPengurusList = (pengurusArray) => {
             <td>${index + 1}</td>
             <td>${p.nama || ''}</td>
             <td>${p.lulusan || ''}</td>
-            <td>${p.kwartirRanting || ''}</td>
-            <td>${p.golonganPelatih || ''}</td>
+            <td>${p.kwartir_ranting || ''}</td>
+            <td>${p.golongan_pelatih || ''}</td>
             <td class="action-buttons">
                 <button class="edit-btn" data-id="${p._id}"><i class="fas fa-edit"></i></button>
                 <button class="delete-btn" data-id="${p._id}"><i class="fas fa-trash-alt"></i></button>
