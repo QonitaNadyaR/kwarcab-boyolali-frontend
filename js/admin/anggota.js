@@ -1,3 +1,4 @@
+// frontend/js/admin/anggota.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
 
 const anggotaForm = document.getElementById('anggota-form');
@@ -28,29 +29,12 @@ export const initAnggota = () => {
 
     loadAnggota();
 
-    // Event listener baru yang memeriksa ID sebelum memanggil fungsi
     document.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
-        if (editBtn) {
-            const id = editBtn.dataset.id;
-            if (id) {
-                editAnggota(id);
-            } else {
-                console.error("ID anggota tidak ditemukan pada tombol edit.");
-                showAlert("ID anggota tidak valid.", 'error');
-            }
-        }
+        if (editBtn) editAnggota(editBtn.dataset.id);
 
         const deleteBtn = e.target.closest('.delete-btn');
-        if (deleteBtn) {
-            const id = deleteBtn.dataset.id;
-            if (id) {
-                deleteAnggota(id);
-            } else {
-                console.error("ID anggota tidak ditemukan pada tombol hapus.");
-                showAlert("ID anggota tidak valid.", 'error');
-            }
-        }
+        if (deleteBtn) deleteAnggota(deleteBtn.dataset.id);
     });
 };
 
@@ -68,21 +52,23 @@ const loadAnggota = async () => {
 
 const renderAnggotaList = (anggotaArray) => {
     anggotaListBody.innerHTML = '';
-    if (anggotaArray.length === 0) {
+    if (!anggotaArray.length) {
         anggotaListBody.innerHTML = '<tr><td colspan="9">Tidak ada data anggota.</td></tr>';
         return;
     }
-    anggotaArray.forEach(anggota => {
+    anggotaArray.forEach((anggota, index) => {
         const row = anggotaListBody.insertRow();
-        row.dataset.id = anggota.id;
-        row.insertCell(0).textContent = anggota.id;
-        row.insertCell(1).textContent = anggota.no_reg;
-        row.insertCell(2).textContent = anggota.nama;
-        row.insertCell(3).textContent = anggota.pangkalan;
-        row.insertCell(4).textContent = anggota.ttl;
-        row.insertCell(5).textContent = anggota.kwartir_ranting;
-        row.insertCell(6).textContent = anggota.golongan_anggota;
-        row.insertCell(7).textContent = anggota.tahun;
+        row.dataset.id = anggota._id;
+
+        row.insertCell(0).textContent = index + 1;
+        row.insertCell(1).textContent = anggota.no_reg || '';
+        row.insertCell(2).textContent = anggota.nama || '';
+        row.insertCell(3).textContent = anggota.pangkalan || '';
+        row.insertCell(4).textContent = anggota.ttl || '';
+        row.insertCell(5).textContent = anggota.kwartir_ranting || '';
+        row.insertCell(6).textContent = anggota.golongan_anggota || '';
+        row.insertCell(7).textContent = anggota.tahun || '';
+
         const actionsCell = row.insertCell(8);
         actionsCell.classList.add('action-buttons');
         actionsCell.innerHTML = `
@@ -124,20 +110,21 @@ const handleAnggotaSubmit = async (e) => {
 };
 
 const editAnggota = async (id) => {
+    if (!id) return;
     try {
         const anggota = await fetchData(`anggota/${id}`);
 
-        anggotaIdInput.value = anggota.id;
-        anggotaNoRegInput.value = anggota.no_reg;
-        anggotaNamaInput.value = anggota.nama;
-        anggotaPangkalanInput.value = anggota.pangkalan;
-        anggotaTtlInput.value = anggota.ttl;
-        anggotaKwartirRantingInput.value = anggota.kwartir_ranting;
-        anggotaGolonganAnggotaInput.value = anggota.golongan_anggota;
-        anggotaTahunInput.value = anggota.tahun;
+        anggotaIdInput.value = anggota._id;
+        anggotaNoRegInput.value = anggota.no_reg || '';
+        anggotaNamaInput.value = anggota.nama || '';
+        anggotaPangkalanInput.value = anggota.pangkalan || '';
+        anggotaTtlInput.value = anggota.ttl || '';
+        anggotaKwartirRantingInput.value = anggota.kwartir_ranting || '';
+        anggotaGolonganAnggotaInput.value = anggota.golongan_anggota || '';
+        anggotaTahunInput.value = anggota.tahun || '';
+
         anggotaSubmitBtn.textContent = 'Update Anggota';
         anggotaCancelBtn.style.display = 'inline-block';
-
         anggotaForm.scrollIntoView({ behavior: 'smooth' });
     } catch (error) {
         console.error('Error editing anggota:', error);
@@ -146,9 +133,7 @@ const editAnggota = async (id) => {
 };
 
 const deleteAnggota = async (id) => {
-    if (!confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) {
-        return;
-    }
+    if (!id || !confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) return;
     try {
         const result = await deleteData('anggota', id);
         showAlert(result.message || 'Data anggota berhasil dihapus!');

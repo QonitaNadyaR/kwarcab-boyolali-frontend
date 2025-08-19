@@ -1,3 +1,4 @@
+// frontend/js/admin/pengurus.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
 
 const pengurusForm = document.getElementById('pengurus-form');
@@ -25,29 +26,12 @@ export const initPengurus = () => {
 
     loadPengurus();
 
-    // Event listener baru yang memeriksa ID sebelum memanggil fungsi
     document.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
-        if (editBtn) {
-            const id = editBtn.dataset.id;
-            if (id) {
-                editPengurus(id);
-            } else {
-                console.error("ID pengurus tidak ditemukan pada tombol edit.");
-                showAlert("ID pengurus tidak valid.", 'error');
-            }
-        }
+        if (editBtn) editPengurus(editBtn.dataset.id);
 
         const deleteBtn = e.target.closest('.delete-btn');
-        if (deleteBtn) {
-            const id = deleteBtn.dataset.id;
-            if (id) {
-                deletePengurus(id);
-            } else {
-                console.error("ID pengurus tidak ditemukan pada tombol hapus.");
-                showAlert("ID pengurus tidak valid.", 'error');
-            }
-        }
+        if (deleteBtn) deletePengurus(deleteBtn.dataset.id);
     });
 };
 
@@ -65,18 +49,20 @@ const loadPengurus = async () => {
 
 const renderPengurusList = (pengurusArray) => {
     pengurusListBody.innerHTML = '';
-    if (pengurusArray.length === 0) {
+    if (!pengurusArray.length) {
         pengurusListBody.innerHTML = '<tr><td colspan="6">Tidak ada data pengurus.</td></tr>';
         return;
     }
-    pengurusArray.forEach(pengurus => {
+    pengurusArray.forEach((pengurus, index) => {
         const row = pengurusListBody.insertRow();
-        row.dataset.id = pengurus.id;
-        row.insertCell(0).textContent = pengurus.id;
-        row.insertCell(1).textContent = pengurus.nama;
-        row.insertCell(2).textContent = pengurus.lulusan;
-        row.insertCell(3).textContent = pengurus.kwartir_ranting;
-        row.insertCell(4).textContent = pengurus.golongan_pelatih;
+        row.dataset.id = pengurus._id;
+
+        row.insertCell(0).textContent = index + 1;
+        row.insertCell(1).textContent = pengurus.nama || '';
+        row.insertCell(2).textContent = pengurus.lulusan || '';
+        row.insertCell(3).textContent = pengurus.kwartir_ranting || '';
+        row.insertCell(4).textContent = pengurus.golongan_pelatih || '';
+
         const actionsCell = row.insertCell(5);
         actionsCell.classList.add('action-buttons');
         actionsCell.innerHTML = `
@@ -115,17 +101,18 @@ const handlePengurusSubmit = async (e) => {
 };
 
 const editPengurus = async (id) => {
+    if (!id) return;
     try {
         const pengurus = await fetchData(`pengurus/${id}`);
 
-        pengurusIdInput.value = pengurus.id;
-        pengurusNamaInput.value = pengurus.nama;
-        pengurusLulusanInput.value = pengurus.lulusan;
-        pengurusKwartirRantingInput.value = pengurus.kwartir_ranting;
-        pengurusGolonganPelatihInput.value = pengurus.golongan_pelatih;
+        pengurusIdInput.value = pengurus._id;
+        pengurusNamaInput.value = pengurus.nama || '';
+        pengurusLulusanInput.value = pengurus.lulusan || '';
+        pengurusKwartirRantingInput.value = pengurus.kwartir_ranting || '';
+        pengurusGolonganPelatihInput.value = pengurus.golongan_pelatih || '';
+
         pengurusSubmitBtn.textContent = 'Update Pengurus';
         pengurusCancelBtn.style.display = 'inline-block';
-
         pengurusForm.scrollIntoView({ behavior: 'smooth' });
     } catch (error) {
         console.error('Error editing pengurus:', error);
@@ -134,9 +121,7 @@ const editPengurus = async (id) => {
 };
 
 const deletePengurus = async (id) => {
-    if (!confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) {
-        return;
-    }
+    if (!id || !confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) return;
     try {
         const result = await deleteData('pengurus', id);
         showAlert(result.message || 'Data pengurus berhasil dihapus!');

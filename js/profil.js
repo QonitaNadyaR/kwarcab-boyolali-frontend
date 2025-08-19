@@ -1,3 +1,4 @@
+//frontend/js/profil.js
 document.addEventListener('DOMContentLoaded', () => {
 
     // Tentukan URL backend secara dinamis
