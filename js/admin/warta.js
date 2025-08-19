@@ -1,4 +1,3 @@
-// frontend/js/admin/warta.js
 import { fetchData, sendData, deleteData, resetForm, showAlert, getImageUrl } from '../utils.js';
 
 export function initWarta() {
@@ -39,16 +38,16 @@ export function initWarta() {
                 <td>${item.title}</td>
                 <td><img src="${getImageUrl(item.imageUrl)}" alt="${item.title}" style="max-width:80px;"></td>
                 <td>${item.content.substring(0, 50)}...</td>
-                <td>
-                    <button class="btn-edit" data-id="${item._id}">Edit</button>
-                    <button class="btn-delete" data-id="${item._id}">Hapus</button>
+                <td class="action-buttons">
+                    <button class="edit-btn" data-id="${item._id}"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" data-id="${item._id}"><i class="fas fa-trash-alt"></i></button>
                 </td>
             `;
             tableWartaBody.appendChild(tr);
         });
 
         // Event listener tombol Edit
-        document.querySelectorAll('.btn-edit').forEach(btn => {
+        document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
                 const selected = data.find(w => w._id === id);
@@ -67,7 +66,7 @@ export function initWarta() {
         });
 
         // Event listener tombol Hapus
-        document.querySelectorAll('.btn-delete').forEach(btn => {
+        document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 if (confirm('Yakin ingin menghapus warta ini?')) {
                     try {

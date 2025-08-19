@@ -15,7 +15,7 @@ export const initPengurus = () => {
         console.warn("Pengurus form not found, skipping Pengurus initialization.");
         return;
     }
-    pengurusForm.dataset.entity = 'Pengurus'; // Untuk resetForm
+    pengurusForm.dataset.entity = 'Pengurus';
 
     pengurusForm.addEventListener('submit', handlePengurusSubmit);
     pengurusCancelBtn.addEventListener('click', () => {
@@ -24,6 +24,18 @@ export const initPengurus = () => {
     });
 
     loadPengurus();
+
+    // Event listener baru untuk tombol edit & hapus dinamis
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-btn')) {
+            const id = e.target.closest('.edit-btn').dataset.id;
+            editPengurus(id);
+        }
+        if (e.target.closest('.delete-btn')) {
+            const id = e.target.closest('.delete-btn').dataset.id;
+            deletePengurus(id);
+        }
+    });
 };
 
 const loadPengurus = async () => {
@@ -53,17 +65,11 @@ const renderPengurusList = (pengurusArray) => {
         row.insertCell(3).textContent = pengurus.kwartir_ranting;
         row.insertCell(4).textContent = pengurus.golongan_pelatih;
         const actionsCell = row.insertCell(5);
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Edit';
-        editBtn.classList.add('edit-btn');
-        editBtn.addEventListener('click', () => editPengurus(pengurus.id));
-        actionsCell.appendChild(editBtn);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Hapus';
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.addEventListener('click', () => deletePengurus(pengurus.id));
-        actionsCell.appendChild(deleteBtn);
+        actionsCell.classList.add('action-buttons'); // Tambahkan kelas untuk CSS
+        actionsCell.innerHTML = `
+            <button class="edit-btn" data-id="${pengurus.id}"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" data-id="${pengurus.id}"><i class="fas fa-trash-alt"></i></button>
+        `;
     });
 };
 

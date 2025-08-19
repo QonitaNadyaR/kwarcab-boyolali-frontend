@@ -1,5 +1,3 @@
-// frontend/js/admin/dokumentasi.js
-
 import { fetchData, sendData, deleteData, showAlert, API_BASE_URL, BASE_URL_MEDIA } from '../utils.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
@@ -114,8 +112,8 @@ export const loadDokumentasi = async () => {
                     day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
 
-                const imageUrl = item.url; // Gunakan URL dari Cloudinary
-                if (!imageUrl) return; // Lewati jika URL tidak ada
+                const imageUrl = item.url;
+                if (!imageUrl) return;
 
                 photoItem.innerHTML = `
                     <a href="${imageUrl}" data-lightbox="galeri" data-title="${item.judul}">
@@ -127,7 +125,9 @@ export const loadDokumentasi = async () => {
                             </div>
                         </div>
                     </a>
-                    <button class="delete-btn" data-id="${item._id}" data-jenis="foto">Hapus</button>
+                    <div class="action-buttons-wrapper">
+                        <button class="delete-btn" data-id="${item._id}" data-jenis="foto"><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 `;
                 if (galeriFotoGrid) galeriFotoGrid.appendChild(photoItem);
             });
@@ -150,7 +150,7 @@ export const loadDokumentasi = async () => {
                 }) : 'Tanggal tidak tersedia';
 
                 let videoEmbedHtml = '';
-                if (item.url) { // Gunakan URL dari Cloudinary
+                if (item.url) {
                     const videoPathMP4 = item.url;
 
                     videoEmbedHtml = `
@@ -171,7 +171,9 @@ export const loadDokumentasi = async () => {
                             <p class="video-date">${date}</p>
                         </div>
                     </div>
-                    <button class="delete-btn" data-id="${item._id}" data-jenis="video">Hapus</button>
+                    <div class="action-buttons-wrapper">
+                        <button class="delete-btn" data-id="${item._id}" data-jenis="video"><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 `;
                 if (videoKegiatanGrid) videoKegiatanGrid.appendChild(videoItem);
             });
@@ -201,7 +203,6 @@ const deleteDokumentasi = async (id, jenis) => {
     }
 
     try {
-        // PERBAIKAN: Kirimkan hanya endpoint dan id. Biarkan deleteData yang membuat URL lengkap.
         const endpoint = `dokumentasi/${jenis}`;
         const result = await deleteData(endpoint, id);
 

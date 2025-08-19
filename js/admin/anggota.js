@@ -18,7 +18,7 @@ export const initAnggota = () => {
         console.warn("Anggota form not found, skipping Anggota initialization.");
         return;
     }
-    anggotaForm.dataset.entity = 'Anggota'; // Untuk resetForm
+    anggotaForm.dataset.entity = 'Anggota';
 
     anggotaForm.addEventListener('submit', handleAnggotaSubmit);
     anggotaCancelBtn.addEventListener('click', () => {
@@ -27,6 +27,18 @@ export const initAnggota = () => {
     });
 
     loadAnggota();
+
+    // Event listener baru untuk tombol edit & hapus dinamis
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-btn')) {
+            const id = e.target.closest('.edit-btn').dataset.id;
+            editAnggota(id);
+        }
+        if (e.target.closest('.delete-btn')) {
+            const id = e.target.closest('.delete-btn').dataset.id;
+            deleteAnggota(id);
+        }
+    });
 };
 
 const loadAnggota = async () => {
@@ -59,17 +71,11 @@ const renderAnggotaList = (anggotaArray) => {
         row.insertCell(6).textContent = anggota.golongan_anggota;
         row.insertCell(7).textContent = anggota.tahun;
         const actionsCell = row.insertCell(8);
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Edit';
-        editBtn.classList.add('edit-btn');
-        editBtn.addEventListener('click', () => editAnggota(anggota.id));
-        actionsCell.appendChild(editBtn);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Hapus';
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.addEventListener('click', () => deleteAnggota(anggota.id));
-        actionsCell.appendChild(deleteBtn);
+        actionsCell.classList.add('action-buttons'); // Tambahkan kelas untuk CSS
+        actionsCell.innerHTML = `
+            <button class="edit-btn" data-id="${anggota.id}"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" data-id="${anggota.id}"><i class="fas fa-trash-alt"></i></button>
+        `;
     });
 };
 
