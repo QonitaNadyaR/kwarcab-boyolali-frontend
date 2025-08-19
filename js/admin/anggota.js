@@ -86,8 +86,8 @@ const renderAnggotaList = (anggotaArray) => {
         const actionsCell = row.insertCell(8);
         actionsCell.classList.add('action-buttons');
         actionsCell.innerHTML = `
-            <button class="edit-btn" data-id="${anggota.id}"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" data-id="${anggota.id}"><i class="fas fa-trash-alt"></i></button>
+            <button class="edit-btn" data-id="${anggota._id}"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" data-id="${anggota._id}"><i class="fas fa-trash-alt"></i></button>
         `;
     });
 };

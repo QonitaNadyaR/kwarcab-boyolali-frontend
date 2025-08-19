@@ -80,8 +80,8 @@ const renderPengurusList = (pengurusArray) => {
         const actionsCell = row.insertCell(5);
         actionsCell.classList.add('action-buttons');
         actionsCell.innerHTML = `
-            <button class="edit-btn" data-id="${pengurus.id}"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn" data-id="${pengurus.id}"><i class="fas fa-trash-alt"></i></button>
+            <button class="edit-btn" data-id="${pengurus._id}"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" data-id="${pengurus._id}"><i class="fas fa-trash-alt"></i></button>
         `;
     });
 };
