@@ -25,12 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Utility Functions
     // =======================
     function getImageUrlForDisplay(imageUrlFromApi) {
-        // Jika imageUrlFromApi adalah URL lengkap (dari Cloudinary), gunakan langsung.
         if (imageUrlFromApi && (imageUrlFromApi.startsWith('http://') || imageUrlFromApi.startsWith('https://'))) {
             return imageUrlFromApi;
         }
-
-        // Jika tidak, gunakan gambar placeholder.
         return '/images/placeholder.png';
     }
 
@@ -137,36 +134,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // =======================
+    // Search Warta
+    // =======================
     function setupWartaSearch() {
         const searchInput = document.getElementById('wartaSearchInput');
         if (!searchInput) return;
 
-        // Gunakan debounce untuk mencegah terlalu banyak pemfilteran
-        let debounceTimeout;
-        searchInput.addEventListener('input', (event) => {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => {
-                const searchTerm = event.target.value.toLowerCase().trim();
+        function handleSearch(event) {
+            const searchTerm = event.target.value.toLowerCase().trim();
 
-                if (searchTerm === '') {
-                    // Jika input kosong, tampilkan seperti semula
-                    wartaCarouselSection.style.display = 'block';
-                    renderOldNews(allWartaDataGlobal.slice(3));
-                    if (allWartaDataGlobal.length > 0) {
-                        updateDots();
-                        showCarouselSlide(currentCarouselSlideIndex);
-                        if (slideInterval) clearInterval(slideInterval);
-                        slideInterval = setInterval(nextCarouselSlide, 5000);
-                    }
-                } else {
-                    // Jika ada pencarian, sembunyikan carousel dan tampilkan semua hasil di grid
-                    wartaCarouselSection.style.display = 'none';
-                    const filteredWarta = allWartaDataGlobal.filter(warta =>
-                        warta.title.toLowerCase().includes(searchTerm)
-                    );
-                    renderOldNews(filteredWarta);
+            if (searchTerm === "") {
+                // kalau kosong → tampilkan semua
+                wartaCarouselSection.style.display = "block";
+                renderOldNews(allWartaDataGlobal.slice(3));
+
+                if (allWartaDataGlobal.length > 0) {
+                    updateDots();
+                    showCarouselSlide(currentCarouselSlideIndex);
+                    if (slideInterval) clearInterval(slideInterval);
+                    slideInterval = setInterval(nextCarouselSlide, 5000);
                 }
-            }, 300); // Tunda 300ms
+            } else {
+                // ada keyword → sembunyikan carousel, tampilkan hasil
+                wartaCarouselSection.style.display = "none";
+                const filteredWarta = allWartaDataGlobal.filter(warta =>
+                    warta.title.toLowerCase().includes(searchTerm)
+                );
+                renderOldNews(filteredWarta);
+            }
+        }
+
+        // realtime (ketik huruf demi huruf, debounce)
+        let debounceTimeout;
+        searchInput.addEventListener("input", (event) => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => handleSearch(event), 300);
+        });
+
+        // tekan Enter
+        searchInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                handleSearch(event);
+            }
         });
     }
 
@@ -203,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setupExpandCollapse();
+            setupWartaSearch(); // aktifkan search
         } catch (error) {
             console.error('Error fetching data:', error);
             if (carouselTrack) carouselTrack.innerHTML = '<p>Gagal memuat warta terbaru. Mohon coba lagi nanti.</p>';
