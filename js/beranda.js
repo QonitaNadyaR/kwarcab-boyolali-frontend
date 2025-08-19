@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const newsGrid = document.querySelector('.news-grid');
     const expandBtn = document.querySelector('.expand-btn');
     const eventDesc = document.querySelector('.event-desc');
-    const wartaCarouselSection = document.getElementById('warta-section');
-    const wartaSearchResultsWrapper = document.getElementById('warta-search-results'); // ID baru
+    const wartaCarouselContainer = document.getElementById('warta-carousel-container'); // Perbaikan: gunakan ID ini
+    const wartaLamaWrapper = document.querySelector('.warta-lama-wrapper'); // Perbaikan: gunakan kelas ini
 
     let latestNewsData = [];
     let currentCarouselSlideIndex = 0;
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!newsGrid) return;
         newsGrid.innerHTML = '';
         if (newsItems.length === 0) {
-            newsGrid.innerHTML = '<p>Tidak ada warta lainnya yang tersedia.</p>';
+            newsGrid.innerHTML = '<p>Tidak ada warta yang ditemukan.</p>'; // Pesan untuk pencarian
             return;
         }
         newsItems.forEach(news => newsGrid.appendChild(createOldWartaCard(news)));
@@ -147,8 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (searchTerm === "") {
                 // jika kosong, tampilkan carousel & berita lama
-                if (wartaCarouselSection) wartaCarouselSection.style.display = "block";
-                if (wartaSearchResultsWrapper) wartaSearchResultsWrapper.style.display = "block";
+                if (wartaCarouselContainer) wartaCarouselContainer.style.display = "block";
+                if (wartaLamaWrapper) wartaLamaWrapper.style.display = "block";
                 renderNewsGrid(allWartaDataGlobal.slice(3));
 
                 if (latestNewsData.length > 0) {
@@ -159,11 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 // jika ada kata kunci, sembunyikan carousel, tampilkan hasil
-                if (wartaCarouselSection) wartaCarouselSection.style.display = "none";
-                if (wartaSearchResultsWrapper) wartaSearchResultsWrapper.style.display = "block";
+                if (wartaCarouselContainer) wartaCarouselContainer.style.display = "none";
+                if (wartaLamaWrapper) wartaLamaWrapper.style.display = "block";
 
                 const filteredWarta = allWartaDataGlobal.filter(warta =>
-                    warta.title.toLowerCase().includes(searchTerm) || warta.body.toLowerCase().includes(searchTerm)
+                    warta.title.toLowerCase().includes(searchTerm) || (warta.body && warta.body.toLowerCase().includes(searchTerm))
                 );
 
                 // tampilkan hasil yang difilter
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (oldNewsData.length === 0 && newsGrid) {
-                newsGrid.innerHTML = '<p>Tidak ada warta lama yang tersedia saat ini.</p>';
+                newsGrid.innerHTML = '<p>Tidak ada warta lainnya yang tersedia saat ini.</p>';
             }
 
             setupExpandCollapse();
