@@ -591,13 +591,26 @@ img {
     }
 
     .registration-card {
-        width: 200px;
+        width: 180px;
         flex-shrink: 0;
         scrollbar-width: thin;
-        /* Firefox */
+        padding: 1rem;
         scrollbar-color: #A55B15 transparent;
-        /* Firefox */
     }
+
+    .registration-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .registration-card h3 {
+        font-size: 1rem;
+    }
+
+    .registration-card p {
+        font-size: 0.8rem;
+    }
+
 }
 
 .registration-cards::-webkit-scrollbar {
