@@ -1,5 +1,6 @@
 // frontend/js/admin/warta.js
 import { fetchData, sendData, deleteData, resetForm, showAlert, getImageUrl } from '../utils.js';
+import { showConfirmationModal } from './confirm-modal.js';
 
 export function initWarta() {
     const formWarta = document.getElementById('warta-form');
@@ -48,7 +49,6 @@ export function initWarta() {
         });
     }
 
-    // Menggunakan event delegation pada tabel utama
     tableWartaBody.addEventListener('click', async (e) => {
         const editBtn = e.target.closest('.edit-btn');
         const deleteBtn = e.target.closest('.delete-btn');
@@ -72,8 +72,9 @@ export function initWarta() {
 
         if (deleteBtn) {
             const id = deleteBtn.dataset.id;
-            // Tambahkan konfirmasi
-            if (window.confirm('Yakin ingin menghapus warta ini?')) {
+            const isConfirmed = await showConfirmationModal('Yakin ingin menghapus warta ini?');
+
+            if (isConfirmed) {
                 try {
                     await deleteData('warta', id);
                     showAlert('Warta berhasil dihapus', 'success');
@@ -87,11 +88,9 @@ export function initWarta() {
 
     formWarta.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const formData = new FormData();
         formData.append('title', titleInput.value.trim());
         formData.append('content', contentInput.value.trim());
-
         const imageFile = imageInput.files[0];
         const existingImageUrl = existingImageUrlInput.value;
 

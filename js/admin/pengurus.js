@@ -1,5 +1,6 @@
 // frontend/js/admin/pengurus.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
+import { showConfirmationModal } from './confirm-modal.js';
 
 const pengurusForm = document.getElementById('pengurus-form');
 const pengurusIdInput = document.getElementById('pengurus-id');
@@ -18,17 +19,12 @@ export const initPengurus = () => {
     }
 
     pengurusForm.dataset.entity = 'Pengurus';
-
-    // Submit (tambah/update)
     pengurusForm.addEventListener('submit', handlePengurusSubmit);
-
-    // Batal edit
     pengurusCancelBtn.addEventListener('click', () => {
         resetPengurusForm();
         showAlert('Form Pengurus dibatalkan.', 'info');
     });
 
-    // Event delegation: Edit & Hapus
     pengurusListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) {
@@ -46,7 +42,6 @@ export const initPengurus = () => {
     loadPengurus();
 };
 
-// === Load Data ===
 const loadPengurus = async () => {
     pengurusListBody.innerHTML = '<tr><td colspan="6">Memuat data pengurus...</td></tr>';
     try {
@@ -59,7 +54,6 @@ const loadPengurus = async () => {
     }
 };
 
-// === Render Tabel ===
 const renderPengurusList = (pengurusArray) => {
     if (!pengurusArray || pengurusArray.length === 0) {
         pengurusListBody.innerHTML = '<tr><td colspan="6">Tidak ada data pengurus.</td></tr>';
@@ -81,11 +75,8 @@ const renderPengurusList = (pengurusArray) => {
     `).join('');
 };
 
-// === Submit Form (Tambah/Update) ===
 const handlePengurusSubmit = async (e) => {
     e.preventDefault();
-
-    // Validasi
     if (!pengurusNamaInput.value.trim()) {
         showAlert('Nama pengurus wajib diisi!', 'error');
         return;
@@ -124,7 +115,6 @@ const handlePengurusSubmit = async (e) => {
     }
 };
 
-// === Edit ===
 const editPengurus = async (id) => {
     try {
         const p = await fetchData(`pengurus/${id}`);
@@ -143,13 +133,10 @@ const editPengurus = async (id) => {
     }
 };
 
-// === Hapus ===
 const deletePengurus = async (id) => {
     if (!id) return;
-    // Tambahkan konfirmasi
-    if (!window.confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) {
-        return;
-    }
+    const isConfirmed = await showConfirmationModal('Apakah Anda yakin ingin menghapus data pengurus ini?');
+    if (!isConfirmed) return;
 
     try {
         await deleteData('pengurus', id);
@@ -161,7 +148,6 @@ const deletePengurus = async (id) => {
     }
 };
 
-// === Reset Form ===
 const resetPengurusForm = () => {
     resetForm(pengurusForm, pengurusIdInput, pengurusSubmitBtn, pengurusCancelBtn, 'Tambah Pengurus');
 };

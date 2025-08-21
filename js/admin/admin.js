@@ -1,3 +1,4 @@
+// frontend/js/admin/admin.js
 import { initWarta } from './warta.js';
 import { initPengurus } from './pengurus.js';
 import { initAnggota } from './anggota.js';
