@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <div id="custom-alert" class="custom-alert-container" style="display:none;">
+        <div class="custom-alert-message"></div>
+    </div>
+
     <script>
         const token = localStorage.getItem('authToken');
         if (!token) {

@@ -1,3 +1,4 @@
+/* admin.css */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: #f0f2f5;
@@ -197,7 +198,7 @@ button[type="submit"]:hover {
 
 .table-container {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;     /* Meningkatkan kelancaran di iOS */
+    -webkit-overflow-scrolling: touch;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     margin-top: 1rem;
@@ -207,7 +208,7 @@ button[type="submit"]:hover {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
-    white-space: nowrap;    /* Mencegah konten pecah baris */
+    white-space: nowrap;
 }
 
 .data-table th,
@@ -524,5 +525,55 @@ button[type="submit"]:hover {
     .data-table .delete-btn {
         font-size: 0.8rem;
         padding: 0.5rem;
+    }
+}
+
+/* Notifikasi Kustom */
+.custom-alert-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 3.5s forwards;
+}
+
+.custom-alert-container.success {
+    background-color: #28a745;
+}
+
+.custom-alert-container.error {
+    background-color: #dc3545;
+}
+
+.custom-alert-container.info {
+    background-color: #17a2b8;
+}
+
+@keyframes slideIn {
+    from {
+        top: -50px;
+        opacity: 0;
+    }
+
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        visibility: hidden;
     }
 }

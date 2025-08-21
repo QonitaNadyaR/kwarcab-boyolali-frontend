@@ -1,3 +1,4 @@
+// utils.js
 // Tentukan API_BASE_URL sesuai environment
 export const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:4000/api'
@@ -7,14 +8,30 @@ export const API_BASE_URL = (window.location.hostname === 'localhost' || window.
 export const BASE_URL_MEDIA = API_BASE_URL.replace('/api', '');
 
 /**
- * Menampilkan notifikasi sederhana.
+ * Menampilkan notifikasi kustom.
  * @param {string} message Pesan notifikasi
- * @param {string} [type='success'] Tipe notifikasi: success, error, info, dll.
+ * @param {string} [type='success'] Tipe notifikasi: success, error, info.
  */
 export function showAlert(message, type = 'success') {
-    // Anda bisa mengganti ini dengan modal atau UI lain yang lebih baik daripada alert()
-    alert(`[${type.toUpperCase()}] ${message}`);
-    console.log(`Alert (${type}): ${message}`);
+    const alertContainer = document.getElementById('custom-alert');
+    const alertMessage = alertContainer.querySelector('.custom-alert-message');
+
+    if (!alertContainer || !alertMessage) {
+        console.error("Elemen notifikasi kustom tidak ditemukan.");
+        // Fallback ke notifikasi default jika elemen tidak ada
+        alert(`[${type.toUpperCase()}] ${message}`);
+        return;
+    }
+
+    // Atur pesan dan tipe notifikasi
+    alertMessage.textContent = message;
+    alertContainer.className = `custom-alert-container ${type}`;
+    alertContainer.style.display = 'block';
+
+    // Sembunyikan notifikasi setelah 4 detik
+    setTimeout(() => {
+        alertContainer.style.display = 'none';
+    }, 4000);
 }
 
 /**
