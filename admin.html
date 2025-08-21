@@ -15,9 +15,14 @@
         if (!token) {
             window.location.href = 'login.html';
         }
+
         function logout() {
-            localStorage.removeItem('authToken');
-            window.location.href = 'login.html';
+            const confirmLogout = confirm("Apakah Anda yakin ingin logout?");
+            if (confirmLogout) {
+                localStorage.removeItem('authToken');
+                window.location.href = 'login.html';
+            }
+            // kalau Cancel → tidak melakukan apa-apa
         }
     </script>
 
