@@ -1,3 +1,4 @@
+// frontend/js/admin/warta.js
 import { fetchData, sendData, deleteData, resetForm, showAlert, getImageUrl } from '../utils.js';
 
 export function initWarta() {
@@ -68,7 +69,8 @@ export function initWarta() {
         // Event listener tombol Hapus
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
-                if (confirm('Yakin ingin menghapus warta ini?')) {
+                // Tambahkan konfirmasi
+                if (window.confirm('Yakin ingin menghapus warta ini?')) {
                     try {
                         await deleteData('warta', btn.dataset.id);
                         showAlert('Warta berhasil dihapus', 'success');

@@ -1,3 +1,4 @@
+// frontend/js/admin/dokumentasi.js
 import { fetchData, sendData, deleteData, showAlert, API_BASE_URL, BASE_URL_MEDIA } from '../utils.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
@@ -26,9 +27,10 @@ export const initDokumentasi = () => {
     }
 
     document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('delete-btn')) {
-            const id = e.target.dataset.id;
-            const jenis = e.target.dataset.jenis;
+        const deleteBtn = e.target.closest('.delete-btn');
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            const jenis = deleteBtn.dataset.jenis;
             deleteDokumentasi(id, jenis);
         }
     });
@@ -198,7 +200,8 @@ const deleteDokumentasi = async (id, jenis) => {
         return;
     }
 
-    if (!confirm('Apakah Anda yakin ingin menghapus dokumentasi ini?')) {
+    // Tambahkan konfirmasi
+    if (!window.confirm(`Apakah Anda yakin ingin menghapus dokumentasi ${jenis} ini?`)) {
         return;
     }
 

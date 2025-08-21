@@ -146,10 +146,12 @@ const editPengurus = async (id) => {
 // === Hapus ===
 const deletePengurus = async (id) => {
     if (!id) return;
-    if (!confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) return;
+    // Tambahkan konfirmasi
+    if (!window.confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) {
+        return;
+    }
 
     try {
-        // PENTING: gunakan 2 argumen (resource, id) agar utils tidak membuat "/undefined"
         await deleteData('pengurus', id);
         showAlert('Data pengurus berhasil dihapus!', 'success');
         loadPengurus();

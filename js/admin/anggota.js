@@ -145,10 +145,12 @@ const editAnggota = async (id) => {
 // === Delete ===
 const deleteAnggota = async (id) => {
     if (!id) return;
-    if (!confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) return;
+    // Tambahkan konfirmasi
+    if (!window.confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) {
+        return;
+    }
 
     try {
-        // FIX: pakai 2 argumen, bukan 1 string
         await deleteData('anggota', id);
         showAlert('Data anggota berhasil dihapus!', 'success');
         loadAnggota();
