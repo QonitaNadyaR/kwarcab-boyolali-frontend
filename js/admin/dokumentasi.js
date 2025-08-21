@@ -26,6 +26,7 @@ export const initDokumentasi = () => {
         console.warn("Dokumentasi form not found, skipping Dokumentasi form initialization.");
     }
 
+    // Menggunakan event delegation pada elemen induk
     document.addEventListener('click', (e) => {
         const deleteBtn = e.target.closest('.delete-btn');
         if (deleteBtn) {

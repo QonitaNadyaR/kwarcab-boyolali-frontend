@@ -46,42 +46,44 @@ export function initWarta() {
             `;
             tableWartaBody.appendChild(tr);
         });
+    }
 
-        // Event listener tombol Edit
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                const selected = data.find(w => w._id === id);
-                if (!selected) return;
+    // Menggunakan event delegation pada tabel utama
+    tableWartaBody.addEventListener('click', async (e) => {
+        const editBtn = e.target.closest('.edit-btn');
+        const deleteBtn = e.target.closest('.delete-btn');
 
+        if (editBtn) {
+            const id = editBtn.dataset.id;
+            try {
+                const selected = await fetchData(`warta/${id}`);
                 idWartaInput.value = selected._id;
                 titleInput.value = selected.title;
                 contentInput.value = selected.content;
                 currentImagePreview.innerHTML = `<img src="${getImageUrl(selected.imageUrl)}" alt="Gambar saat ini" style="max-width: 150px; margin-bottom: 10px;">`;
                 existingImageUrlInput.value = selected.imageUrl;
                 imageInput.value = '';
-
                 btnSubmit.textContent = 'Update Warta';
                 btnCancel.style.display = 'inline-block';
-            });
-        });
+            } catch (error) {
+                showAlert(`Gagal memuat data warta: ${error.message}`, 'error');
+            }
+        }
 
-        // Event listener tombol Hapus
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                // Tambahkan konfirmasi
-                if (window.confirm('Yakin ingin menghapus warta ini?')) {
-                    try {
-                        await deleteData('warta', btn.dataset.id);
-                        showAlert('Warta berhasil dihapus', 'success');
-                        loadWarta();
-                    } catch (error) {
-                        showAlert(error.message, 'error');
-                    }
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            // Tambahkan konfirmasi
+            if (window.confirm('Yakin ingin menghapus warta ini?')) {
+                try {
+                    await deleteData('warta', id);
+                    showAlert('Warta berhasil dihapus', 'success');
+                    loadWarta();
+                } catch (error) {
+                    showAlert(error.message, 'error');
                 }
-            });
-        });
-    }
+            }
+        }
+    });
 
     formWarta.addEventListener('submit', async (e) => {
         e.preventDefault();

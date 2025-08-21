@@ -28,7 +28,7 @@ export const initAnggota = () => {
         showAlert('Form Anggota dibatalkan.', 'info');
     });
 
-    // Event delegation
+    // Event delegation untuk tombol edit dan hapus
     anggotaListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) editAnggota(editBtn.dataset.id);
