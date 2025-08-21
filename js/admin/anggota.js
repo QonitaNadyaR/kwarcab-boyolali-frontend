@@ -144,9 +144,12 @@ const editAnggota = async (id) => {
 
 // === Delete ===
 const deleteAnggota = async (id) => {
+    if (!id) return;
     if (!confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) return;
+
     try {
-        await deleteData(`anggota/${id}`);
+        // FIX: pakai 2 argumen, bukan 1 string
+        await deleteData('anggota', id);
         showAlert('Data anggota berhasil dihapus!', 'success');
         loadAnggota();
     } catch (error) {

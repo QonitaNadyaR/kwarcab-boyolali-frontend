@@ -1,4 +1,3 @@
-/* === RESET & DASAR UMUM === */
 * {
     margin: 0;
     padding: 0;
@@ -90,14 +89,12 @@ select {
     color: white;
 }
 
-/* === RESPONSIF UMUM === */
 @media (max-width: 768px) {
     .container {
         width: 95%;
     }
 }
 
-/* === SCROLL OFFSET UNTUK ANCHOR LINK === */
 /* Mengatur jarak saat scrolling ke ID elemen, untuk menghindari tertutup header fixed/sticky */
 section[id],
 div[id] {

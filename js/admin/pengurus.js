@@ -13,25 +13,34 @@ const pengurusListBody = document.getElementById('pengurus-list');
 
 export const initPengurus = () => {
     if (!pengurusForm) {
-        console.warn("Pengurus form not found, skipping Pengurus initialization.");
+        console.warn('Pengurus form not found, skipping Pengurus initialization.');
         return;
     }
 
     pengurusForm.dataset.entity = 'Pengurus';
 
+    // Submit (tambah/update)
     pengurusForm.addEventListener('submit', handlePengurusSubmit);
+
+    // Batal edit
     pengurusCancelBtn.addEventListener('click', () => {
         resetPengurusForm();
         showAlert('Form Pengurus dibatalkan.', 'info');
     });
 
-    // Event delegation untuk edit & delete
+    // Event delegation: Edit & Hapus
     pengurusListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
-        if (editBtn) editPengurus(editBtn.dataset.id);
-
+        if (editBtn) {
+            e.preventDefault();
+            editPengurus(editBtn.dataset.id);
+            return;
+        }
         const deleteBtn = e.target.closest('.delete-btn');
-        if (deleteBtn) deletePengurus(deleteBtn.dataset.id);
+        if (deleteBtn) {
+            e.preventDefault();
+            deletePengurus(deleteBtn.dataset.id);
+        }
     });
 
     loadPengurus();
@@ -50,7 +59,7 @@ const loadPengurus = async () => {
     }
 };
 
-// === Render List ===
+// === Render Tabel ===
 const renderPengurusList = (pengurusArray) => {
     if (!pengurusArray || pengurusArray.length === 0) {
         pengurusListBody.innerHTML = '<tr><td colspan="6">Tidak ada data pengurus.</td></tr>';
@@ -58,7 +67,7 @@ const renderPengurusList = (pengurusArray) => {
     }
 
     pengurusListBody.innerHTML = pengurusArray.map((p, index) => `
-        <tr>
+        <tr data-id="${p._id}">
             <td>${index + 1}</td>
             <td>${p.nama || ''}</td>
             <td>${p.lulusan || ''}</td>
@@ -72,11 +81,11 @@ const renderPengurusList = (pengurusArray) => {
     `).join('');
 };
 
-// === Submit Form ===
+// === Submit Form (Tambah/Update) ===
 const handlePengurusSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi input
+    // Validasi
     if (!pengurusNamaInput.value.trim()) {
         showAlert('Nama pengurus wajib diisi!', 'error');
         return;
@@ -118,12 +127,12 @@ const handlePengurusSubmit = async (e) => {
 // === Edit ===
 const editPengurus = async (id) => {
     try {
-        const pengurus = await fetchData(`pengurus/${id}`);
-        pengurusIdInput.value = pengurus._id;
-        pengurusNamaInput.value = pengurus.nama || '';
-        pengurusLulusanInput.value = pengurus.lulusan || '';
-        pengurusKwarranInput.value = pengurus.kwartir_ranting || '';
-        pengurusGolonganInput.value = pengurus.golongan_pelatih || '';
+        const p = await fetchData(`pengurus/${id}`);
+        pengurusIdInput.value = p._id;
+        pengurusNamaInput.value = p.nama || '';
+        pengurusLulusanInput.value = p.lulusan || '';
+        pengurusKwarranInput.value = p.kwartir_ranting || '';
+        pengurusGolonganInput.value = p.golongan_pelatih || '';
 
         pengurusSubmitBtn.textContent = 'Update Pengurus';
         pengurusCancelBtn.style.display = 'inline-block';
@@ -134,11 +143,14 @@ const editPengurus = async (id) => {
     }
 };
 
-// === Delete ===
+// === Hapus ===
 const deletePengurus = async (id) => {
+    if (!id) return;
     if (!confirm('Apakah Anda yakin ingin menghapus data pengurus ini?')) return;
+
     try {
-        await deleteData(`pengurus/${id}`);
+        // PENTING: gunakan 2 argumen (resource, id) agar utils tidak membuat "/undefined"
+        await deleteData('pengurus', id);
         showAlert('Data pengurus berhasil dihapus!', 'success');
         loadPengurus();
     } catch (error) {
@@ -149,5 +161,5 @@ const deletePengurus = async (id) => {
 
 // === Reset Form ===
 const resetPengurusForm = () => {
-    resetForm(pengurusForm, pengurusIdInput, pengurusSubmitBtn, pengurusCancelBtn, "Tambah Pengurus");
+    resetForm(pengurusForm, pengurusIdInput, pengurusSubmitBtn, pengurusCancelBtn, 'Tambah Pengurus');
 };

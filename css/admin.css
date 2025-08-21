@@ -1,15 +1,8 @@
-/* admin.css */
-
-/* =================================
-   GLOBAL & LAYOUT
-   Penyempurnaan: Satuan yang lebih konsisten, fokus pada pusat konten
-================================= */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: #f0f2f5;
     margin: 0;
     padding: 1.5rem;
-    /* Menggunakan rem untuk konsistensi */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -23,9 +16,7 @@ body {
     width: 100%;
     max-width: 900px;
     border-radius: 12px;
-    /* Meningkatkan radius untuk tampilan lebih modern */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    /* Efek bayangan lebih halus */
 }
 
 h1,
@@ -33,7 +24,6 @@ h2,
 .section-title {
     text-align: center;
     color: #2c3e50;
-    /* Warna yang lebih gelap dan modern */
 }
 
 h1 {
@@ -47,7 +37,6 @@ h2,
     margin: 2.5rem 0 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #ecf0f1;
-    /* Garis bawah yang lebih jelas */
     font-size: 1.5rem;
     font-weight: 600;
 }
@@ -57,10 +46,6 @@ h2,
     font-size: 1.25rem;
 }
 
-/* =================================
-   TABS
-   Penyempurnaan: Desain yang lebih bersih dan interaktif
-================================= */
 .tabs {
     display: flex;
     justify-content: center;
@@ -88,10 +73,8 @@ h2,
 
 .tab-button.active {
     background-color: #3498db;
-    /* Warna biru yang lebih cerah */
     color: #fff;
     transform: translateY(-2px);
-    /* Efek "terangkat" saat aktif */
 }
 
 .tab-content {
@@ -103,10 +86,6 @@ h2,
     display: block;
 }
 
-/* =================================
-   FORMS
-   Penyempurnaan: Jarak dan ukuran yang lebih proporsional
-================================= */
 .data-form {
     background-color: #f9f9f9;
     padding: 1.5rem;
@@ -132,7 +111,6 @@ input[type="number"],
 textarea,
 select {
     width: 100%;
-    /* Mengubah ke 100% untuk konsistensi */
     padding: 0.75rem;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -147,7 +125,6 @@ input[type="file"] {
     border-radius: 6px;
 }
 
-/* Buttons */
 button[type="submit"],
 .edit-btn,
 .delete-btn,
@@ -167,7 +144,6 @@ button[type="submit"] {
     padding: 1rem;
     font-size: 1rem;
     background-color: #2ecc71;
-    /* Warna hijau yang lebih cerah */
     color: #fff;
 }
 
@@ -187,9 +163,6 @@ button[type="submit"]:hover {
     background-color: #7f8c8d;
 }
 
-/* =================================
-   STATUS MESSAGE
-================================= */
 .status-message {
     margin-top: 1.5rem;
     padding: 1rem;
@@ -212,10 +185,6 @@ button[type="submit"]:hover {
     border-color: #c3e6cb;
 }
 
-/* =================================
-   TABLE
-   Penyempurnaan: Menambahkan sedikit ruang untuk estetika
-================================= */
 .scrollable-list {
     max-height: 500px;
     overflow-y: auto;
@@ -226,16 +195,11 @@ button[type="submit"]:hover {
     border-radius: 8px;
 }
 
-/* === Perbaikan untuk tampilan tabel di mobile === */
 .table-container {
     overflow-x: auto;
-    /* Memungkinkan scrolling horizontal */
-    -webkit-overflow-scrolling: touch;
-    /* Meningkatkan kelancaran di iOS */
+    -webkit-overflow-scrolling: touch;     /* Meningkatkan kelancaran di iOS */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    /* Menambah efek visual */
     border-radius: 8px;
-    /* Sudut membulat */
     margin-top: 1rem;
 }
 
@@ -243,9 +207,7 @@ button[type="submit"]:hover {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
-    /* Lebar minimum agar ada scroll di mobile */
-    white-space: nowrap;
-    /* Mencegah konten pecah baris */
+    white-space: nowrap;    /* Mencegah konten pecah baris */
 }
 
 .data-table th,
@@ -276,7 +238,6 @@ button[type="submit"]:hover {
     margin: 0;
 }
 
-/* Action buttons in table */
 .data-table .action-buttons {
     display: flex;
     flex-wrap: nowrap;
@@ -311,10 +272,6 @@ button[type="submit"]:hover {
     background-color: #c0392b;
 }
 
-/* =================================
-   DOKUMENTASI (Foto & Video)
-   Penyempurnaan: Peningkatan estetika item grid
-================================= */
 #loading-foto,
 #error-foto,
 #no-foto,
@@ -344,7 +301,6 @@ button[type="submit"]:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-rows: repeat(3, auto);
-    /* Ukuran minimum lebih besar */
     gap: 1.25rem;
     margin-top: 2rem;
     padding: 1.5rem;
@@ -383,7 +339,6 @@ button[type="submit"]:hover {
 
 .photo-wrapper {
     padding-bottom: 75%;
-    /* Rasio aspek yang lebih umum */
 }
 
 .video-wrapper {
@@ -445,9 +400,6 @@ button[type="submit"]:hover {
     background-color: #c0392b;
 }
 
-/* =================================
-   LOGOUT BUTTON
-================================= */
 .logout-btn {
     position: fixed;
     top: 1.5rem;
@@ -468,9 +420,6 @@ button[type="submit"]:hover {
     transform: translateY(-3px);
 }
 
-/* =================================
-   RESPONSIVE DESIGN (Perbaikan & Penambahan)
-================================= */
 @media (max-width: 768px) {
     body {
         padding: 1rem;
@@ -488,52 +437,34 @@ button[type="submit"]:hover {
         margin-top: 2rem;
     }
 
-    /* Tab buttons Stack */
     .tabs {
         flex-direction: row;
-        /* Mengubah arah flex menjadi horizontal */
         justify-content: space-around;
-        /* Membuat ruang yang sama di antara tombol */
         align-items: center;
-        /* Membuat tombol sejajar vertikal di tengah */
         overflow-x: auto;
-        /* Memungkinkan scrolling jika tombol terlalu banyak */
         -webkit-overflow-scrolling: touch;
-        /* Untuk scroll yang lebih mulus di iOS */
         border-bottom: 2px solid #ddd;
-        /* Pertahankan garis bawah */
         padding: 0 0.5rem;
-        /* Tambahkan sedikit padding di sisi */
     }
 
     .tab-button {
         flex-grow: 1;
-        /* Membuat tombol mengisi ruang yang tersedia secara merata */
         margin: 0 0.25rem;
-        /* Berikan sedikit ruang di antara tombol */
         border-radius: 8px;
-        /* Pertahankan border radius */
         padding: 0.7rem 0.5rem;
-        /* Sesuaikan padding agar tidak terlalu tinggi */
         font-size: 0.9rem;
-        /* Ukuran font yang lebih kecil untuk mobile */
         text-align: center;
-        /* Pusatkan teks di dalam tombol */
     }
 
     .tab-button.active {
         border-bottom: 2px solid #3498db;
-        /* Tambahkan indikator aktif di bawah tombol */
         transform: translateY(0);
-        /* Hilangkan efek terangkat saat aktif */
     }
 
-    /* Formulir */
     .data-form {
         padding: 1rem;
     }
 
-    /* Tombol */
     button[type="submit"],
     .cancel-btn {
         width: 100%;
