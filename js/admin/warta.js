@@ -120,7 +120,9 @@ export function initWarta() {
 
     btnCancel.addEventListener('click', () => {
         resetWartaForm();
+        showAlert('Form Warta dibatalkan.', 'info');
     });
+
 
     function resetWartaForm() {
         formWarta.reset();
