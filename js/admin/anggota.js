@@ -1,6 +1,5 @@
 // frontend/js/admin/anggota.js
 import { fetchData, sendData, deleteData, showAlert, resetForm } from '../utils.js';
-import { showConfirmationModal } from './confirm-modal.js';
 
 const anggotaForm = document.getElementById('anggota-form');
 const anggotaIdInput = document.getElementById('anggota-id');
@@ -29,6 +28,7 @@ export const initAnggota = () => {
         showAlert('Form Anggota dibatalkan.', 'info');
     });
 
+    // Event delegation untuk tombol edit dan hapus
     anggotaListBody.addEventListener('click', (e) => {
         const editBtn = e.target.closest('.edit-btn');
         if (editBtn) editAnggota(editBtn.dataset.id);
@@ -40,6 +40,7 @@ export const initAnggota = () => {
     loadAnggota();
 };
 
+// === Load Data ===
 const loadAnggota = async () => {
     anggotaListBody.innerHTML = '<tr><td colspan="9">Memuat data anggota...</td></tr>';
     try {
@@ -52,6 +53,7 @@ const loadAnggota = async () => {
     }
 };
 
+// === Render ===
 const renderAnggotaList = (anggotaArray) => {
     if (!anggotaArray || anggotaArray.length === 0) {
         anggotaListBody.innerHTML = '<tr><td colspan="9">Tidak ada data anggota.</td></tr>';
@@ -76,8 +78,11 @@ const renderAnggotaList = (anggotaArray) => {
     `).join('');
 };
 
+// === Submit ===
 const handleAnggotaSubmit = async (e) => {
     e.preventDefault();
+
+    // Validasi
     if (!anggotaNoRegInput.value.trim()) {
         showAlert('Nomor registrasi wajib diisi!', 'error');
         return;
@@ -115,6 +120,7 @@ const handleAnggotaSubmit = async (e) => {
     }
 };
 
+// === Edit ===
 const editAnggota = async (id) => {
     try {
         const anggota = await fetchData(`anggota/${id}`);
@@ -136,10 +142,13 @@ const editAnggota = async (id) => {
     }
 };
 
+// === Delete ===
 const deleteAnggota = async (id) => {
     if (!id) return;
-    const isConfirmed = await showConfirmationModal('Apakah Anda yakin ingin menghapus data anggota ini?');
-    if (!isConfirmed) return;
+    // Tambahkan konfirmasi
+    if (!window.confirm('Apakah Anda yakin ingin menghapus data anggota ini?')) {
+        return;
+    }
 
     try {
         await deleteData('anggota', id);
@@ -151,6 +160,7 @@ const deleteAnggota = async (id) => {
     }
 };
 
+// === Reset Form ===
 const resetAnggotaForm = () => {
     resetForm(anggotaForm, anggotaIdInput, anggotaSubmitBtn, anggotaCancelBtn, "Tambah Anggota");
 };

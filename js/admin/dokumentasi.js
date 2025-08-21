@@ -1,6 +1,5 @@
 // frontend/js/admin/dokumentasi.js
 import { fetchData, sendData, deleteData, showAlert, API_BASE_URL, BASE_URL_MEDIA } from '../utils.js';
-import { showConfirmationModal } from './confirm-modal.js';
 
 const dokumentasiForm = document.getElementById('dokumentasiForm');
 const galeriFotoGrid = document.getElementById('galeri-grid');
@@ -27,6 +26,7 @@ export const initDokumentasi = () => {
         console.warn("Dokumentasi form not found, skipping Dokumentasi form initialization.");
     }
 
+    // Menggunakan event delegation pada elemen induk
     document.addEventListener('click', (e) => {
         const deleteBtn = e.target.closest('.delete-btn');
         if (deleteBtn) {
@@ -41,6 +41,7 @@ export const initDokumentasi = () => {
 
 const handleDokumentasiSubmit = async (e) => {
     e.preventDefault();
+
     const jenisInput = dokumentasiForm.querySelector('select[name="jenis"]');
     const fileInput = dokumentasiForm.querySelector('input[name="file"]');
     const judulInput = dokumentasiForm.querySelector('input[name="judul"]');
@@ -88,6 +89,7 @@ export const loadDokumentasi = async () => {
     hideElement(errorFoto);
     hideElement(noFoto);
     if (galeriFotoGrid) galeriFotoGrid.innerHTML = '';
+
     showElement(loadingVideo);
     hideElement(errorVideo);
     hideElement(noVideo);
@@ -106,9 +108,13 @@ export const loadDokumentasi = async () => {
             fotoData.forEach(item => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
+
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
-                    year: 'numeric', month: 'long', day: 'numeric'
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
+
                 const imageUrl = item.url;
                 if (!imageUrl) return;
 
@@ -139,12 +145,17 @@ export const loadDokumentasi = async () => {
             videoData.forEach(item => {
                 const videoItem = document.createElement('div');
                 videoItem.className = 'video-item';
+
                 const date = item.uploaded_at ? new Date(item.uploaded_at).toLocaleDateString('id-ID', {
-                    year: 'numeric', month: 'long', day: 'numeric'
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                 }) : 'Tanggal tidak tersedia';
+
                 let videoEmbedHtml = '';
                 if (item.url) {
                     const videoPathMP4 = item.url;
+
                     videoEmbedHtml = `
                         <video controls aria-label="${item.judul}">
                             <source src="${videoPathMP4}" type="video/mp4">
@@ -154,6 +165,7 @@ export const loadDokumentasi = async () => {
                 } else {
                     videoEmbedHtml = `<p>Video tidak tersedia.</p>`;
                 }
+
                 videoItem.innerHTML = `
                     <div class="video-wrapper">
                         ${videoEmbedHtml}
@@ -169,6 +181,7 @@ export const loadDokumentasi = async () => {
                 if (videoKegiatanGrid) videoKegiatanGrid.appendChild(videoItem);
             });
         }
+
     } catch (err) {
         console.error('Gagal load dokumentasi:', err);
         hideElement(loadingFoto);
@@ -187,12 +200,16 @@ const deleteDokumentasi = async (id, jenis) => {
         showAlert('Gagal menghapus: ID atau jenis tidak valid.', 'error');
         return;
     }
-    const isConfirmed = await showConfirmationModal(`Apakah Anda yakin ingin menghapus dokumentasi ${jenis} ini?`);
-    if (!isConfirmed) return;
+
+    // Tambahkan konfirmasi
+    if (!window.confirm(`Apakah Anda yakin ingin menghapus dokumentasi ${jenis} ini?`)) {
+        return;
+    }
 
     try {
         const endpoint = `dokumentasi/${jenis}`;
         const result = await deleteData(endpoint, id);
+
         showAlert(result.message || 'Dokumentasi berhasil dihapus!');
         loadDokumentasi();
     } catch (err) {
