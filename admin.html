@@ -2,320 +2,80 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard Admin Kwarcab Boyolali</title>
-    <link rel="stylesheet" href="css/admin.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kwarcab Boyolali</title>
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
-    <script>
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            window.location.href = 'login.html';
-        }
+    <!-- Header -->
+    <header class="header">
+        <h1>Dashboard Admin</h1>
+        <button class="logout-btn" id="logout-btn">Logout</button>
+    </header>
 
-        function logout() {
-            const confirmLogout = confirm("Apakah Anda yakin ingin logout?");
-            if (confirmLogout) {
-                localStorage.removeItem('authToken');
-                window.location.href = 'login.html';
-            }
-            // kalau Cancel → tidak melakukan apa-apa
-        }
-    </script>
+    <!-- Navigasi Tab -->
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="warta">Warta</button>
+        <button class="tab-btn" data-tab="pengurus">Pengurus</button>
+        <button class="tab-btn" data-tab="anggota">Anggota</button>
+        <button class="tab-btn" data-tab="dokumentasi">Dokumentasi</button>
+    </nav>
 
-    <div class="container admin-container">
-        <div class="admin-header">
-            <h1>Dashboard Admin</h1>
-            <button class="logout-btn" id="logout-btn" onclick="logout()">Logout</button>
-        </div>
+    <!-- Konten -->
+    <main class="tab-content">
+        <!-- Warta -->
+        <section id="warta" class="tab-panel active">
+            <h2>Kelola Warta</h2>
+            <form id="wartaForm" enctype="multipart/form-data">
+                <input type="text" id="title" placeholder="Judul Warta" required>
+                <textarea id="content" placeholder="Isi Berita" required></textarea>
+                <input type="file" id="image" accept="image/*" required>
+                <button type="submit">Tambah Warta</button>
+            </form>
+            <ul id="wartaList"></ul>
+        </section>
 
-        <div class="tabs">
-            <button class="tab-button active" data-tab="warta">Manajemen Warta</button>
-            <button class="tab-button" data-tab="pengurus">Manajemen Pengurus</button>
-            <button class="tab-button" data-tab="anggota">Manajemen Anggota</button>
-            <button class="tab-button" data-tab="dokumentasi">Manajemen Dokumentasi</button>
-        </div>
+        <!-- Pengurus -->
+        <section id="pengurus" class="tab-panel">
+            <h2>Kelola Pengurus</h2>
+            <form id="pengurusForm">
+                <input type="text" id="pengurus-nama" placeholder="Nama" required>
+                <input type="text" id="pengurus-jabatan" placeholder="Jabatan" required>
+                <button type="submit">Tambah Pengurus</button>
+            </form>
+            <ul id="pengurus-list"></ul>
+        </section>
 
-        <!-- Tab Contents -->
-        <div id="warta-tab" class="tab-content active">
-            <section class="admin-section">
-                <h2>Manajemen Warta (Berita)</h2>
-                <form id="warta-form" class="data-form" enctype="multipart/form-data">
-                    <h3>Tambah/Edit Warta</h3>
-                    <input type="hidden" id="warta-id" />
-                    <div class="form-group">
-                        <label for="warta-title">Judul Warta:</label>
-                        <input type="text" id="warta-title" name="title" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="warta-image">Upload Gambar:</label>
-                        <input type="file" id="warta-image" name="image" accept="image/*" />
-                        <small>
-                            Untuk Tambah: Gambar wajib diunggah. Untuk Edit: Unggah gambar baru untuk mengganti yang
-                            lama,
-                            atau biarkan kosong dan gunakan opsi di bawah.
-                        </small>
-                    </div>
-                    <div id="warta-current-image-preview" style="margin-top: 10px;"></div>
-                    <input type="hidden" id="warta-existing-image-url" name="imageUrl" />
-                    <div class="form-group">
-                        <label for="warta-content">Konten Warta:</label>
-                        <textarea id="warta-content" name="content" rows="10" required></textarea>
-                    </div>
-                    <button type="submit" id="warta-submit-btn">Tambah Warta</button>
-                    <button type="button" id="warta-cancel-btn" class="cancel-btn" style="display: none;">Batal
-                        Edit</button>
-                </form>
+        <!-- Anggota -->
+        <section id="anggota" class="tab-panel">
+            <h2>Kelola Anggota</h2>
+            <form id="anggotaForm">
+                <input type="text" id="anggota-nama" placeholder="Nama" required>
+                <input type="text" id="anggota-golongan" placeholder="Golongan" required>
+                <button type="submit">Tambah Anggota</button>
+            </form>
+            <ul id="anggota-list"></ul>
+        </section>
 
-                <h3 class="section-title">Daftar Warta</h3>
-                <div class="scrollable-list">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Judul</th>
-                                <th>Gambar</th>
-                                <th>Konten Singkat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="warta-list">
-                            <tr>
-                                <td colspan="5">Memuat data warta...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
+        <!-- Dokumentasi -->
+        <section id="dokumentasi" class="tab-panel">
+            <h2>Kelola Dokumentasi</h2>
+            <form id="dokumentasiForm" enctype="multipart/form-data">
+                <input type="file" id="dokumentasi-file" accept="image/*,video/*" required>
+                <button type="submit">Upload Dokumentasi</button>
+            </form>
+            <div id="dokumentasiList"></div>
+        </section>
+    </main>
 
-        <div id="pengurus-tab" class="tab-content">
-            <section class="admin-section">
-                <h2>Manajemen Pengurus</h2>
-                <form id="pengurus-form" class="data-form">
-                    <h3>Tambah/Edit Data Pengurus</h3>
-                    <input type="hidden" id="pengurus-id" />
-                    <div class="form-group">
-                        <label for="pengurus-nama">Nama:</label>
-                        <input type="text" id="pengurus-nama" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="pengurus-lulusan">Lulusan:</label>
-                        <input type="text" id="pengurus-lulusan" />
-                    </div>
-                    <div class="form-group">
-                        <label for="pengurus-kwartir-ranting">Kwartir Ranting:</label>
-                        <select id="pengurus-kwartir-ranting" required>
-                            <option value="">Pilih Kwartir Ranting</option>
-                            <option value="Ampel">Ampel</option>
-                            <option value="Andong">Andong</option>
-                            <option value="Banyudono">Banyudono</option>
-                            <option value="Boyolali">Boyolali</option>
-                            <option value="Cepogo">Cepogo</option>
-                            <option value="Gladagsari">Gladagsari</option>
-                            <option value="Juwangi">Juwangi</option>
-                            <option value="Karanggede">Karanggede</option>
-                            <option value="Kemusu">Kemusu</option>
-                            <option value="Klego">Klego</option>
-                            <option value="Mojosongo">Mojosongo</option>
-                            <option value="Musuk">Musuk</option>
-                            <option value="Ngemplak">Ngemplak</option>
-                            <option value="Nogosari">Nogosari</option>
-                            <option value="Sambi">Sambi</option>
-                            <option value="Sawit">Sawit</option>
-                            <option value="Selo">Selo</option>
-                            <option value="Simo">Simo</option>
-                            <option value="Tamansari">Tamansari</option>
-                            <option value="Teras">Teras</option>
-                            <option value="Wonosamodro">Wonosamodro</option>
-                            <option value="Wonosegoro">Wonosegoro</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pengurus-golongan-pelatih">Golongan Pelatih:</label>
-                        <select id="pengurus-golongan-pelatih" required>
-                            <option value="">Pilih Golongan</option>
-                            <option value="Siaga">Siaga</option>
-                            <option value="Penggalang">Penggalang</option>
-                            <option value="Penegak">Penegak</option>
-                        </select>
-                    </div>
-                    <button type="submit" id="pengurus-submit-btn">Tambah Pengurus</button>
-                    <button type="button" id="pengurus-cancel-btn" class="cancel-btn" style="display: none;">Batal
-                        Edit</button>
-                </form>
-
-                <h3 class="section-title">Daftar Pengurus</h3>
-                <div class="scrollable-list">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Lulusan</th>
-                                <th>Kwartir Ranting</th>
-                                <th>Golongan Pelatih</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pengurus-list">
-                            <tr>
-                                <td colspan="6">Memuat data pengurus...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-
-        <div id="anggota-tab" class="tab-content">
-            <section class="admin-section">
-                <h2>Manajemen Anggota</h2>
-                <form id="anggota-form" class="data-form">
-                    <h3>Tambah/Edit Data Anggota</h3>
-                    <input type="hidden" id="anggota-id" />
-                    <div class="form-group">
-                        <label for="anggota-no-reg">No. Registrasi:</label>
-                        <input type="text" id="anggota-no-reg" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-nama">Nama:</label>
-                        <input type="text" id="anggota-nama" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-pangkalan">Pangkalan:</label>
-                        <input type="text" id="anggota-pangkalan" />
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-ttl">Tempat, Tanggal Lahir:</label>
-                        <input type="text" id="anggota-ttl" />
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-kwartir-ranting">Kwartir Ranting:</label>
-                        <select id="anggota-kwartir-ranting" required>
-                            <option value="">Pilih Kwartir Ranting</option>
-                            <option value="Ampel">Ampel</option>
-                            <option value="Andong">Andong</option>
-                            <option value="Banyudono">Banyudono</option>
-                            <option value="Boyolali">Boyolali</option>
-                            <option value="Cepogo">Cepogo</option>
-                            <option value="Gladagsari">Gladagsari</option>
-                            <option value="Juwangi">Juwangi</option>
-                            <option value="Karanggede">Karanggede</option>
-                            <option value="Kemusu">Kemusu</option>
-                            <option value="Klego">Klego</option>
-                            <option value="Mojosongo">Mojosongo</option>
-                            <option value="Musuk">Musuk</option>
-                            <option value="Ngemplak">Ngemplak</option>
-                            <option value="Nogosari">Nogosari</option>
-                            <option value="Sambi">Sambi</option>
-                            <option value="Sawit">Sawit</option>
-                            <option value="Selo">Selo</option>
-                            <option value="Simo">Simo</option>
-                            <option value="Tamansari">Tamansari</option>
-                            <option value="Teras">Teras</option>
-                            <option value="Wonosamodro">Wonosamodro</option>
-                            <option value="Wonosegoro">Wonosegoro</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-golongan-anggota">Golongan Anggota:</label>
-                        <select id="anggota-golongan-anggota" required>
-                            <option value="">Pilih Golongan</option>
-                            <option value="Siaga">Siaga</option>
-                            <option value="Penggalang">Penggalang</option>
-                            <option value="Penegak">Penegak</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="anggota-tahun">Tahun:</label>
-                        <input type="number" id="anggota-tahun" min="1900" max="2100" value="2025" required />
-                    </div>
-                    <button type="submit" id="anggota-submit-btn">Tambah Anggota</button>
-                    <button type="button" id="anggota-cancel-btn" class="cancel-btn" style="display: none;">Batal
-                        Edit</button>
-                </form>
-
-                <h3 class="section-title">Daftar Anggota</h3>
-                <div class="scrollable-list">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>No. Reg</th>
-                                <th>Nama</th>
-                                <th>Pangkalan</th>
-                                <th>TTL</th>
-                                <th>Kwartir Ranting</th>
-                                <th>Golongan</th>
-                                <th>Tahun</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="anggota-list">
-                            <tr>
-                                <td colspan="9">Memuat data anggota...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-
-        <div id="dokumentasi-tab" class="tab-content">
-            <section class="admin-section">
-                <h2>Manajemen Dokumentasi</h2>
-                <form id="dokumentasiForm" class="data-form" enctype="multipart/form-data">
-                    <h3>Unggah Dokumentasi Baru</h3>
-                    <div class="form-group">
-                        <label for="dokumentasiJenis">Jenis:</label>
-                        <select id="dokumentasiJenis" name="jenis" required>
-                            <option value="">Pilih Jenis</option>
-                            <option value="foto">Foto</option>
-                            <option value="video">Video</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dokumentasiJudul">Judul:</label>
-                        <input type="text" id="dokumentasiJudul" name="judul" placeholder="Masukkan judul..."
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <label for="dokumentasiFile">File (Foto/Video):</label>
-                        <input type="file" id="dokumentasiFile" name="file" accept="image/*,video/*" required />
-                    </div>
-                    <button type="submit">Unggah Dokumentasi</button>
-                </form>
-                <div id="status-dokumentasi" class="status-message"></div>
-
-                <hr />
-                <h3 class="section-title">Daftar Foto Dokumentasi</h3>
-                <div id="galeri-grid" class="galeri-grid">
-                    <div id="loading-foto" class="status-message loading-message" style="display: none;">Memuat foto...
-                    </div>
-                    <div id="error-foto" class="status-message error" style="display: none;"></div>
-                    <div id="no-foto" class="status-message" style="display: none;">Tidak ada foto yang tersedia.</div>
-                </div>
-
-                <hr />
-                <h3 class="section-title">Daftar Video Dokumentasi</h3>
-                <div id="video-grid" class="video-grid">
-                    <div id="loading-video" class="status-message loading-message" style="display: none;">Memuat
-                        video...</div>
-                    <div id="error-video" class="status-message error" style="display: none;"></div>
-                    <div id="no-video" class="status-message" style="display: none;">Tidak ada video yang tersedia.
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <script type="module" src="js/admin/admin.js"></script>
+    <!-- Script -->
+    <script src="js/warta.js"></script>
+    <script src="js/pengurus.js"></script>
+    <script src="js/anggota.js"></script>
+    <script src="js/dokumentasi.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 
 </html>
